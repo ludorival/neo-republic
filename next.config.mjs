@@ -1,7 +1,11 @@
-const nextConfig = {
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin();
+
+const config = {
   experimental: {
-		serverActions: true,
-	}
+    serverActions: true,
+  }
 };
 
-export default nextConfig;
+export default withNextIntl(config);

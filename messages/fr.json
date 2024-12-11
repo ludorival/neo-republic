@@ -1,0 +1,9 @@
+{
+  "common": {
+    "title": "Créer une App Next",
+    "description": "Généré par create next app",
+    "learnMore": "En savoir plus",
+    "deploy": "Déployer maintenant",
+    "readDocs": "Lire la documentation"
+  }
+} 

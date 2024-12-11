@@ -1,22 +1,4 @@
 {
-    "hosting": {
-      "source": ".",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ],
-      "frameworksBackend": {
-        "region": "us-central1"
-      },
-      "public": ".next",
-      "rewrites": [
-        {
-          "source": "**",
-          "destination": "/_next/static/**"
-        }
-      ]
-    },
     "emulators": {
       "auth": {
         "port": 9099

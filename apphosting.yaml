@@ -1,0 +1,13 @@
+env:
+  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
+    value: "projects/neo-republic/secrets/NEXT_PUBLIC_FIREBASE_API_KEY/versions/latest"
+  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+    value: "neo-republic.firebaseapp.com"
+  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
+    value: "neo-republic"
+  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+    value: "neo-republic.firebasestorage.app"
+  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+    value: "projects/neo-republic/secrets/NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID/versions/latest"
+  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
+    value: "projects/neo-republic/secrets/NEXT_PUBLIC_FIREBASE_APP_ID/versions/latest"

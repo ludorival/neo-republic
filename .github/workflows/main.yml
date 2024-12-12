@@ -1,0 +1,54 @@
+name: Production Build and Deploy
+
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run ESLint
+      run: npm run lint
+
+    - name: Run Cypress component tests
+      run: npm run test
+
+    - name: Check package version matches tag
+      if: startsWith(github.ref, 'refs/tags/')
+      run: |
+        PKG_VERSION=$(node -p "require('./package.json').version")
+        TAG_VERSION=${GITHUB_REF#refs/tags/v}
+        if [ "$PKG_VERSION" != "$TAG_VERSION" ]; then
+          echo "Package version ($PKG_VERSION) does not match tag version ($TAG_VERSION)"
+          exit 1
+        fi
+
+    - name: Build Next.js app
+      run: npm run build
+
+  create-release:
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ncipollo/release-action@v1
+        with:
+          generateReleaseNotes: true

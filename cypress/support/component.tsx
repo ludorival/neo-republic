@@ -20,6 +20,9 @@ import './commands'
 // require('./commands')
 import "../../src/app/globals.css";
 import { mount } from '@cypress/react18'
+import { NextIntlClientProvider } from 'next-intl'
+import { NextUIProvider } from '@nextui-org/react'
+import messages from '../../messages/fr.json'
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -33,7 +36,16 @@ declare global {
   }
 }
 
-Cypress.Commands.add('mount', mount)
+// Override the existing mount command
+Cypress.Commands.add('mount', (component) => {
+  return mount(
+    <NextUIProvider>
+      <NextIntlClientProvider messages={messages} locale="fr">
+        {component}
+      </NextIntlClientProvider>
+    </NextUIProvider>
+  )
+})
 
 // Example use:
 // cy.mount(<MyComponent />)

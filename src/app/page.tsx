@@ -1,53 +1,52 @@
 'use client'
+import React from 'react'
+import { Navbar, NavbarBrand, NavbarContent, Button, Card, CardBody } from "@nextui-org/react"
+import { useTranslations } from 'next-intl'
 
-import { useTranslations } from 'next-intl';
-import { Button, Card, CardBody } from "@nextui-org/react";
-import Image from "next/image";
-
-export default function Home() {
-  const t = useTranslations('common');
+const Home = () => {
+  const t = useTranslations('home')
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+    <main className="min-h-screen">
+      {/* Top Bar */}
+      <Navbar data-testid="top-bar" className="shadow-sm">
+        <NavbarBrand>
+          <p className="font-bold text-inherit">{t('appTitle')}</p>
+        </NavbarBrand>
+        <NavbarContent justify="end">
+          <Button 
+            data-testid="login-button"
+            color="primary"
+            variant="flat"
+          >
+            {t('login')}
+          </Button>
+        </NavbarContent>
+      </Navbar>
+
+      {/* Project Description */}
+      <div className="max-w-4xl mx-auto p-8">
         <Card>
-          <CardBody>
-            <h1 className="text-2xl font-bold">{t('title')}</h1>
+          <CardBody 
+            data-testid="project-description"
+            className="space-y-4"
+          >
+            <h2 className="text-2xl font-bold">{t('appTitle')}</h2>
             <p>{t('description')}</p>
+            <div className="space-y-4">
+              <h3 className="text-xl font-semibold">{t('keyFeatures')}:</h3>
+              <ul className="list-disc pl-6 space-y-2">
+                <li>{t('features.anonymous')}</li>
+                <li>{t('features.comprehensive')}</li>
+                <li>{t('features.financial')}</li>
+                <li>{t('features.focus')}</li>
+              </ul>
+            </div>
           </CardBody>
         </Card>
-
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Button
-            color="primary"
-            href="https://vercel.com/new"
-            as="a"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t('deploy')}
-          </Button>
-          
-          <Button
-            variant="bordered"
-            href="https://nextjs.org/docs"
-            as="a"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t('readDocs')}
-          </Button>
-        </div>
-      </main>
-    </div>
-  );
+      </div>
+    </main>
+  )
 }
+
+export default Home

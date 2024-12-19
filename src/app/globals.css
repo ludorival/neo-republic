@@ -17,5 +17,24 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+}
+
+/* Custom classes for our home page */
+@layer components {
+  .hero-gradient {
+    @apply bg-gradient-to-b from-background to-default-100;
+  }
+
+  .glass-card {
+    @apply bg-white/60 dark:bg-black/60 backdrop-blur-md border-none shadow-lg;
+  }
+
+  .feature-card {
+    @apply bg-white/40 dark:bg-black/40 hover:bg-white/60 dark:hover:bg-black/60 transition-colors duration-200;
+  }
+
+  .nav-blur {
+    @apply bg-white/70 dark:bg-black/70 backdrop-blur-md border-b border-divider;
+  }
 }

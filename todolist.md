@@ -10,62 +10,62 @@
 - [x] Setup basic layout components
 
 ### Database Schema Design
-- [ ] Design Firebase collections structure
-- [x] Define TypeScript interfaces for data models
-- [ ] Create database rules
-- [ ] Setup basic CRUD operations
+- [x] [Design Firebase collections structure](https://github.com/ludorival/neo-republic/issues/7)
+- [x] [Define TypeScript interfaces for data models](https://github.com/ludorival/neo-republic/issues/8)
+- [x] [Create database rules](https://github.com/ludorival/neo-republic/issues/9)
+- [ ] [Setup basic CRUD operations](https://github.com/ludorival/neo-republic/issues/10)
 
 ## [Milestone 2: Authentication 🔐](https://github.com/ludorival/neo-republic/milestone/2)
 
 ### User Authentication System
-- [ ] Implement Firebase authentication
-- [ ] Create login/signup pages
-- [ ] Setup protected routes
-- [ ] Create user profile management
-- [ ] Implement role-based access control
+- [ ] [Implement Firebase authentication](https://github.com/ludorival/neo-republic/issues/11)
+- [ ] [Create login/signup pages](https://github.com/ludorival/neo-republic/issues/12)
+- [ ] [Setup protected routes](https://github.com/ludorival/neo-republic/issues/13)
+- [ ] [Create user profile management](https://github.com/ludorival/neo-republic/issues/14)
+- [ ] [Implement role-based access control](https://github.com/ludorival/neo-republic/issues/15)
 
 ## [Milestone 3: Program Creation 📝](https://github.com/ludorival/neo-republic/milestone/3)
 
 ### Program Creation Interface
 - [ ] Create program form with all required sections:
-  - [ ] Economy & Finance
-  - [ ] Social Services
-  - [ ] Education
-  - [ ] Infrastructure
-  - [ ] Environment & Energy
-  - [ ] Security & Justice
-- [ ] Implement form validation
-- [ ] Add budget calculation system
-- [ ] Create program preview
+  - [ ] [Economy & Finance](https://github.com/ludorival/neo-republic/issues/16)
+  - [ ] [Social Services](https://github.com/ludorival/neo-republic/issues/17)
+  - [ ] [Education](https://github.com/ludorival/neo-republic/issues/18)
+  - [ ] [Infrastructure](https://github.com/ludorival/neo-republic/issues/19)
+  - [ ] [Environment & Energy](https://github.com/ludorival/neo-republic/issues/20)
+  - [ ] [Security & Justice](https://github.com/ludorival/neo-republic/issues/21)
+- [ ] [Implement form validation](https://github.com/ludorival/neo-republic/issues/22)
+- [ ] [Add budget calculation system](https://github.com/ludorival/neo-republic/issues/23)
+- [ ] [Create program preview](https://github.com/ludorival/neo-republic/issues/24)
 
 ### Program Validation System
-- [ ] Implement financial validation checks
-- [ ] Create technical requirements verification
-- [ ] Setup review workflow
-- [ ] Add feedback system
+- [ ] [Implement financial validation checks](https://github.com/ludorival/neo-republic/issues/25)
+- [ ] [Create technical requirements verification](https://github.com/ludorival/neo-republic/issues/26)
+- [ ] [Setup review workflow](https://github.com/ludorival/neo-republic/issues/27)
+- [ ] [Add feedback system](https://github.com/ludorival/neo-republic/issues/28)
 
 ## [Milestone 4: Voting System 🗳️](https://github.com/ludorival/neo-republic/milestone/4)
 
 ### Voting Mechanism
-- [ ] Create anonymous program viewing interface
-- [ ] Implement voting system
-- [ ] Add vote tracking
-- [ ] Create results visualization
-- [ ] Implement anti-fraud measures
+- [ ] [Create anonymous program viewing interface](https://github.com/ludorival/neo-republic/issues/29)
+- [ ] [Implement voting system](https://github.com/ludorival/neo-republic/issues/30)
+- [ ] [Add vote tracking](https://github.com/ludorival/neo-republic/issues/31)
+- [ ] [Create results visualization](https://github.com/ludorival/neo-republic/issues/32)
+- [ ] [Implement anti-fraud measures](https://github.com/ludorival/neo-republic/issues/33)
 
 ## [Milestone 5: Analytics 📊](https://github.com/ludorival/neo-republic/milestone/5)
 
 ### Program Analytics
-- [ ] Implement scoring system
-- [ ] Create analytics dashboard
-- [ ] Add program comparison tools
-- [ ] Create implementation tracking system
+- [ ] [Implement scoring system](https://github.com/ludorival/neo-republic/issues/34)
+- [ ] [Create analytics dashboard](https://github.com/ludorival/neo-republic/issues/35)
+- [ ] [Add program comparison tools](https://github.com/ludorival/neo-republic/issues/36)
+- [ ] [Create implementation tracking system](https://github.com/ludorival/neo-republic/issues/37)
 
 ### Educational Features
-- [ ] Add tooltips and explanations
-- [ ] Create tutorial system
-- [ ] Implement feedback mechanisms
-- [ ] Add resource links
+- [ ] [Add tooltips and explanations](https://github.com/ludorival/neo-republic/issues/38)
+- [ ] [Create tutorial system](https://github.com/ludorival/neo-republic/issues/39)
+- [ ] [Implement feedback mechanisms](https://github.com/ludorival/neo-republic/issues/40)
+- [ ] [Add resource links](https://github.com/ludorival/neo-republic/issues/41)
 
 ## Labels to be used:
 - setup: Project setup and configuration tasks

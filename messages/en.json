@@ -5,5 +5,21 @@
     "learnMore": "Learn More",
     "deploy": "Deploy now",
     "readDocs": "Read our docs"
+  },
+  "home": {
+    "appTitle": "Neo-Republic",
+    "login": "Login",
+    "logout": "Logout",
+    "continueWithGoogle": "Continue with Google",
+    "signingIn": "Signing in...",
+    "authError": "Authentication failed. Please try again.",
+    "description": "Citizens vote for detailed policy programs rather than candidates/parties. Our platform enables anonymous program submissions to focus on ideas rather than personalities, ensuring all programs are comprehensive and financially balanced.",
+    "keyFeatures": "Key Features",
+    "features": {
+      "anonymous": "Anonymous program submissions",
+      "comprehensive": "Comprehensive policy coverage",
+      "financial": "Financial validation system",
+      "focus": "Focus on ideas over personalities"
+    }
   }
 } 

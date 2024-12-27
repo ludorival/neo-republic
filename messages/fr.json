@@ -5,5 +5,21 @@
     "learnMore": "En savoir plus",
     "deploy": "Déployer maintenant",
     "readDocs": "Lire la documentation"
+  },
+  "home": {
+    "appTitle": "Neo-Republic",
+    "login": "Connexion",
+    "logout": "Déconnexion",
+    "continueWithGoogle": "Continuer avec Google",
+    "signingIn": "Connexion en cours...",
+    "authError": "Échec de l'authentification. Veuillez réessayer.",
+    "description": "Les citoyens votent pour des programmes politiques détaillés plutôt que pour des candidats ou des partis. Notre plateforme permet des soumissions anonymes de programmes pour se concentrer sur les idées plutôt que sur les personnalités, garantissant que tous les programmes sont complets et financièrement équilibrés.",
+    "keyFeatures": "Caractéristiques Principales",
+    "features": {
+      "anonymous": "Soumissions anonymes des programmes",
+      "comprehensive": "Couverture politique complète",
+      "financial": "Système de validation financière",
+      "focus": "Accent sur les idées plutôt que les personnalités"
+    }
   }
 } 

@@ -1,17 +1,6 @@
-/*import {
-    onAuthStateChanged as _onAuthStateChanged,
-  } from "firebase/auth";
- */ 
-//  import { auth } from "./clientApp";
-  
-  export function onAuthStateChanged() {
-    return () => {};
-  }
-  
-  export async function signInWithGoogle() {
-    return;
-  }
-  
-  export async function signOut() {
-    return;
-  }
+import { getAuth, signInWithPopup } from "firebase/auth";
+import { firebaseApp } from "./clientApp";
+import { FirebaseAuth } from "./FirebaseAuth";
+
+// Export a default instance using the Firebase auth
+export const auth = new FirebaseAuth(getAuth(firebaseApp), signInWithPopup);

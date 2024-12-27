@@ -1,7 +1,8 @@
 {
   "name": "neo-republic",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +10,12 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "cypress:open": "cypress open",
-    "test": "cypress run --component"
+    "cypress:run": "cypress run --component",
+    "tsc": "tsc",
+    "test": "npm run cypress:run",
+    "posttest": "npm run test:unit && npm run test:firestore",
+    "test:unit": "mocha --exit 'tests/unit/**/*.spec.ts'",
+    "test:firestore": "firebase emulators:exec --only firestore \"mocha --exit 'tests/firestore/**/*.spec.ts'\""
   },
   "dependencies": {
     "@nextui-org/react": "^2.6.8",
@@ -23,14 +29,27 @@
   },
   "devDependencies": {
     "@cypress/react18": "^2.0.1",
+    "@firebase/rules-unit-testing": "^4.0.1",
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.10",
+    "@types/mock-require": "^3.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/sinon": "^17.0.3",
+    "@types/sinon-chai": "^4.0.0",
+    "chai": "^5.1.2",
     "cypress": "^13.16.1",
+    "dotenv": "^16.4.7",
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
+    "mocha": "^11.0.1",
     "postcss": "^8",
+    "sinon": "^19.0.2",
+    "sinon-chai": "^4.0.0",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5"
   }
 }

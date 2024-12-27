@@ -1,12 +1,24 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Navbar, NavbarBrand, NavbarContent, Button, Card, CardBody } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './components/LoginModal'
+import { auth } from '@/lib/firebase/auth'
+import { User } from 'firebase/auth'
 
 const Home = () => {
   const t = useTranslations('home')
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setCurrentUser(user)
+    })
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe()
+  }, [])
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true)
@@ -19,15 +31,21 @@ const Home = () => {
           <p className="font-bold text-xl">{t('appTitle')}</p>
         </NavbarBrand>
         <NavbarContent justify="end">
-          <Button 
-            data-testid="login-button"
-            color="primary"
-            variant="shadow"
-            size="lg"
-            onClick={handleLoginClick}
-          >
-            {t('login')}
-          </Button>
+          {currentUser ? (
+            <p data-testid="user-name" className="text-lg">
+              {currentUser.displayName}
+            </p>
+          ) : (
+            <Button 
+              data-testid="login-button"
+              color="primary"
+              variant="shadow"
+              size="lg"
+              onClick={handleLoginClick}
+            >
+              {t('login')}
+            </Button>
+          )}
         </NavbarContent>
       </Navbar>
 

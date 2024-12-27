@@ -70,4 +70,26 @@ describe('<Home />', () => {
       .should('be.visible')
       .should('have.text', 'Échec de l\'authentification. Veuillez réessayer.')
   })
+
+  it('displays user name when already authenticated', () => {
+    // Mock authenticated user
+    const mockUser = {
+      displayName: 'John Doe',
+      email: 'john@example.com',
+      uid: '123'
+    }
+    cy.stub(auth, 'onAuthStateChanged').callsFake(callback => {
+      callback(mockUser)
+      return () => {}
+    })
+
+    cy.mount(<Home />)
+    
+    // Verify login button is replaced with user name
+    cy.get('[data-testid="login-button"]').should('not.exist')
+    cy.get('[data-testid="user-name"]')
+      .should('exist')
+      .should('be.visible')
+      .should('have.text', 'John Doe')
+  })
 })

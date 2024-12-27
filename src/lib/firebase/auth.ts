@@ -1,25 +1,29 @@
-import { User } from 'firebase/auth';
+import { Auth, GoogleAuthProvider, User, signInWithPopup as firebaseSignInWithPopup } from 'firebase/auth';
 
-/**
- * TODO: Implement authentication as part of Milestone 2
- * This will include:
- * - Google Sign-In integration
- * - User session management
- * - Role-based access control
- */
+export class FirebaseAuth {
+  constructor(private auth: Auth, private signInWithPopup: typeof firebaseSignInWithPopup) {}
 
-export function onAuthStateChanged(callback: (user: User | null) => void) {
-  // TODO: Implement auth state management
-  callback(null); // Using callback to fix unused parameter warning
-  return () => {};
-}
+  onAuthStateChanged(callback: (user: User | null) => void) {
+    return this.auth.onAuthStateChanged(callback);
+  }
 
-export async function signInWithGoogle(): Promise<User> {
-  // TODO: Implement Google Sign-In
-  throw new Error('Google Sign-In not implemented yet');
-}
+  async signInWithGoogle(): Promise<User> {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await this.signInWithPopup(this.auth, provider);
+      return result.user;
+    } catch (error) {
+      console.error('Error signing in with Google:', error);
+      throw error;
+    }
+  }
 
-export async function signOut(): Promise<void> {
-  // TODO: Implement sign out functionality
-  throw new Error('Sign out not implemented yet');
+  async signOut(): Promise<void> {
+    try {
+      await this.auth.signOut();
+    } catch (error) {
+      console.error('Error signing out:', error);
+      throw error;
+    }
+  }
 }

@@ -112,7 +112,7 @@ describe('<Home />', () => {
       return () => {}
     })
     // Stub the signOut method
-    const stubSignOut = cy.stub(auth, 'signOut').as('signOut').resolves()
+    cy.stub(auth, 'signOut').as('signOut').resolves()
 
     cy.mount(<Home />)
     

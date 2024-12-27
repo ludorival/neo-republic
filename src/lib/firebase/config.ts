@@ -1,1 +1,0 @@
-// Delete this file entirely as we'll move its logic to clientApp.ts

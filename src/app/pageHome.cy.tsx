@@ -92,4 +92,36 @@ describe('<Home />', () => {
       .should('be.visible')
       .should('have.text', 'John Doe')
   })
+
+  it('allows authenticated user to logout', () => {
+    // Mock authenticated user
+    const mockUser = {
+      displayName: 'John Doe',
+      email: 'john@example.com',
+      uid: '123',
+      photoURL: null
+    }
+    cy.stub(auth, 'onAuthStateChanged').callsFake(callback => {
+      callback(mockUser)
+      return () => {}
+    })
+    // Stub the signOut method
+    const stubSignOut = cy.stub(auth, 'signOut').as('signOut').resolves()
+
+    cy.mount(<Home />)
+    
+    // Verify user menu is shown
+    cy.get('[data-testid="user-menu-trigger"]')
+      .should('exist')
+      .should('be.visible')
+      .click()
+    
+    // Click logout button in dropdown
+    cy.get('[data-testid="logout-button"]')
+      .should('be.visible')
+      .click()
+    
+    // Verify signOut was called
+    cy.get('@signOut').should('have.been.calledOnce')
+  })
 })

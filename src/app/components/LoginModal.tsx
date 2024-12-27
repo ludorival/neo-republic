@@ -52,7 +52,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
             variant="bordered"
             size="lg"
             className="w-full"
-            onClick={handleGoogleSignIn}
+            onPress={handleGoogleSignIn}
             isDisabled={isLoading}
           >
             {isLoading ? (

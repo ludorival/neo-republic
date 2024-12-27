@@ -9,6 +9,7 @@
   "home": {
     "appTitle": "Neo-Republic",
     "login": "Connexion",
+    "logout": "Déconnexion",
     "continueWithGoogle": "Continuer avec Google",
     "signingIn": "Connexion en cours...",
     "authError": "Échec de l'authentification. Veuillez réessayer.",

@@ -1,6 +1,6 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { Navbar, NavbarBrand, NavbarContent, Button, Card, CardBody } from "@nextui-org/react"
+import { Navbar, NavbarBrand, NavbarContent, Button, Card, CardBody, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './components/LoginModal'
 import { auth } from '@/lib/firebase/auth'
@@ -24,6 +24,14 @@ const Home = () => {
     setIsLoginModalOpen(true)
   }
 
+  const handleLogoutClick = async () => {
+    try {
+      await auth.signOut()
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
+  }
+
   return (
     <main className="min-h-screen hero-gradient">
       <Navbar data-testid="top-bar" className="nav-blur">
@@ -32,16 +40,38 @@ const Home = () => {
         </NavbarBrand>
         <NavbarContent justify="end">
           {currentUser ? (
-            <p data-testid="user-name" className="text-lg">
-              {currentUser.displayName}
-            </p>
+            <Dropdown placement="bottom-end">
+              <DropdownTrigger>
+                <div className="flex items-center gap-2 cursor-pointer" data-testid="user-menu-trigger">
+                  <Avatar 
+                    name={currentUser.displayName || undefined}
+                    src={currentUser.photoURL || undefined}
+                    size="sm"
+                  />
+                  <span data-testid="user-name" className="text-lg">
+                    {currentUser.displayName}
+                  </span>
+                </div>
+              </DropdownTrigger>
+              <DropdownMenu aria-label="User menu">
+                <DropdownItem 
+                  key="logout" 
+                  data-testid="logout-button"
+                  className="text-danger" 
+                  color="danger"
+                  onPress={handleLogoutClick}
+                >
+                  {t('logout')}
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
           ) : (
             <Button 
               data-testid="login-button"
               color="primary"
               variant="shadow"
               size="lg"
-              onClick={handleLoginClick}
+              onPress={handleLoginClick}
             >
               {t('login')}
             </Button>

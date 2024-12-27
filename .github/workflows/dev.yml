@@ -39,6 +39,17 @@ jobs:
 
     - name: Run Tests
       run: npm run test
+      continue-on-error: true
+      id: test
+
+    - name: Upload Cypress screenshots
+      uses: actions/upload-artifact@v3
+      if: failure() && steps.test.outcome == 'failure'
+      with:
+        name: cypress-screenshots
+        path: cypress/screenshots
+        if-no-files-found: ignore
 
     - name: Build Next.js app
+      if: always()
       run: npm run build

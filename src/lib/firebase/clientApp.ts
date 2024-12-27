@@ -1,9 +1,10 @@
 'use client';
 
 import { initializeApp, getApps } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, signInWithPopup } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import { FirebaseAuth } from "./auth";
 
 const config: Record<string, string | undefined> = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -24,6 +25,7 @@ Object.keys(config).forEach((key) => {
 
 export const firebaseApp =
   getApps().length === 0 ? initializeApp(config) : getApps()[0];
-export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
+// Export a default instance using the Firebase auth
+export const auth = new FirebaseAuth(getAuth(firebaseApp), signInWithPopup);

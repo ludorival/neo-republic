@@ -72,11 +72,12 @@ describe('<Home />', () => {
   })
 
   it('displays user name when already authenticated', () => {
-    // Mock authenticated user
+    // Mock authenticated user with profile picture
     const mockUser = {
       displayName: 'John Doe',
       email: 'john@example.com',
-      uid: '123'
+      uid: '123',
+      photoURL: 'https://example.com/profile.jpg'
     }
     cy.stub(auth, 'onAuthStateChanged').callsFake(callback => {
       callback(mockUser)
@@ -91,6 +92,11 @@ describe('<Home />', () => {
       .should('exist')
       .should('be.visible')
       .should('have.text', 'John Doe')
+    
+    // Verify profile picture is displayed
+    cy.get('img[alt="John Doe"]')
+      .should('exist')
+      .should('have.attr', 'src', 'https://example.com/profile.jpg')
   })
 
   it('allows authenticated user to logout', () => {

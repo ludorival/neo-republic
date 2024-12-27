@@ -1,10 +1,16 @@
 'use client'
-import React from 'react'
+import React, { useState } from 'react'
 import { Navbar, NavbarBrand, NavbarContent, Button, Card, CardBody } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
+import LoginModal from './components/LoginModal'
 
 const Home = () => {
   const t = useTranslations('home')
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+
+  const handleLoginClick = () => {
+    setIsLoginModalOpen(true)
+  }
 
   return (
     <main className="min-h-screen hero-gradient">
@@ -18,11 +24,17 @@ const Home = () => {
             color="primary"
             variant="shadow"
             size="lg"
+            onClick={handleLoginClick}
           >
             {t('login')}
           </Button>
         </NavbarContent>
       </Navbar>
+
+      <LoginModal 
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
 
       <div className="max-w-4xl mx-auto p-8">
         <Card className="glass-card">

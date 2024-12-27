@@ -40,3 +40,4 @@ yarn-error.log*
 next-env.d.ts
 database-debug.log
 firestore-debug.log
+cypress/screenshots

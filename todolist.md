@@ -13,7 +13,7 @@
 - [x] [Design Firebase collections structure](https://github.com/ludorival/neo-republic/issues/7)
 - [x] [Define TypeScript interfaces for data models](https://github.com/ludorival/neo-republic/issues/8)
 - [x] [Create database rules](https://github.com/ludorival/neo-republic/issues/9)
-- [ ] [Setup basic CRUD operations](https://github.com/ludorival/neo-republic/issues/10)
+- [x] [Setup basic CRUD operations](https://github.com/ludorival/neo-republic/issues/10)
 
 ## [Milestone 2: Authentication 🔐](https://github.com/ludorival/neo-republic/milestone/2)
 

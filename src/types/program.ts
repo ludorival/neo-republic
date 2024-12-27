@@ -1,13 +1,7 @@
 /**
  * Represents the status of a program in the system
  */
-export enum ProgramStatus {
-  DRAFT = 'draft',
-  UNDER_REVIEW = 'under_review',
-  APPROVED = 'approved',
-  REJECTED = 'rejected',
-  PUBLISHED = 'published'
-}
+export type ProgramStatus = 'draft' | 'under_review' | 'approved' | 'rejected' | 'published';
 
 /**
  * Represents a budget item with amount and description

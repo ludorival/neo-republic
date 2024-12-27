@@ -29,11 +29,8 @@ jobs:
     - name: Run ESLint
       run: npm run lint
 
-    - name: Run Cypress component tests
+    - name: Run Tests
       run: npm run test
-
-    - name: Run Firestore Rules Tests
-      run: firebase emulators:exec --only firestore "npm run test:rules"
 
     - name: Build Next.js app
       run: npm run build

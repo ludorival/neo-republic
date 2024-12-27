@@ -9,6 +9,10 @@
   "home": {
     "appTitle": "Neo-Republic",
     "login": "Login",
+    "logout": "Logout",
+    "continueWithGoogle": "Continue with Google",
+    "signingIn": "Signing in...",
+    "authError": "Authentication failed. Please try again.",
     "description": "Citizens vote for detailed policy programs rather than candidates/parties. Our platform enables anonymous program submissions to focus on ideas rather than personalities, ensuring all programs are comprehensive and financially balanced.",
     "keyFeatures": "Key Features",
     "features": {

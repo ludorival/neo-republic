@@ -16,7 +16,10 @@
 - [x] [Setup basic CRUD operations](https://github.com/ludorival/neo-republic/issues/10)
 
 ### Architecture
-- [ ] [Refactor project using Domain-Driven Design pattern](https://github.com/ludorival/neo-republic/issues/40)
+- [x] [Refactor project using Domain-Driven Design pattern](https://github.com/ludorival/neo-republic/issues/40)
+
+### Testing
+- [ ] [Implement Cypress E2E tests for sandbox environment](https://github.com/ludorival/neo-republic/issues/46)
 
 ## [Milestone 2: Authentication 🔐](https://github.com/ludorival/neo-republic/milestone/2)
 

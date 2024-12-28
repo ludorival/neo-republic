@@ -18,8 +18,8 @@
 ## [Milestone 2: Authentication 🔐](https://github.com/ludorival/neo-republic/milestone/2)
 
 ### User Authentication System
-- [ ] [Implement Firebase authentication](https://github.com/ludorival/neo-republic/issues/11)
-- [ ] [Create login/signup pages](https://github.com/ludorival/neo-republic/issues/12)
+- [x] [Implement Firebase authentication](https://github.com/ludorival/neo-republic/issues/11)
+- [x] [Create login/signup pages](https://github.com/ludorival/neo-republic/issues/12)
 - [ ] [Setup protected routes](https://github.com/ludorival/neo-republic/issues/13)
 - [ ] [Create user profile management](https://github.com/ludorival/neo-republic/issues/14)
 - [ ] [Implement role-based access control](https://github.com/ludorival/neo-republic/issues/15)
@@ -27,7 +27,7 @@
 ## [Milestone 3: Program Creation 📝](https://github.com/ludorival/neo-republic/milestone/3)
 
 ### Home Page UI Implementation
-- [ ] [Create horizontal program cards list component](https://github.com/ludorival/neo-republic/issues/33)
+- [x] [Create horizontal program cards list component](https://github.com/ludorival/neo-republic/issues/33)
 - [ ] [Implement program creation card with CTA button](https://github.com/ludorival/neo-republic/issues/34)
 - [ ] [Add authentication flow for program creation](https://github.com/ludorival/neo-republic/issues/35)
 - [ ] [Create program list data fetching and state management](https://github.com/ludorival/neo-republic/issues/36)

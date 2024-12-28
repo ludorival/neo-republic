@@ -1,33 +1,47 @@
+import { DocumentData } from 'firebase/firestore';
+
 export interface Database {
-  collection(name: string): Collection;
-  doc(collectionName: string, id: string): Document;
+  collection<T extends DocumentData>(name: string): Collection<T>;
+  doc<T extends DocumentData>(collectionName: string, id: string): Document<T>;
 }
 
-export interface Collection {
-  doc(id: string): Document;
-  newDoc(): Document;
-  where(field: string, operator: string, value: any): Query;
+export interface Collection<T extends DocumentData> {
+  doc(id: string): Document<T>;
+  newDoc(): Document<T>;
+  where(field: keyof T, operator: WhereOperator, value: T[keyof T]): Query<T>;
 }
 
-export interface Document {
+export interface Document<T extends DocumentData> {
   id: string;
   exists(): Promise<boolean>;
-  data(): Promise<any>;
-  set(data: any): Promise<void>;
-  update(data: any): Promise<void>;
+  data(): Promise<T>;
+  set(data: T): Promise<void>;
+  update(data: Partial<T>): Promise<void>;
   delete(): Promise<void>;
 }
 
-export interface Query {
-  get(): Promise<QuerySnapshot>;
+export interface Query<T extends DocumentData> {
+  get(): Promise<QuerySnapshot<T>>;
 }
 
-export interface QuerySnapshot {
-  docs: QueryDocumentSnapshot[];
+export interface QuerySnapshot<T extends DocumentData> {
+  docs: QueryDocumentSnapshot<T>[];
 }
 
-export interface QueryDocumentSnapshot {
+export interface QueryDocumentSnapshot<T extends DocumentData> {
   id: string;
   exists: boolean;
-  data(): any;
-} 
+  data(): T;
+}
+
+export type WhereOperator = 
+  | "==" 
+  | "!=" 
+  | "<" 
+  | "<=" 
+  | ">" 
+  | ">=" 
+  | "array-contains" 
+  | "array-contains-any" 
+  | "in" 
+  | "not-in"; 

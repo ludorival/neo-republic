@@ -7,17 +7,17 @@ export class UserRepository {
   constructor(private readonly db: Database) {}
 
   async createUser(user: User): Promise<void> {
-    await this.db.doc(this.COLLECTION, user.id).set(user);
+    await this.db.doc<User>(this.COLLECTION, user.id).set(user);
   }
 
   async getUser(userId: string): Promise<User | null> {
-    const docRef = this.db.doc(this.COLLECTION, userId);
+    const docRef = this.db.doc<User>(this.COLLECTION, userId);
     const exists = await docRef.exists();
     if (!exists) return null;
-    return await docRef.data() as User;
+    return await docRef.data();
   }
 
   async updateUser(userId: string, updates: Partial<User>): Promise<void> {
-    await this.db.doc(this.COLLECTION, userId).update(updates);
+    await this.db.doc<User>(this.COLLECTION, userId).update(updates);
   }
 } 

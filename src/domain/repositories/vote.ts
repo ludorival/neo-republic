@@ -15,14 +15,14 @@ export class VoteRepository {
 
   async createVote(vote: Vote): Promise<void> {
     const voteId = `${vote.userId}_${vote.programId}`;
-    await this.db.doc(this.COLLECTION, voteId).set(vote);
+    await this.db.doc<Vote>(this.COLLECTION, voteId).set(vote);
   }
 
   async updateVoteFeedback(voteId: string, feedback: string): Promise<void> {
-    await this.db.doc(this.COLLECTION, voteId).update({ feedback });
+    await this.db.doc<Vote>(this.COLLECTION, voteId).update({ feedback });
   }
 
   async updateVoteRating(voteId: string, rating: number): Promise<void> {
-    await this.db.doc(this.COLLECTION, voteId).update({ rating });
+    await this.db.doc<Vote>(this.COLLECTION, voteId).update({ rating });
   }
 } 

@@ -12,9 +12,9 @@ export class ProgramRepository {
    * @returns The ID of the created program
    */
   async createProgram(program: Partial<Program>): Promise<string> {
-    const programRef = this.db.collection(this.COLLECTION).newDoc();
+    const programRef = this.db.collection<Program>(this.COLLECTION).newDoc();
 
-    const programData = {
+    const programData: Program = {
       ...program,
       id: programRef.id,
       createdAt: new Date(),
@@ -30,23 +30,20 @@ export class ProgramRepository {
         isBalanced: false,
         reviewComments: [],
       },
-    };
+    } as Program;
 
     await programRef.set(programData);
     return programRef.id;
   }
 
   async getProgramsByStatus(status: ProgramStatus): Promise<Program[]> {
-    const programsQuery = this.db.collection(this.COLLECTION).where("status", "==", status);
+    const programsQuery = this.db.collection<Program>(this.COLLECTION).where("status", "==", status);
 
     const snapshot = await programsQuery.get();
-    return snapshot.docs.map(
-      (doc) =>
-        ({
-          ...doc.data(),
-          id: doc.id,
-        } as Program)
-    );
+    return snapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
   }
 
   /**
@@ -58,7 +55,7 @@ export class ProgramRepository {
     programId: string,
     status: ProgramStatus
   ): Promise<void> {
-    const programRef = this.db.doc(this.COLLECTION, programId);
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
     await programRef.update({
       status,
       updatedAt: new Date(),
@@ -71,7 +68,7 @@ export class ProgramRepository {
    * @returns The program data or null if not found
    */
   async getProgram(programId: string): Promise<Program | null> {
-    const programRef = this.db.doc(this.COLLECTION, programId);
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
     const exists = await programRef.exists();
 
     if (!exists) {
@@ -82,7 +79,7 @@ export class ProgramRepository {
     return {
       ...data,
       id: programRef.id,
-    } as Program;
+    };
   }
 
   /**
@@ -94,7 +91,7 @@ export class ProgramRepository {
     programId: string,
     policyAreas: Program["policyAreas"]
   ): Promise<void> {
-    const programRef = this.db.doc(this.COLLECTION, programId);
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
 
     await programRef.update({
       policyAreas,
@@ -111,7 +108,7 @@ export class ProgramRepository {
     programId: string,
     validation: Program["financialValidation"]
   ): Promise<void> {
-    const programRef = this.db.doc(this.COLLECTION, programId);
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
 
     await programRef.update({
       financialValidation: validation,

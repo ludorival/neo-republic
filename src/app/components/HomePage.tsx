@@ -2,7 +2,6 @@
 import React from 'react'
 import { Program } from '@/types/program'
 import ProgramsList from './ProgramsList'
-import Layout from './Layout'
 
 type HomePageProps = {
   programs?: Program[]
@@ -10,8 +9,8 @@ type HomePageProps = {
 
 export default function HomePage({ programs = [] }: HomePageProps) {
   return (
-    <Layout>
+    <>
       <ProgramsList programs={programs} />
-    </Layout>
+    </>
   )
 } 

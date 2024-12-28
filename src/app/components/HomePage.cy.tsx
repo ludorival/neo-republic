@@ -129,6 +129,8 @@ describe('<Home />', () => {
     const mockPrograms: Program[] = [
       {
         id: '1',
+        slogan: 'Economic Reform',
+        description: 'Comprehensive economic reform plan',
         status: 'published' as const,
         createdAt: new Date('2024-01-01'),
         updatedAt: new Date('2024-01-01'),
@@ -138,8 +140,21 @@ describe('<Home />', () => {
             id: 'economy',
             title: 'Economic Reform',
             description: 'Comprehensive economic reform plan',
-            objectives: ['Reduce inflation', 'Create jobs'],
-            budget: [],
+            objectives: [
+              {
+                description: 'Reduce the rate of inflation',
+                budget: {
+                  revenue: 100000,
+                  expenses: 50000
+                }
+              }, {
+                description: 'Create jobs',
+                budget: {
+                  revenue: 100000,
+                  expenses: 50000
+                }
+              }
+            ],
             implementation: {
               timeline: '2024-2025',
               milestones: ['Q1: Policy draft', 'Q2: Implementation'],
@@ -160,6 +175,8 @@ describe('<Home />', () => {
       },
       {
         id: '2',
+        slogan: 'Education Reform',
+        description: 'Modern education system reform',
         status: 'published' as const,
         createdAt: new Date('2024-01-02'),
         updatedAt: new Date('2024-01-02'),
@@ -169,8 +186,21 @@ describe('<Home />', () => {
             id: 'education',
             title: 'Education Reform',
             description: 'Modern education system reform',
-            objectives: ['Improve quality', 'Increase accessibility'],
-            budget: [],
+            objectives: [
+              {
+                description: 'Improve quality',
+                budget: {
+                  revenue: 100000,
+                  expenses: 50000
+                }
+              }, {
+                description: 'Increase accessibility',
+                budget: {
+                  revenue: 100000,
+                  expenses: 50000
+                }
+              }
+            ],
             implementation: {
               timeline: '2024-2026',
               milestones: ['Q1: Analysis', 'Q2: Implementation'],

@@ -4,14 +4,17 @@
 export type ProgramStatus = 'draft' | 'under_review' | 'approved' | 'rejected' | 'published';
 
 /**
- * Represents a budget item with amount and description
+ * Represents an objective with amount and description
  */
-export interface BudgetItem {
-  id: string;
-  amount: number;
+export interface Objective {
+  id?: string;
   description: string;
-  category: string;
-  isRevenue: boolean;
+  budget: Budget;
+}
+
+export interface Budget {
+  revenue: number;
+  expenses: number;
 }
 
 /**
@@ -21,9 +24,8 @@ export interface PolicyArea {
   id: string;
   title: string;
   description: string;
-  objectives: string[];
-  budget: BudgetItem[];
-  implementation: {
+  objectives: Objective[];
+  implementation?: {
     timeline: string;
     milestones: string[];
     keyMetrics: string[];
@@ -35,6 +37,8 @@ export interface PolicyArea {
  */
 export interface Program {
   id: string;
+  slogan: string;
+  description: string;
   status: ProgramStatus;
   createdAt: Date;
   updatedAt: Date;

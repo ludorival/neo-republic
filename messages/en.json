@@ -45,6 +45,29 @@
     "create": {
       "title": "Create a Program",
       "description": "Select the policy areas you want to address in your program.",
+      "continue": "Continue",
+      "form": {
+        "addNewPoint": "Add New Objective",
+        "addPoint": "Add",
+        "editPoint": "Edit Objective",
+        "edit": "Edit",
+        "save": "Save",
+        "close": "Close",
+        "policyPoints": "Objectives",
+        "pointsAdded": "objectives added",
+        "remove": "Remove",
+        "budget": "Budget",
+        "revenue": "Revenue",
+        "expense": "Expense",
+        "completeArea": "Complete Area",
+        "saveDraft": "Save Draft",
+        "publishProgram": "Publish Program",
+        "description": "Description",
+        "programSlogan": "Program Slogan",
+        "programDescription": "Program Description",
+        "sloganPlaceholder": "Enter a catchy slogan for your program",
+        "descriptionPlaceholder": "Briefly describe your program's vision and goals"
+      },
       "policyAreas": {
         "title": "Policy Areas",
         "economy": {
@@ -59,13 +82,17 @@
           "title": "Environment",
           "description": "Environmental protection and sustainable development"
         },
-        "healthcare": {
-          "title": "Healthcare",
-          "description": "Healthcare system and public health policies"
-        },
         "social": {
           "title": "Social",
           "description": "Social welfare and social policies"
+        },
+        "infrastructure": {
+          "title": "Infrastructure",
+          "description": "Transportation, public works, and urban development"
+        },
+        "security": {
+          "title": "Security & Justice",
+          "description": "Law enforcement, national defense, and judicial system"
         }
       },
       "errors": {

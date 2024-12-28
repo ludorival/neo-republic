@@ -24,6 +24,7 @@ import { NextIntlClientProvider } from 'next-intl'
 import { NextUIProvider } from '@nextui-org/react'
 import messages from '../../messages/fr.json'
 import { RouterProvider } from '@/test/utils/RouterProvider'
+import Layout from '@/app/components/Layout';
 
 interface MountOptions {
   router?: {
@@ -63,7 +64,9 @@ Cypress.Commands.add('mount', (component, options: MountOptions = {}) => {
     <NextUIProvider>
       <NextIntlClientProvider messages={messages} locale="fr">
         <RouterProvider router={routerStubs}>
-          {component}
+          <Layout>
+            {component}
+          </Layout>
         </RouterProvider>
       </NextIntlClientProvider>
     </NextUIProvider>

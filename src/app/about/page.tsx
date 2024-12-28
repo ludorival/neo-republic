@@ -1,8 +1,6 @@
 'use client'
-import React from 'react'
 import { Card, CardBody } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
-import Layout from '../components/Layout'
 
 export default function About() {
   const t = useTranslations('home')
@@ -15,7 +13,6 @@ export default function About() {
   ]
 
   return (
-    <Layout>
       <div data-testid="project-description" className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-6">{t('appTitle')}</h1>
         <p className="text-xl mb-12">{t('description')}</p>
@@ -34,6 +31,5 @@ export default function About() {
           ))}
         </div>
       </div>
-    </Layout>
   )
 } 

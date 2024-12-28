@@ -20,6 +20,20 @@
       "comprehensive": "Couverture politique complète",
       "financial": "Système de validation financière",
       "focus": "Accent sur les idées plutôt que les personnalités"
+    },
+    "programs": {
+      "title": "Programmes en Vedette",
+      "description": "Découvrez les programmes créés par les citoyens qui façonnent notre avenir. Chaque programme représente une vision du changement, soutenue par des plans détaillés et le soutien de la communauté. Votez, discutez et créez votre propre programme pour faire la différence.",
+      "empty": "Aucun programme disponible",
+      "create": {
+        "title": "Créer Votre Programme",
+        "description": "Partagez votre vision de l'avenir"
+      },
+      "metrics": {
+        "support": "Soutien",
+        "feasible": "Faisable",
+        "votes": "votes"
+      }
     }
   }
 } 

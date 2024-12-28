@@ -20,6 +20,20 @@
       "comprehensive": "Comprehensive policy coverage",
       "financial": "Financial validation system",
       "focus": "Focus on ideas over personalities"
+    },
+    "programs": {
+      "title": "Featured Programs",
+      "description": "Explore citizen-created programs that shape our future. Each program represents a vision for change, backed by detailed plans and community support. Vote, discuss, and create your own program to make a difference.",
+      "empty": "No programs available",
+      "create": {
+        "title": "Create Your Program",
+        "description": "Share your vision for the future"
+      },
+      "metrics": {
+        "support": "Support",
+        "feasible": "Feasible",
+        "votes": "votes"
+      }
     }
   }
 } 

@@ -1,17 +1,16 @@
+import { ProgramRepository } from '@/repositories/program';
+import { UserRepository } from '@/repositories/user';
+import { VoteRepository } from '@/repositories/vote';
 import {
-  assertSucceeds,
   assertFails,
+  assertSucceeds,
   initializeTestEnvironment,
   RulesTestContext,
   RulesTestEnvironment
 } from '@firebase/rules-unit-testing';
-import { getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import * as fs from 'fs';
-import { describe, before, beforeEach, after, it } from 'mocha';
-import { ProgramRepository } from '@/repositories/program';
-import { UserRepository } from '@/repositories/user';
-import { VoteRepository } from '@/repositories/vote';
 import { expect } from 'chai';
+import * as fs from 'fs';
+import { after, before, beforeEach, describe, it } from 'mocha';
 
 describe('Firestore Security Rules', function() {
   // Increase timeout for setup

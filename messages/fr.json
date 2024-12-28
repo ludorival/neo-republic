@@ -40,5 +40,64 @@
     "loginRequired": "Connexion Requise",
     "loginToCreate": "Veuillez vous connecter pour créer un programme",
     "error": "Échec de l'authentification. Veuillez réessayer."
+  },
+  "programs": {
+    "create": {
+      "title": "Créer un Programme",
+      "description": "Sélectionnez les domaines politiques que vous souhaitez aborder dans votre programme.",
+      "continue": "Continuer",
+      "form": {
+        "addNewPoint": "Ajouter un objectif",
+        "addPoint": "Ajouter",
+        "editPoint": "Modifier l'objectif",
+        "edit": "Modifier",
+        "save": "Enregistrer",
+        "close": "Fermer",
+        "policyPoints": "Objectifs",
+        "pointsAdded": "objectifs ajoutés",
+        "remove": "Supprimer",
+        "budget": "Budget",
+        "revenue": "Revenu",
+        "expense": "Dépense",
+        "completeArea": "Terminer le Domaine",
+        "saveDraft": "Enregistrer le Brouillon",
+        "publishProgram": "Publier le Programme",
+        "description": "Description",
+        "programSlogan": "Slogan du Programme",
+        "programDescription": "Description du Programme",
+        "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
+        "descriptionPlaceholder": "Décrivez brièvement la vision et les objectifs de votre programme"
+      },
+      "policyAreas": {
+        "title": "Domaines Politiques",
+        "economy": {
+          "title": "Économie",
+          "description": "Politiques économiques, fiscales et monétaires"
+        },
+        "education": {
+          "title": "Éducation",
+          "description": "Système éducatif et formation"
+        },
+        "environment": {
+          "title": "Environnement",
+          "description": "Protection de l'environnement et développement durable"
+        },
+        "social": {
+          "title": "Social",
+          "description": "Protection sociale et politiques sociales"
+        },
+        "infrastructure": {
+          "title": "Infrastructure",
+          "description": "Transport, travaux publics et développement urbain"
+        },
+        "security": {
+          "title": "Sécurité & Justice",
+          "description": "Forces de l'ordre, défense nationale et système judiciaire"
+        }
+      },
+      "errors": {
+        "required": "Veuillez remplir tous les champs obligatoires"
+      }
+    }
   }
 } 

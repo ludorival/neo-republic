@@ -23,7 +23,7 @@ import { mount } from '@cypress/react18'
 import { NextIntlClientProvider } from 'next-intl'
 import { NextUIProvider } from '@nextui-org/react'
 import messages from '../../messages/fr.json'
-import { RouterProvider } from '@/test/utils/RouterProvider'
+import { RouterProvider } from './RouterProvider'
 import Layout from '@/app/components/Layout';
 
 interface MountOptions {

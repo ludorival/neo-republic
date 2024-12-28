@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Card, CardBody, Button, Input, Textarea, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter } from '@nextui-org/react'
 import { PencilIcon, TrashIcon } from '@heroicons/react/24/outline'
-import type { Objective, Budget } from '@/types/program'
+import type { Objective, Budget } from '@/domain/models/program'
 
 const policyAreas = [
   'economy',

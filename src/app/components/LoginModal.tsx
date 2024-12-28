@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, Button, Spinner } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
-import { auth } from '@/lib/firebase/auth'
+import { auth } from '@/infra/firebase/auth'
 
 interface LoginModalProps {
   isOpen: boolean

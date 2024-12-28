@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './LoginModal'
-import { auth } from '../../lib/firebase/auth'
-import { useAuth } from '@/hooks/useAuth'
+import { auth } from '../../infra/firebase/auth'
+import { useAuth } from '@/app/hooks/useAuth'
 
 type LayoutProps = {
   children: React.ReactNode

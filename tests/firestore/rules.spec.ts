@@ -1,6 +1,7 @@
-import { ProgramRepository } from '@/repositories/program';
-import { UserRepository } from '@/repositories/user';
-import { VoteRepository } from '@/repositories/vote';
+import { ProgramRepository } from '@/domain/repositories/program';
+import { UserRepository } from '@/domain/repositories/user';
+import { VoteRepository } from '@/domain/repositories/vote';
+import { FirebaseDatabase } from '@/infra/firebase/FirebaseDatabase';
 import {
   assertFails,
   assertSucceeds,
@@ -46,7 +47,7 @@ describe('Firestore Security Rules', function() {
 
     // First, create users collection with admin bypass
     await testEnv.withSecurityRulesDisabled(async (context) => {
-      const db = context.firestore();
+      const db = new FirebaseDatabase(context.firestore());
       userRepository = new UserRepository(db);
       
       await userRepository.createUser({
@@ -84,7 +85,7 @@ describe('Firestore Security Rules', function() {
       // Create the published program with security rules disabled
       let programId: string = '';
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
+        const db = new FirebaseDatabase(context.firestore());
         const programRepository = new ProgramRepository(db);
         programId = await programRepository.createProgram({
           authorId: 'admin-uid',
@@ -96,7 +97,7 @@ describe('Firestore Security Rules', function() {
       });
 
       // Now test reading with unauthenticated user
-      const unAuthDb = unauthContext.firestore();
+      const unAuthDb = new FirebaseDatabase(unauthContext.firestore());
       const programRepository = new ProgramRepository(unAuthDb);
       const program = await programRepository.getProgram(programId);
       expect(program).to.not.be.null;
@@ -108,7 +109,7 @@ describe('Firestore Security Rules', function() {
     });
 
     it('should allow authors to create draft programs', async () => {
-      const userDb = userContext.firestore();
+      const userDb = new FirebaseDatabase(userContext.firestore());
       const programRepository = new ProgramRepository(userDb);
       
       await assertSucceeds(
@@ -120,11 +121,9 @@ describe('Firestore Security Rules', function() {
     });
 
     it('should prevent creating non-draft programs', async () => {
-      const userDb = userContext.firestore();
+      const userDb = new FirebaseDatabase(userContext.firestore());
       const programRepository = new ProgramRepository(userDb);
       
-      // Note: This should fail because createProgram always sets status to 'draft'
-      // We might want to test this differently or update the test case
       await assertSucceeds(
         programRepository.createProgram({
           authorId: 'user-uid',
@@ -137,7 +136,7 @@ describe('Firestore Security Rules', function() {
       // Create a draft program with security rules disabled
       let programId: string = '';
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
+        const db = new FirebaseDatabase(context.firestore());
         const programRepository = new ProgramRepository(db);
         programId = await programRepository.createProgram({
           authorId: 'user-uid',
@@ -158,7 +157,7 @@ describe('Firestore Security Rules', function() {
       // Create a program owned by user-uid
       let programId: string = '';
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
+        const db = new FirebaseDatabase(context.firestore());
         const programRepository = new ProgramRepository(db);
         programId = await programRepository.createProgram({
           authorId: 'user-uid',
@@ -178,7 +177,7 @@ describe('Firestore Security Rules', function() {
 
   describe('Votes Collection', () => {
     it('should allow authenticated users to vote once per program', async () => {
-      const userDb = userContext.firestore();
+      const userDb = new FirebaseDatabase(userContext.firestore());
       voteRepository = new VoteRepository(userDb);
 
       const voteData = {
@@ -205,7 +204,7 @@ describe('Firestore Security Rules', function() {
     it('should allow users to update only feedback in their votes', async () => {
       // Create initial vote with security rules disabled
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
+        const db = new FirebaseDatabase(context.firestore());
         voteRepository = new VoteRepository(db);
         
         await voteRepository.createVote({
@@ -216,7 +215,7 @@ describe('Firestore Security Rules', function() {
         });
       });
 
-      const userDb = userContext.firestore();
+      const userDb = new FirebaseDatabase(userContext.firestore());
       voteRepository = new VoteRepository(userDb);
 
       // Should succeed: updating only feedback
@@ -233,7 +232,7 @@ describe('Firestore Security Rules', function() {
 
   describe('Users Collection', () => {
     it('should allow users to read other user profiles', async () => {
-      const userDb = userContext.firestore();
+      const userDb = new FirebaseDatabase(userContext.firestore());
       userRepository = new UserRepository(userDb);
       
       await assertSucceeds(
@@ -242,7 +241,7 @@ describe('Firestore Security Rules', function() {
     });
 
     it('should allow users to update their own profiles', async () => {
-      const userDb = userContext.firestore();
+      const userDb = new FirebaseDatabase(userContext.firestore());
       userRepository = new UserRepository(userDb);
       
       await assertSucceeds(
@@ -253,7 +252,7 @@ describe('Firestore Security Rules', function() {
     });
 
     it('should prevent users from updating other profiles', async () => {
-      const userDb = userContext.firestore();
+      const userDb = new FirebaseDatabase(userContext.firestore());
       userRepository = new UserRepository(userDb);
       
       await assertFails(

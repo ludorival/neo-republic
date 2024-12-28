@@ -1,5 +1,4 @@
-import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import {FirebaseFirestore} from "@firebase/firestore-types";
+import { Database } from './database';
 
 export interface Vote {
   userId: string;
@@ -12,18 +11,18 @@ export interface Vote {
 export class VoteRepository {
   private readonly COLLECTION = 'votes';
 
-  constructor(private readonly db: FirebaseFirestore) {}
+  constructor(private readonly db: Database) {}
 
   async createVote(vote: Vote): Promise<void> {
     const voteId = `${vote.userId}_${vote.programId}`;
-    await setDoc(doc(this.db, this.COLLECTION, voteId), vote);
+    await this.db.doc(this.COLLECTION, voteId).set(vote);
   }
 
   async updateVoteFeedback(voteId: string, feedback: string): Promise<void> {
-    await updateDoc(doc(this.db, this.COLLECTION, voteId), { feedback });
+    await this.db.doc(this.COLLECTION, voteId).update({ feedback });
   }
 
   async updateVoteRating(voteId: string, rating: number): Promise<void> {
-    await updateDoc(doc(this.db, this.COLLECTION, voteId), { rating });
+    await this.db.doc(this.COLLECTION, voteId).update({ rating });
   }
 } 

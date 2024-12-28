@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Program } from '@/types/program'
+import { Program } from '@/domain/models/program'
 import ProgramsList from './ProgramsList'
 
 type HomePageProps = {

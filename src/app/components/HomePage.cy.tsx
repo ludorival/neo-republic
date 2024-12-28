@@ -1,6 +1,6 @@
 import React from 'react'
-import { auth } from '@/lib/firebase/auth'
-import { Program } from '@/types/program'
+import { auth } from '@/infra/firebase/auth'
+import { Program } from '@/domain/models/program'
 import messages from '../../../messages/fr.json'
 import HomePage from './HomePage'
 

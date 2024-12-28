@@ -2,7 +2,7 @@ import { expect, use } from 'chai';
 import { Auth, GoogleAuthProvider, User, UserCredential } from 'firebase/auth';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
-import { FirebaseAuth } from '@/lib/firebase/FirebaseAuth';
+import { FirebaseAuth } from '@/infra/firebase/FirebaseAuth';
 
 // Add Sinon assertions to Chai
 use(sinonChai);

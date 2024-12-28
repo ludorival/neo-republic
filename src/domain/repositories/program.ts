@@ -1,21 +1,10 @@
-import {
-  collection,
-  doc,
-  setDoc,
-  getDocs,
-  query,
-  where,
-  updateDoc,
-  Timestamp,
-  getDoc,
-} from "firebase/firestore";
-import * as types from "@firebase/firestore-types";
-import { Program, ProgramStatus } from "@/types/program";
+import { Program, ProgramStatus } from "@/domain/models/program";
+import { Database } from "./database";
 
 export class ProgramRepository {
   private readonly COLLECTION = "programs";
 
-  constructor(private readonly db: types.FirebaseFirestore) {}
+  constructor(private readonly db: Database) {}
 
   /**
    * Creates a new program in the database
@@ -23,13 +12,13 @@ export class ProgramRepository {
    * @returns The ID of the created program
    */
   async createProgram(program: Partial<Program>): Promise<string> {
-    const programRef = doc(collection(this.db, this.COLLECTION));
+    const programRef = this.db.collection<Program>(this.COLLECTION).newDoc();
 
-    const programData = {
+    const programData: Program = {
       ...program,
       id: programRef.id,
-      createdAt: Timestamp.now(),
-      updatedAt: Timestamp.now(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
       status: "draft",
       metrics: {
         publicSupport: 0,
@@ -41,26 +30,20 @@ export class ProgramRepository {
         isBalanced: false,
         reviewComments: [],
       },
-    };
+    } as Program;
 
-    await setDoc(programRef, programData);
+    await programRef.set(programData);
     return programRef.id;
   }
 
   async getProgramsByStatus(status: ProgramStatus): Promise<Program[]> {
-    const programsQuery = query(
-      collection(this.db, this.COLLECTION),
-      where("status", "==", status)
-    );
+    const programsQuery = this.db.collection<Program>(this.COLLECTION).where("status", "==", status);
 
-    const snapshot = await getDocs(programsQuery);
-    return snapshot.docs.map(
-      (doc) =>
-        ({
-          ...doc.data(),
-          id: doc.id,
-        } as Program)
-    );
+    const snapshot = await programsQuery.get();
+    return snapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
   }
 
   /**
@@ -72,10 +55,10 @@ export class ProgramRepository {
     programId: string,
     status: ProgramStatus
   ): Promise<void> {
-    const programRef = doc(this.db, this.COLLECTION, programId);
-    await updateDoc(programRef, {
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
+    await programRef.update({
       status,
-      updatedAt: Timestamp.now(),
+      updatedAt: new Date(),
     });
   }
 
@@ -85,17 +68,18 @@ export class ProgramRepository {
    * @returns The program data or null if not found
    */
   async getProgram(programId: string): Promise<Program | null> {
-    const programRef = doc(this.db, this.COLLECTION, programId);
-    const programDoc = await getDoc(programRef);
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
+    const exists = await programRef.exists();
 
-    if (!programDoc.exists()) {
+    if (!exists) {
       return null;
     }
 
+    const data = await programRef.data();
     return {
-      ...programDoc.data(),
-      id: programDoc.id,
-    } as Program;
+      ...data,
+      id: programRef.id,
+    };
   }
 
   /**
@@ -107,11 +91,11 @@ export class ProgramRepository {
     programId: string,
     policyAreas: Program["policyAreas"]
   ): Promise<void> {
-    const programRef = doc(this.db, this.COLLECTION, programId);
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
 
-    await updateDoc(programRef, {
+    await programRef.update({
       policyAreas,
-      updatedAt: Timestamp.now(),
+      updatedAt: new Date(),
     });
   }
 
@@ -124,11 +108,11 @@ export class ProgramRepository {
     programId: string,
     validation: Program["financialValidation"]
   ): Promise<void> {
-    const programRef = doc(this.db, this.COLLECTION, programId);
+    const programRef = this.db.doc<Program>(this.COLLECTION, programId);
 
-    await updateDoc(programRef, {
+    await programRef.update({
       financialValidation: validation,
-      updatedAt: Timestamp.now(),
+      updatedAt: new Date(),
     });
   }
 }

@@ -22,16 +22,16 @@
       "focus": "Focus on ideas over personalities"
     },
     "programs": {
-      "title": "Featured Programs",
-      "description": "Explore citizen-created programs that shape our future. Each program represents a vision for change, backed by detailed plans and community support. Vote, discuss, and create your own program to make a difference.",
-      "empty": "No programs available",
+      "title": "Programs",
+      "description": "Discover programs proposed by citizens",
+      "empty": "No programs have been created yet",
       "create": {
-        "title": "Create Your Program",
-        "description": "Share your vision for the future"
+        "title": "Create a program",
+        "description": "Propose your ideas to improve our society"
       },
       "metrics": {
-        "support": "Support",
-        "feasible": "Feasible",
+        "support": "support",
+        "feasible": "feasibility",
         "votes": "votes"
       }
     }
@@ -39,7 +39,10 @@
   "auth": {
     "loginRequired": "Login Required",
     "loginToCreate": "Please login to create a program",
-    "error": "Authentication failed. Please try again."
+    "error": "Authentication failed. Please try again.",
+    "signingIn": "Signing in...",
+    "continueWithGoogle": "Continue with Google",
+    "signOut": "Sign Out"
   },
   "programs": {
     "create": {
@@ -97,6 +100,19 @@
       },
       "errors": {
         "required": "Please fill in all required fields"
+      }
+    }
+  },
+  "about": {
+    "title": "About Neo Republic",
+    "description": "Neo Republic is an innovative democratic platform that enables citizens to propose and evaluate political programs.",
+    "features": {
+      "title": "Key Features",
+      "list": {
+        "propose": "Propose your program ideas",
+        "evaluate": "Evaluate proposal feasibility",
+        "vote": "Vote for the best programs",
+        "discuss": "Participate in discussions"
       }
     }
   }

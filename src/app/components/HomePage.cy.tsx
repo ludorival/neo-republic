@@ -1,6 +1,6 @@
 import React from 'react'
-import { auth } from '@/lib/firebase/auth'
-import { Program } from '@/types/program'
+import { auth } from '@/infra/firebase/auth'
+import { Program } from '@/domain/models/program'
 import messages from '../../../messages/fr.json'
 import HomePage from './HomePage'
 
@@ -321,7 +321,12 @@ describe('<Home />', () => {
     })
 
     it('redirects to program creation after successful authentication', () => {
-        stubSignInWithGoogle.resolves()
+        stubSignInWithGoogle.resolves({
+            uid: '123',
+            email: 'john@example.com',
+            displayName: 'John Doe',
+            photoURL: 'https://example.com/profile.jpg'
+        })
         cy.mount(<HomePage />)
       
       // Click create program, then authenticate

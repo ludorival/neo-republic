@@ -1,10 +1,10 @@
 'use client'
-import { Program } from '@/types/program'
+import { Program } from '@/domain/models/program'
 import { Card, CardBody, CardHeader } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 import LoginModal from './LoginModal'
-import { useAuth } from '@/hooks/useAuth'
+import { useAuth } from '@/app/hooks/useAuth'
 import { useRouter } from 'next/navigation'
 
 type ProgramsListProps = {

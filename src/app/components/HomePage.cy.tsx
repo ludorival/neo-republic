@@ -1,8 +1,8 @@
 import React from 'react'
-import Home from './page'
 import { auth } from '@/lib/firebase/auth'
 import { Program } from '@/types/program'
-import messages from '../../messages/fr.json'
+import messages from '../../../messages/fr.json'
+import HomePage from './HomePage'
 
 describe('<Home />', () => {
   let stubSignInWithGoogle: sinon.SinonStub
@@ -14,7 +14,7 @@ describe('<Home />', () => {
   })
 
   it('renders top bar with navigation and login button', () => {
-    cy.mount(<Home programs={[]} />)
+    cy.mount(<HomePage programs={[]} />)
     
     cy.get('[data-testid="top-bar"]').should('exist')
     cy.get('a').contains('About').should('exist').should('have.attr', 'href', '/about')
@@ -25,7 +25,7 @@ describe('<Home />', () => {
   })
 
   it('opens login modal when clicking login button', () => {
-    cy.mount(<Home programs={[]} />)
+    cy.mount(<HomePage programs={[]} />)
     
     cy.get('[data-testid="login-button"]').click()
     cy.get('[data-testid="login-modal"]')
@@ -38,7 +38,7 @@ describe('<Home />', () => {
 
   it('calls Google sign in when clicking Google button', () => {
     stubSignInWithGoogle.resolves()
-    cy.mount(<Home programs={[]} />)
+    cy.mount(<HomePage programs={[]} />)
     
     // Open modal and click Google sign-in button
     cy.get('[data-testid="login-button"]').click()
@@ -52,7 +52,7 @@ describe('<Home />', () => {
     // Update stub to reject with error
     stubSignInWithGoogle.rejects(new Error('Authentication failed'))
       
-    cy.mount(<Home programs={[]} />)
+    cy.mount(<HomePage programs={[]} />)
     
     // Open modal and click Google sign-in button
     cy.get('[data-testid="login-button"]').click()
@@ -78,7 +78,7 @@ describe('<Home />', () => {
       return () => {}
     })
 
-    cy.mount(<Home programs={[]} />)
+    cy.mount(<HomePage programs={[]} />)
     
     // Verify login button is replaced with user name
     cy.get('[data-testid="login-button"]').should('not.exist')
@@ -108,7 +108,7 @@ describe('<Home />', () => {
     // Stub the signOut method
     cy.stub(auth, 'signOut').as('signOut').resolves()
 
-    cy.mount(<Home programs={[]} />)
+    cy.mount(<HomePage programs={[]} />)
     
     // Verify user menu is shown
     cy.get('[data-testid="user-menu-trigger"]')
@@ -192,7 +192,7 @@ describe('<Home />', () => {
     ]
 
     it('displays a horizontal scrollable list of program cards', () => {
-      cy.mount(<Home programs={mockPrograms} />)
+      cy.mount(<HomePage programs={mockPrograms} />)
       
       cy.get('[data-testid="programs-list"]')
         .should('exist')
@@ -209,7 +209,7 @@ describe('<Home />', () => {
     })
 
     it('renders program cards with correct information', () => {
-      cy.mount(<Home programs={mockPrograms} />)
+      cy.mount(<HomePage programs={mockPrograms} />)
       
       cy.get('[data-testid="program-card"]').should('have.length', 2)
       
@@ -231,7 +231,7 @@ describe('<Home />', () => {
     })
 
     it('displays empty state when no programs are available', () => {
-      cy.mount(<Home programs={[]} />)
+      cy.mount(<HomePage programs={[]} />)
       
       cy.get('[data-testid="programs-empty"]')
         .should('exist')
@@ -245,7 +245,7 @@ describe('<Home />', () => {
     })
 
     it('displays create program card at the end of the list', () => {
-      cy.mount(<Home programs={mockPrograms} />)
+      cy.mount(<HomePage programs={mockPrograms} />)
       
       cy.get('[data-testid="create-program-card"]')
         .should('exist')
@@ -254,4 +254,4 @@ describe('<Home />', () => {
         .should('contain', messages.home.programs.create.title)
     })
   })
-})
+}) 

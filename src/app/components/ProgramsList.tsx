@@ -1,3 +1,4 @@
+'use client'
 import { Program } from '@/types/program'
 import { Card, CardBody, CardHeader } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'

@@ -39,7 +39,10 @@
   "auth": {
     "loginRequired": "Connexion Requise",
     "loginToCreate": "Veuillez vous connecter pour créer un programme",
-    "error": "Échec de l'authentification. Veuillez réessayer."
+    "error": "Échec de l'authentification. Veuillez réessayer.",
+    "signingIn": "Connexion en cours...",
+    "continueWithGoogle": "Continuer avec Google",
+    "signOut": "Se déconnecter"
   },
   "programs": {
     "create": {
@@ -97,6 +100,19 @@
       },
       "errors": {
         "required": "Veuillez remplir tous les champs obligatoires"
+      }
+    }
+  },
+  "about": {
+    "title": "À propos de Neo Republic",
+    "description": "Neo Republic est une plateforme démocratique innovante qui permet aux citoyens de proposer et d'évaluer des programmes politiques.",
+    "features": {
+      "title": "Fonctionnalités clés",
+      "list": {
+        "propose": "Proposez vos idées de programmes",
+        "evaluate": "Évaluez la faisabilité des propositions",
+        "vote": "Votez pour les meilleurs programmes",
+        "discuss": "Participez aux discussions"
       }
     }
   }

@@ -321,7 +321,12 @@ describe('<Home />', () => {
     })
 
     it('redirects to program creation after successful authentication', () => {
-        stubSignInWithGoogle.resolves()
+        stubSignInWithGoogle.resolves({
+            uid: '123',
+            email: 'john@example.com',
+            displayName: 'John Doe',
+            photoURL: 'https://example.com/profile.jpg'
+        })
         cy.mount(<HomePage />)
       
       // Click create program, then authenticate

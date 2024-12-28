@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, Button, Spinner } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
-import { auth } from '@/infra/firebase/auth'
+import { signInWithGoogle } from '@/actions/auth/signInWithGoogle'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -19,12 +19,12 @@ const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
       setIsLoading(true)
       setError(null)
       
-      await auth.signInWithGoogle()
+      await signInWithGoogle()
       onClose()
       onSuccess?.()
     } catch (error) {
       console.error('Authentication error:', error)
-      setError(t('home.authError'))
+      setError(t('auth.error'))
     } finally {
       setIsLoading(false)
     }
@@ -82,7 +82,7 @@ const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
                 />
               </svg>
             )}
-            {isLoading ? t('home.signingIn') : t('home.continueWithGoogle')}
+            {isLoading ? t('auth.signingIn') : t('auth.continueWithGoogle')}
           </Button>
         </ModalBody>
       </ModalContent>

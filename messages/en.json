@@ -40,5 +40,37 @@
     "loginRequired": "Login Required",
     "loginToCreate": "Please login to create a program",
     "error": "Authentication failed. Please try again."
+  },
+  "programs": {
+    "create": {
+      "title": "Create a Program",
+      "description": "Select the policy areas you want to address in your program.",
+      "policyAreas": {
+        "title": "Policy Areas",
+        "economy": {
+          "title": "Economy",
+          "description": "Economic, fiscal, and monetary policies"
+        },
+        "education": {
+          "title": "Education",
+          "description": "Education system and training"
+        },
+        "environment": {
+          "title": "Environment",
+          "description": "Environmental protection and sustainable development"
+        },
+        "healthcare": {
+          "title": "Healthcare",
+          "description": "Healthcare system and public health policies"
+        },
+        "social": {
+          "title": "Social",
+          "description": "Social welfare and social policies"
+        }
+      },
+      "errors": {
+        "required": "Please fill in all required fields"
+      }
+    }
   }
 } 

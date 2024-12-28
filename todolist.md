@@ -29,7 +29,7 @@
 ### Home Page UI Implementation
 - [x] [Create horizontal program cards list component](https://github.com/ludorival/neo-republic/issues/33)
 - [ ] [Implement program creation card with CTA button](https://github.com/ludorival/neo-republic/issues/34)
-- [ ] [Add authentication flow for program creation](https://github.com/ludorival/neo-republic/issues/35)
+- [x] [Add authentication flow for program creation](https://github.com/ludorival/neo-republic/issues/35)
 - [ ] [Create program list data fetching and state management](https://github.com/ludorival/neo-republic/issues/36)
 
 ### Program Creation Interface

@@ -40,5 +40,37 @@
     "loginRequired": "Connexion Requise",
     "loginToCreate": "Veuillez vous connecter pour créer un programme",
     "error": "Échec de l'authentification. Veuillez réessayer."
+  },
+  "programs": {
+    "create": {
+      "title": "Créer un Programme",
+      "description": "Sélectionnez les domaines politiques que vous souhaitez aborder dans votre programme.",
+      "policyAreas": {
+        "title": "Domaines Politiques",
+        "economy": {
+          "title": "Économie",
+          "description": "Politiques économiques, fiscales et monétaires"
+        },
+        "education": {
+          "title": "Éducation",
+          "description": "Système éducatif et formation"
+        },
+        "environment": {
+          "title": "Environnement",
+          "description": "Protection de l'environnement et développement durable"
+        },
+        "healthcare": {
+          "title": "Santé",
+          "description": "Système de santé et politiques de santé publique"
+        },
+        "social": {
+          "title": "Social",
+          "description": "Protection sociale et politiques sociales"
+        }
+      },
+      "errors": {
+        "required": "Veuillez remplir tous les champs obligatoires"
+      }
+    }
   }
 } 

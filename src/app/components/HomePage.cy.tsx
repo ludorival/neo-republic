@@ -254,4 +254,74 @@ describe('<Home />', () => {
         .should('contain', messages.home.programs.create.title)
     })
   })
+
+  describe('Program Creation Authentication', () => {
+    it('shows login modal when unauthenticated user clicks create program', () => {
+        cy.mount(<HomePage />)
+      
+      cy.get('[data-testid="create-program-card"]').click()
+      cy.get('[data-testid="login-modal"]')
+        .should('exist')
+        .should('be.visible')
+      cy.get('[data-testid="login-modal-title"]')
+        .should('contain', messages.auth.loginRequired)
+      cy.get('[data-testid="login-modal-message"]')
+        .should('contain', messages.auth.loginToCreate)
+    })
+
+    it('redirects to program creation when authenticated user clicks create program', () => {
+      // Mock authenticated user
+      const mockUser = {
+        displayName: 'John Doe',
+        email: 'john@example.com',
+        uid: '123',
+        photoURL: null
+      }
+      cy.stub(auth, 'onAuthStateChanged').callsFake(callback => {
+        callback(mockUser)
+        return () => {}
+      })
+
+      cy.mount(<HomePage />)
+      
+      cy.get('[data-testid="create-program-card"]').click()
+      cy.get('@routerPush')
+        .should('have.been.calledOnce')
+        .and('have.been.calledWith', '/programs/create')
+    })
+
+    it('redirects to program creation after successful authentication', () => {
+        stubSignInWithGoogle.resolves()
+        cy.mount(<HomePage />)
+      
+      // Click create program, then authenticate
+      cy.get('[data-testid="create-program-card"]').click()
+      cy.get('[data-testid="google-signin-button"]').click()
+      
+      // Verify navigation after successful auth
+      cy.get('@routerPush')
+        .should('have.been.calledOnce')
+        .and('have.been.calledWith', '/programs/create')
+    })
+
+    it('shows error message when authentication fails during program creation', () => {
+      // Update stub to reject with error
+      stubSignInWithGoogle.rejects(new Error('Authentication failed'))
+      
+      cy.mount(<HomePage />)
+      
+      // Click create program, then try to authenticate
+      cy.get('[data-testid="create-program-card"]').click()
+      cy.get('[data-testid="google-signin-button"]').click()
+      
+      // Verify error message is shown
+      cy.get('[data-testid="error-message"]')
+        .should('exist')
+        .should('be.visible')
+        .should('have.text', messages.auth.error)
+      
+      // Verify we stay on the same page
+      cy.get('[data-testid="login-modal"]').should('be.visible')
+    })
+  })
 }) 

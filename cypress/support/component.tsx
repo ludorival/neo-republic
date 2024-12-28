@@ -23,25 +23,48 @@ import { mount } from '@cypress/react18'
 import { NextIntlClientProvider } from 'next-intl'
 import { NextUIProvider } from '@nextui-org/react'
 import messages from '../../messages/fr.json'
+import { RouterProvider } from '@/test/utils/RouterProvider'
 
-// Augment the Cypress namespace to include type definitions for
-// your custom command.
-// Alternatively, can be defined in cypress/support/component.d.ts
-// with a <reference path="./component" /> at the top of your spec.
+interface MountOptions {
+  router?: {
+    push?: () => void
+    replace?: () => void
+    back?: () => void
+    forward?: () => void
+    refresh?: () => void
+    prefetch?: () => void
+  }
+}
+
 declare global {
   namespace Cypress {
     interface Chainable {
-      mount: typeof mount
+      mount: typeof mount & ((component: React.ReactNode, options?: MountOptions) => Cypress.Chainable)
     }
   }
 }
 
 // Override the existing mount command
-Cypress.Commands.add('mount', (component) => {
+Cypress.Commands.add('mount', (component, options: MountOptions = {}) => {
+  const { router = {} } = options
+
+  // Create router stubs for this test
+  const routerStubs = {
+    push: cy.stub().as('routerPush'),
+    replace: cy.stub().as('routerReplace'),
+    back: cy.stub().as('routerBack'),
+    forward: cy.stub().as('routerForward'),
+    refresh: cy.stub().as('routerRefresh'),
+    prefetch: cy.stub().as('routerPrefetch'),
+    ...router
+  }
+
   return mount(
     <NextUIProvider>
       <NextIntlClientProvider messages={messages} locale="fr">
-        {component}
+        <RouterProvider router={routerStubs}>
+          {component}
+        </RouterProvider>
       </NextIntlClientProvider>
     </NextUIProvider>
   )

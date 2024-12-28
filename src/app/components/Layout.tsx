@@ -1,10 +1,10 @@
 'use client'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './LoginModal'
 import { auth } from '../../lib/firebase/auth'
-import { User } from 'firebase/auth'
+import { useAuth } from '@/hooks/useAuth'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -13,16 +13,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   const t = useTranslations('home')
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const [currentUser, setCurrentUser] = useState<User | null>(null)
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setCurrentUser(user)
-    })
-
-    // Cleanup subscription on unmount
-    return () => unsubscribe()
-  }, [])
+  const { currentUser } = useAuth()
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true)

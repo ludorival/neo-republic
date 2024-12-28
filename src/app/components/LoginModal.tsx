@@ -6,10 +6,11 @@ import { auth } from '@/lib/firebase/auth'
 interface LoginModalProps {
   isOpen: boolean
   onClose: () => void
+  onSuccess?: () => void
 }
 
-const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
-  const t = useTranslations('home')
+const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
+  const t = useTranslations()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -20,9 +21,10 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       
       await auth.signInWithGoogle()
       onClose()
+      onSuccess?.()
     } catch (error) {
       console.error('Authentication error:', error)
-      setError(t('authError'))
+      setError(t('home.authError'))
     } finally {
       setIsLoading(false)
     }
@@ -37,10 +39,13 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
       backdrop="blur"
     >
       <ModalContent>
-        <ModalHeader className="flex flex-col gap-1">
-          {t('login')}
+        <ModalHeader className="flex flex-col gap-1" data-testid="login-modal-title">
+          {t('auth.loginRequired')}
         </ModalHeader>
         <ModalBody className="py-6">
+          <p data-testid="login-modal-message" className="text-default-500 mb-4">
+            {t('auth.loginToCreate')}
+          </p>
           {error && (
             <p className="text-danger text-center mb-4" data-testid="error-message">
               {error}
@@ -77,7 +82,7 @@ const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
                 />
               </svg>
             )}
-            {isLoading ? t('signingIn') : t('continueWithGoogle')}
+            {isLoading ? t('home.signingIn') : t('home.continueWithGoogle')}
           </Button>
         </ModalBody>
       </ModalContent>

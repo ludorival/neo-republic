@@ -35,5 +35,10 @@
         "votes": "votes"
       }
     }
+  },
+  "auth": {
+    "loginRequired": "Connexion Requise",
+    "loginToCreate": "Veuillez vous connecter pour créer un programme",
+    "error": "Échec de l'authentification. Veuillez réessayer."
   }
 } 

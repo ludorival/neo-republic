@@ -26,6 +26,12 @@
 
 ## [Milestone 3: Program Creation 📝](https://github.com/ludorival/neo-republic/milestone/3)
 
+### Home Page UI Implementation
+- [ ] [Create horizontal program cards list component](https://github.com/ludorival/neo-republic/issues/33)
+- [ ] [Implement program creation card with CTA button](https://github.com/ludorival/neo-republic/issues/34)
+- [ ] [Add authentication flow for program creation](https://github.com/ludorival/neo-republic/issues/35)
+- [ ] [Create program list data fetching and state management](https://github.com/ludorival/neo-republic/issues/36)
+
 ### Program Creation Interface
 - [ ] Create program form with all required sections:
   - [ ] [Economy & Finance](https://github.com/ludorival/neo-republic/issues/16)

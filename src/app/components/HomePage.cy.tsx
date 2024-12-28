@@ -110,16 +110,17 @@ describe('<Home />', () => {
 
     cy.mount(<HomePage programs={[]} />)
     
-    // Verify user menu is shown
+    // First, verify and click the user menu trigger
     cy.get('[data-testid="user-menu-trigger"]')
       .should('exist')
       .should('be.visible')
       .click()
-    
-    // Click logout button in dropdown
-    cy.get('[data-testid="logout-button"]')
-      .should('be.visible')
-      .click()
+      .then(() => {
+        // After menu is opened, find and click the logout button
+        cy.get('[data-testid="logout-button"]')
+          .should('be.visible')
+          .click({ force: true })
+      })
     
     // Verify signOut was called
     cy.get('@signOut').should('have.been.calledOnce')

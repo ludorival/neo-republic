@@ -1,7 +1,6 @@
 import { User } from "@/domain/models/user";
-import { UserRepository } from "@/domain/repositories/user";
 import { auth } from "@/infra/firebase/auth";
-import { db } from "@/infra/firebase/firestore";
+import { users } from "@/infra/firebase/firestore";
 
 export async function signInWithGoogle(): Promise<User> {
   // Sign in with Google
@@ -11,7 +10,6 @@ export async function signInWithGoogle(): Promise<User> {
   }
 
   // Create or update user in database
-  const userRepository = new UserRepository(db);
 
   const user: User = {
     id: googleUser.uid,
@@ -25,9 +23,9 @@ export async function signInWithGoogle(): Promise<User> {
   };
 
   // Try to get existing user first
-  const existingUser = await userRepository.getUser(user.id);
+  const existingUser = await users.read(user.id);
   if (!existingUser) {
-    await userRepository.createUser(user);
+    await users.create(user);
   }
 
   return user;

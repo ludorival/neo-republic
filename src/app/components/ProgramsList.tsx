@@ -2,6 +2,10 @@
 import { Program } from '@/types/program'
 import { Card, CardBody, CardHeader } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
+import { useState } from 'react'
+import LoginModal from './LoginModal'
+import { useAuth } from '@/hooks/useAuth'
+import { useRouter } from 'next/navigation'
 
 type ProgramsListProps = {
   programs?: Program[]
@@ -9,12 +13,24 @@ type ProgramsListProps = {
 
 export default function ProgramsList({ programs = [] }: ProgramsListProps) {
   const t = useTranslations('home.programs')
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
+  const { currentUser } = useAuth()
+  const router = useRouter()
+
+  const handleCreateProgramClick = () => {
+    if (!currentUser) {
+      setIsLoginModalOpen(true)
+      return
+    }
+    router.push('/programs/create')
+  }
 
   const CreateProgramCard = () => (
     <Card
       data-testid="create-program-card"
       className="shrink-0 min-w-[300px] max-w-[300px] flex items-center justify-center cursor-pointer hover:bg-default-100"
       isPressable
+      onPress={handleCreateProgramClick}
     >
       <CardBody>
         <div className="text-center">
@@ -117,6 +133,11 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
         </p>
       </div>
       {renderProgramsList()}
+      <LoginModal 
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+        onSuccess={() => router.push('/programs/create')}
+      />
     </div>
   )
 } 

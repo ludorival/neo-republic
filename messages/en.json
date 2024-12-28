@@ -35,5 +35,10 @@
         "votes": "votes"
       }
     }
+  },
+  "auth": {
+    "loginRequired": "Login Required",
+    "loginToCreate": "Please login to create a program",
+    "error": "Authentication failed. Please try again."
   }
 } 

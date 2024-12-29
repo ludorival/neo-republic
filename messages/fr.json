@@ -1,40 +1,290 @@
 {
   "common": {
-    "title": "Créer une App Next",
-    "description": "Généré par create next app",
+    "title": "Neo-Republic",
+    "description": "Une nouvelle approche de la démocratie",
     "learnMore": "En savoir plus",
-    "deploy": "Déployer maintenant",
+    "deploy": "Déployer",
     "readDocs": "Lire la documentation"
+  },
+  "footer": {
+    "about": {
+      "title": "À propos",
+      "description": "Neo Republic est une plateforme de simulation démocratique qui permet aux citoyens de proposer et d'évaluer des programmes politiques de manière anonyme."
+    },
+    "resources": {
+      "title": "Ressources",
+      "documentation": "Documentation",
+      "faq": "FAQ",
+      "api": "Référence API"
+    },
+    "legal": {
+      "title": "Mentions légales",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation",
+      "cookies": "Politique des cookies"
+    },
+    "social": {
+      "title": "Nous suivre"
+    },
+    "copyright": "Tous droits réservés."
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Cette Politique de Confidentialité décrit comment Neo Republic ('nous', 'notre' ou 'nos') collecte et traite vos informations via notre plateforme. Nous utilisons Google Firebase pour notre infrastructure, et en utilisant notre service, vous acceptez également la Politique de Confidentialité et les Conditions d'Utilisation de Google."
+    },
+    "dataCollection": {
+      "title": "Collecte des Données",
+      "description": "Nous collectons et traitons les informations via les services Firebase :",
+      "items": {
+        "authentication": "Données d'authentification via Firebase Authentication (Connexion Google)",
+        "usage": "Données d'utilisation et interactions stockées dans Firebase Firestore",
+        "technical": "Informations techniques traitées par Firebase Analytics et Performance Monitoring",
+        "hosting": "Journaux d'accès et données connexes via Firebase Hosting"
+      }
+    },
+    "dataUse": {
+      "title": "Utilisation des Données",
+      "description": "Vos données sont traitées et stockées via les services Firebase aux fins suivantes :",
+      "items": {
+        "service": "Pour authentifier et maintenir votre compte via Firebase Authentication",
+        "storage": "Pour stocker et récupérer vos propositions de programmes et votes dans Firebase Firestore",
+        "analytics": "Pour analyser l'utilisation de la plateforme via Firebase Analytics",
+        "security": "Pour assurer la sécurité de la plateforme via les règles de sécurité Firebase"
+      }
+    },
+    "dataSecurity": {
+      "title": "Sécurité des Données",
+      "description": "Nous implémentons les règles de sécurité Firebase et suivons les meilleures pratiques de sécurité de Google Cloud pour protéger vos données. Toutes les données sont chiffrées en transit et au repos selon les normes de sécurité Firebase."
+    },
+    "dataLocation": {
+      "title": "Localisation des Données",
+      "description": "Vos données sont stockées dans les centres de données de Google Cloud Platform, principalement dans l'Union Européenne, conformément aux exigences du RGPD."
+    },
+    "userRights": {
+      "title": "Vos Droits",
+      "description": "Selon le RGPD et autres lois applicables, vous disposez de certains droits concernant vos données :",
+      "items": {
+        "access": "Droit d'accès à vos données personnelles stockées dans Firebase",
+        "rectification": "Droit de rectification des données inexactes dans nos bases de données",
+        "deletion": "Droit de demander la suppression de vos données des services Firebase",
+        "portability": "Droit à la portabilité des données dans un format lisible par machine"
+      }
+    },
+    "thirdParty": {
+      "title": "Services Tiers",
+      "description": "Nous utilisons les services Firebase suivants :",
+      "items": {
+        "auth": "Firebase Authentication pour la gestion des utilisateurs",
+        "firestore": "Cloud Firestore pour le stockage des données",
+        "analytics": "Firebase Analytics pour l'analyse d'utilisation",
+        "hosting": "Firebase Hosting pour l'hébergement web"
+      }
+    },
+    "contact": {
+      "title": "Nous Contacter",
+      "description": "Pour toute question relative à la confidentialité ou pour exercer vos droits sur vos données, veuillez nous contacter. Pour plus d'informations sur le traitement de vos données par Google, veuillez consulter la Politique de Confidentialité de Google."
+    }
+  },
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "introduction": {
+      "title": "Introduction",
+      "description": "En utilisant Neo Republic, vous acceptez ces conditions ainsi que les conditions d'utilisation sous-jacentes de Google Firebase."
+    },
+    "acceptance": {
+      "title": "Acceptation des Conditions",
+      "description": "En accédant ou en utilisant Neo Republic, vous acceptez d'être lié par ces conditions d'utilisation et les conditions d'utilisation de Firebase."
+    },
+    "userConduct": {
+      "title": "Conduite des Utilisateurs",
+      "description": "Les utilisateurs doivent suivre ces directives lors de l'utilisation de la plateforme :",
+      "items": {
+        "respect": "Respecter les autres utilisateurs et leurs opinions",
+        "content": "Publier uniquement du contenu approprié et pertinent",
+        "security": "Ne pas tenter de contourner les mesures de sécurité Firebase",
+        "accuracy": "Fournir des informations exactes dans les propositions de programme",
+        "abuse": "Ne pas abuser des services Firebase ou dépasser les quotas d'utilisation"
+      }
+    },
+    "content": {
+      "title": "Politique de Contenu",
+      "description": "Directives pour le contenu hébergé sur la plateforme Firebase :",
+      "items": {
+        "ownership": "Vous conservez la propriété de votre contenu stocké dans Firebase",
+        "license": "Vous nous accordez une licence pour stocker et traiter votre contenu via les services Firebase",
+        "removal": "Nous nous réservons le droit de supprimer tout contenu qui viole les politiques Firebase"
+      }
+    },
+    "service": {
+      "title": "Fourniture du Service",
+      "description": "Notre service est fourni via la plateforme Firebase :",
+      "items": {
+        "availability": "La disponibilité du service dépend de l'infrastructure Firebase",
+        "maintenance": "La maintenance périodique suit les fenêtres de maintenance Firebase",
+        "limits": "Les limites de service sont soumises aux quotas et restrictions Firebase"
+      }
+    },
+    "liability": {
+      "title": "Limitation de Responsabilité",
+      "description": "Neo Republic et Firebase ne sont pas responsables des dommages indirects, accessoires ou consécutifs."
+    },
+    "termination": {
+      "title": "Résiliation du Compte",
+      "description": "Nous nous réservons le droit de résilier les comptes qui violent ces conditions ou les conditions d'utilisation de Firebase."
+    },
+    "changes": {
+      "title": "Modifications des Conditions",
+      "description": "Nous pouvons mettre à jour ces conditions pour refléter les changements dans les services Firebase ou notre plateforme."
+    }
+  },
+  "cookies": {
+    "title": "Politique des Cookies",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Cette politique explique comment nous utilisons les cookies et les technologies Firebase."
+    },
+    "firebaseCookies": {
+      "title": "Cookies Firebase et Stockage Local",
+      "description": "Nous utilisons les services Firebase qui stockent des données localement :",
+      "items": {
+        "auth": {
+          "title": "Jetons d'Authentification",
+          "description": "Firebase Authentication stocke des jetons pour la gestion des sessions utilisateur"
+        },
+        "analytics": {
+          "title": "Données Analytics",
+          "description": "Firebase Analytics utilise des cookies pour analyser les modèles d'utilisation"
+        },
+        "performance": {
+          "title": "Données de Performance",
+          "description": "Firebase Performance Monitoring collecte des métriques de performance"
+        }
+      }
+    },
+    "control": {
+      "title": "Contrôle des Cookies",
+      "description": "Vous pouvez contrôler le stockage lié à Firebase :",
+      "items": {
+        "browser": "Ajuster les paramètres du navigateur pour gérer les cookies Firebase",
+        "settings": "Utiliser nos paramètres de confidentialité Firebase",
+        "optout": "Désactiver la collecte Firebase Analytics"
+      }
+    },
+    "updates": {
+      "title": "Mises à Jour de Cette Politique",
+      "description": "Cette politique peut être mise à jour pour refléter les changements dans les services Firebase ou la réglementation."
+    }
+  },
+  "programs": {
+    "title": "Programmes",
+    "description": "Découvrez les programmes proposés par les citoyens",
+    "empty": "Aucun programme n'a encore été créé",
+    "create": {
+      "title": "Créer un Nouveau Programme",
+      "description": "Définissez votre programme politique en spécifiant des objectifs pour chaque domaine politique.",
+      "form": {
+        "programSlogan": "Slogan du Programme",
+        "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
+        "programDescription": "Description du Programme",
+        "descriptionPlaceholder": "Décrivez la vision et les objectifs principaux de votre programme",
+        "addNewPoint": "Ajouter un Point",
+        "editPoint": "Modifier le Point",
+        "description": "Description",
+        "revenue": "Revenus",
+        "expense": "Dépenses",
+        "close": "Fermer",
+        "save": "Enregistrer",
+        "addPoint": "Ajouter le Point",
+        "policyPoints": "Points Politiques",
+        "pointsAdded": "points ajoutés",
+        "edit": "Modifier",
+        "remove": "Supprimer",
+        "saveDraft": "Enregistrer le Brouillon",
+        "publishProgram": "Publier le Programme"
+      },
+      "policyAreas": {
+        "title": "Domaines Politiques",
+        "economy": {
+          "title": "Économie",
+          "description": "Politiques économiques et objectifs financiers"
+        },
+        "social": {
+          "title": "Affaires Sociales",
+          "description": "Protection sociale et développement communautaire"
+        },
+        "education": {
+          "title": "Éducation",
+          "description": "Système éducatif et initiatives d'apprentissage"
+        },
+        "infrastructure": {
+          "title": "Infrastructure",
+          "description": "Infrastructure publique et développement urbain"
+        },
+        "environment": {
+          "title": "Environnement",
+          "description": "Protection de l'environnement et durabilité"
+        },
+        "security": {
+          "title": "Sécurité",
+          "description": "Sécurité publique et sécurité nationale"
+        }
+      }
+    },
+    "metrics": {
+      "support": "soutien",
+      "feasible": "faisabilité",
+      "votes": "votes"
+    }
   },
   "home": {
     "appTitle": "Neo-Republic",
     "login": "Connexion",
     "logout": "Déconnexion",
+    "hero": {
+      "title": "Réinventer la Démocratie par le Vote Programmatique",
+      "subtitle": "Votez pour des idées, pas pour des personnalités. Une nouvelle approche de la participation démocratique."
+    },
+    "countdown": {
+      "submission": "Date limite de soumission des programmes",
+      "election": "Jour de l'élection",
+      "days": "jours",
+      "hours": "heures",
+      "minutes": "minutes",
+      "seconds": "secondes"
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "citizen": {
+        "title": "En tant que Citoyen",
+        "vote": "Votez le jour de l'élection ou exprimez vos intentions de vote pour les programmes qui vous intéressent",
+        "propose": "Proposez vos propres programmes avec des objectifs politiques détaillés"
+      },
+      "party": {
+        "title": "En tant que Parti Politique",
+        "propose": "Soumettez vos programmes politiques complets"
+      },
+      "expert": {
+        "title": "En tant qu'Expert",
+        "description": "Examinez les programmes et validez les données financières des objectifs proposés",
+        "apply": "Postuler comme Expert"
+      }
+    },
+    "about": {
+      "title": "À propos du Projet",
+      "description": "Cette simulation démocratique vise à déplacer l'attention de la politique basée sur la personnalité vers une prise de décision fondée sur les programmes. En permettant des soumissions anonymes de programmes et une validation par des experts, nous créons un espace où les idées peuvent être évaluées uniquement sur leurs mérites.",
+      "goals": {
+        "title": "Nos Objectifs",
+        "focus": "Priorité aux programmes plutôt qu'aux personnalités",
+        "transparency": "Assurer la transparence financière",
+        "participation": "Augmenter la participation citoyenne",
+        "quality": "Améliorer la qualité du débat politique"
+      }
+    },
     "continueWithGoogle": "Continuer avec Google",
     "signingIn": "Connexion en cours...",
-    "authError": "Échec de l'authentification. Veuillez réessayer.",
-    "description": "Les citoyens votent pour des programmes politiques détaillés plutôt que pour des candidats ou des partis. Notre plateforme permet des soumissions anonymes de programmes pour se concentrer sur les idées plutôt que sur les personnalités, garantissant que tous les programmes sont complets et financièrement équilibrés.",
-    "keyFeatures": "Caractéristiques Principales",
-    "features": {
-      "anonymous": "Soumissions anonymes des programmes",
-      "comprehensive": "Couverture politique complète",
-      "financial": "Système de validation financière",
-      "focus": "Accent sur les idées plutôt que les personnalités"
-    },
-    "programs": {
-      "title": "Programmes en Vedette",
-      "description": "Découvrez les programmes créés par les citoyens qui façonnent notre avenir. Chaque programme représente une vision du changement, soutenue par des plans détaillés et le soutien de la communauté. Votez, discutez et créez votre propre programme pour faire la différence.",
-      "empty": "Aucun programme disponible",
-      "create": {
-        "title": "Créer Votre Programme",
-        "description": "Partagez votre vision de l'avenir"
-      },
-      "metrics": {
-        "support": "Soutien",
-        "feasible": "Faisable",
-        "votes": "votes"
-      }
-    }
+    "authError": "Échec de l'authentification. Veuillez réessayer."
   },
   "auth": {
     "loginRequired": "Connexion Requise",
@@ -42,78 +292,6 @@
     "error": "Échec de l'authentification. Veuillez réessayer.",
     "signingIn": "Connexion en cours...",
     "continueWithGoogle": "Continuer avec Google",
-    "signOut": "Se déconnecter"
-  },
-  "programs": {
-    "create": {
-      "title": "Créer un Programme",
-      "description": "Sélectionnez les domaines politiques que vous souhaitez aborder dans votre programme.",
-      "continue": "Continuer",
-      "form": {
-        "addNewPoint": "Ajouter un objectif",
-        "addPoint": "Ajouter",
-        "editPoint": "Modifier l'objectif",
-        "edit": "Modifier",
-        "save": "Enregistrer",
-        "close": "Fermer",
-        "policyPoints": "Objectifs",
-        "pointsAdded": "objectifs ajoutés",
-        "remove": "Supprimer",
-        "budget": "Budget",
-        "revenue": "Revenu",
-        "expense": "Dépense",
-        "completeArea": "Terminer le Domaine",
-        "saveDraft": "Enregistrer le Brouillon",
-        "publishProgram": "Publier le Programme",
-        "description": "Description",
-        "programSlogan": "Slogan du Programme",
-        "programDescription": "Description du Programme",
-        "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
-        "descriptionPlaceholder": "Décrivez brièvement la vision et les objectifs de votre programme"
-      },
-      "policyAreas": {
-        "title": "Domaines Politiques",
-        "economy": {
-          "title": "Économie",
-          "description": "Politiques économiques, fiscales et monétaires"
-        },
-        "education": {
-          "title": "Éducation",
-          "description": "Système éducatif et formation"
-        },
-        "environment": {
-          "title": "Environnement",
-          "description": "Protection de l'environnement et développement durable"
-        },
-        "social": {
-          "title": "Social",
-          "description": "Protection sociale et politiques sociales"
-        },
-        "infrastructure": {
-          "title": "Infrastructure",
-          "description": "Transport, travaux publics et développement urbain"
-        },
-        "security": {
-          "title": "Sécurité & Justice",
-          "description": "Forces de l'ordre, défense nationale et système judiciaire"
-        }
-      },
-      "errors": {
-        "required": "Veuillez remplir tous les champs obligatoires"
-      }
-    }
-  },
-  "about": {
-    "title": "À propos de Neo Republic",
-    "description": "Neo Republic est une plateforme démocratique innovante qui permet aux citoyens de proposer et d'évaluer des programmes politiques.",
-    "features": {
-      "title": "Fonctionnalités clés",
-      "list": {
-        "propose": "Proposez vos idées de programmes",
-        "evaluate": "Évaluez la faisabilité des propositions",
-        "vote": "Votez pour les meilleurs programmes",
-        "discuss": "Participez aux discussions"
-      }
-    }
+    "signOut": "Déconnexion"
   }
 } 

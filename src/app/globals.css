@@ -2,22 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  min-height: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
 /* Custom classes for our home page */
@@ -35,6 +28,6 @@ body {
   }
 
   .nav-blur {
-    @apply bg-white/70 dark:bg-black/70 backdrop-blur-md border-b border-divider;
+    @apply bg-primary-900/90 backdrop-blur-md border-b border-primary-800/50 text-white;
   }
 }

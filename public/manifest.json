@@ -1,0 +1,17 @@
+{
+  "name": "Neo Republic",
+  "short_name": "Neo Republic",
+  "description": "A platform for collaborative program proposals and civic engagement",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1A1A1A",
+  "theme_color": "#4F46E5",
+  "icons": [
+    {
+      "src": "/images/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+} 

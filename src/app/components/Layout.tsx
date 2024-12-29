@@ -1,10 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
+import { Navbar, NavbarBrand, NavbarContent, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './LoginModal'
 import { auth } from '../../infra/firebase/auth'
 import { useAuth } from '@/app/hooks/useAuth'
+import Image from 'next/image'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -28,20 +29,20 @@ export default function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar data-testid="top-bar" className="nav-blur">
         <NavbarBrand>
-          <Link href="/" color="foreground">
+          <Link href="/" className="text-white flex items-center gap-3">
+            <Image 
+              src="/images/icon.svg" 
+              alt="Neo Republic Logo" 
+              width={32} 
+              height={32} 
+              className="rounded-lg"
+            />
             <p className="font-bold text-xl">{t('appTitle')}</p>
           </Link>
         </NavbarBrand>
-        <NavbarContent justify="center">
-          <NavbarItem>
-            <Link href="/about" color="foreground">
-              About
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
         <NavbarContent justify="end">
           {currentUser ? (
             <Dropdown placement="bottom-end">
@@ -52,16 +53,19 @@ export default function Layout({ children }: LayoutProps) {
                     src={currentUser.photoURL || undefined}
                     size="sm"
                   />
-                  <span data-testid="user-name" className="text-lg">
+                  <span data-testid="user-name" className="text-lg text-white">
                     {currentUser.displayName}
                   </span>
                 </div>
               </DropdownTrigger>
-              <DropdownMenu aria-label="User menu">
+              <DropdownMenu 
+                aria-label="User menu"
+                className="bg-primary-900/90 backdrop-blur-md text-white"
+              >
                 <DropdownItem 
                   key="logout" 
                   data-testid="logout-button"
-                  className="text-danger" 
+                  className="text-danger-400 hover:text-danger-300" 
                   color="danger"
                   onPress={handleLogoutClick}
                 >
@@ -76,6 +80,7 @@ export default function Layout({ children }: LayoutProps) {
               variant="shadow"
               size="lg"
               onPress={handleLoginClick}
+              className="bg-primary-700 hover:bg-primary-600"
             >
               {t('login')}
             </Button>
@@ -88,11 +93,9 @@ export default function Layout({ children }: LayoutProps) {
         onClose={() => setIsLoginModalOpen(false)}
       />
 
-      <main className="min-h-screen hero-gradient">
-        <div className="max-w-7xl mx-auto p-8">
-          {children}
-        </div>
-      </main>
-    </>
+      <div className="flex-grow">
+        {children}
+      </div>
+    </div>
   )
 } 

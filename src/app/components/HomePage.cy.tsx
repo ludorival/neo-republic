@@ -25,7 +25,6 @@ describe('<Home />', () => {
     cy.mount(<HomePage programs={[]} />)
     
     cy.get('[data-testid="top-bar"]').should('exist')
-    cy.get('a').contains('About').should('exist').should('have.attr', 'href', '/about')
     cy.get('[data-testid="login-button"]')
       .should('exist')
       .should('have.text', 'Connexion')

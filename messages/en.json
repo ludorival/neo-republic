@@ -175,61 +175,82 @@
     "title": "Programs",
     "description": "Discover programs proposed by citizens",
     "empty": "No programs have been created yet",
+    "form": {
+      "editProgram": "Edit Program",
+      "editProgramDescription": "Refine your program by adding objectives and adjusting details for each policy area.",
+      "programSlogan": "Program Slogan",
+      "sloganPlaceholder": "Enter a catchy slogan for your program",
+      "programDescription": "Program Description",
+      "descriptionPlaceholder": "Describe your program's main vision and goals",
+      "addNewObjective": "Add New Objective",
+      "editPoint": "Edit Point",
+      "description": "Description",
+      "revenue": "Revenue",
+      "expense": "Expense",
+      "close": "Close",
+      "save": "Save",
+      "saving": "Saving...",
+      "addPoint": "Add Point",
+      "policyPoints": "Policy Points",
+      "pointsAdded": "points added",
+      "edit": "Edit",
+      "remove": "Remove",
+      "saveDraft": "Save Draft",
+      "publishProgram": "Publish Program",
+      "policyAreas": {
+        "title": "Policy Areas",
+        "complete": "Complete",
+        "incomplete": "Incomplete"
+      },
+      "objective": {
+        "description": "Description",
+        "revenue": "Revenue",
+        "expenses": "Expenses"
+      },
+      "addObjective": "Add Objective",
+      "editObjective": "Edit Objective",
+      "cancel": "Cancel",
+      "publishDisabledTooltip": "Add at least one objective to each policy area before publishing"
+    },
     "create": {
       "title": "Create a New Program",
       "description": "Define your political program by specifying objectives for each policy area.",
-      "form": {
-        "programSlogan": "Program Slogan",
-        "sloganPlaceholder": "Enter a catchy slogan for your program",
-        "programDescription": "Program Description",
-        "descriptionPlaceholder": "Describe your program's main vision and goals",
-        "addNewPoint": "Add New Point",
-        "editPoint": "Edit Point",
-        "description": "Description",
-        "revenue": "Revenue",
-        "expense": "Expense",
-        "close": "Close",
-        "save": "Save",
-        "addPoint": "Add Point",
-        "policyPoints": "Policy Points",
-        "pointsAdded": "points added",
-        "edit": "Edit",
-        "remove": "Remove",
-        "saveDraft": "Save Draft",
-        "publishProgram": "Publish Program"
-      },
-      "policyAreas": {
-        "title": "Policy Areas",
-        "economy": {
-          "title": "Economy",
-          "description": "Economic policies and financial objectives"
-        },
-        "social": {
-          "title": "Social Affairs",
-          "description": "Social welfare and community development"
-        },
-        "education": {
-          "title": "Education",
-          "description": "Educational system and learning initiatives"
-        },
-        "infrastructure": {
-          "title": "Infrastructure",
-          "description": "Public infrastructure and urban development"
-        },
-        "environment": {
-          "title": "Environment",
-          "description": "Environmental protection and sustainability"
-        },
-        "security": {
-          "title": "Security",
-          "description": "Public safety and national security"
-        }
-      }
+      "creating": "Creating your program..."
+    },
+    "edit": {
+      "title": "Edit Your Program",
+      "description": "Continue working on your submitted program"
     },
     "metrics": {
       "support": "support",
       "feasible": "feasibility",
       "votes": "votes"
+    },
+    "policyAreas": {
+      "economy": {
+        "title": "Economy",
+        "description": "Economic policies, fiscal measures, and financial strategies"
+      },
+      "social": {
+        "title": "Social Affairs",
+        "description": "Healthcare, welfare, and social services policies"
+      },
+      "education": {
+        "title": "Education",
+        "description": "Educational system, research, and academic development"
+      },
+      "infrastructure": {
+        "title": "Infrastructure",
+        "description": "Public works, transportation, and urban development"
+      },
+      "environment": {
+        "title": "Environment",
+        "description": "Environmental protection and sustainable development"
+      },
+      "security": {
+        "title": "Security",
+        "description": "Public safety, national security, and defense policies"
+      }
     }
   },
   "home": {

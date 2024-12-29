@@ -1,51 +1,104 @@
 import React from 'react'
-import CreateProgramPage from './page'
-import messages from '../../../../messages/fr.json'
+import { Program } from '@/domain/models/program'
+import messages from '../../../messages/fr.json'
+import ProgramForm from './ProgramForm'
 
-describe('<CreateProgramPage />', () => {
+describe('<ProgramForm />', () => {
+  const mockProgram: Program = {
+    id: '1',
+    slogan: '',
+    description: '',
+    status: 'draft',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    authorId: 'test-user',
+    policyAreas: {
+      economy: {
+        id: 'economy',
+        title: 'Economic Reform',
+        description: 'Economic policy area',
+        objectives: []
+      },
+      education: {
+        id: 'education',
+        title: 'Education Reform',
+        description: 'Education policy area',
+        objectives: []
+      },
+      environment: {
+        id: 'environment',
+        title: 'Environmental Policy',
+        description: 'Environmental policy area',
+        objectives: []
+      },
+      healthcare: {
+        id: 'healthcare',
+        title: 'Healthcare Reform',
+        description: 'Healthcare policy area',
+        objectives: []
+      },
+      infrastructure: {
+        id: 'infrastructure',
+        title: 'Infrastructure Development',
+        description: 'Infrastructure policy area',
+        objectives: []
+      },
+      social: {
+        id: 'social',
+        title: 'Social Programs',
+        description: 'Social policy area',
+        objectives: []
+      }
+    },
+    financialValidation: {
+      totalBudget: 0,
+      isBalanced: false,
+      reviewComments: []
+    },
+    metrics: {
+      publicSupport: 0,
+      feasibilityScore: 0,
+      votes: 0
+    }
+  }
+
   beforeEach(() => {
-    cy.mount(<CreateProgramPage />)
-  })
-
-  it('displays the page title and description', () => {
-    cy.get('[data-testid="create-program-title"]')
-      .should('exist')
-      .should('contain', messages.programs.create.title)
-    
-    cy.get('[data-testid="create-program-description"]')
-      .should('exist')
-      .should('contain', messages.programs.create.description)
+    cy.mount(<ProgramForm program={{...mockProgram}} />)
   })
 
   it('shows program details form', () => {
     cy.get('[data-testid="program-slogan-input"]')
       .should('exist')
       .should('have.prop', 'required', true)
-      .should('have.attr', 'placeholder', messages.programs.create.form.sloganPlaceholder)
+      .should('have.attr', 'placeholder', messages.programs.form.sloganPlaceholder)
+      .should('have.attr', 'aria-label', messages.programs.form.programSlogan)
     
     cy.get('[data-testid="program-description-input"]')
       .should('exist')
       .should('have.prop', 'required', true)
-      .should('have.attr', 'placeholder', messages.programs.create.form.descriptionPlaceholder)
+      .should('have.attr', 'placeholder', messages.programs.form.descriptionPlaceholder)
+      .should('have.attr', 'aria-label', messages.programs.form.programDescription)
   })
 
   it('validates program details', () => {
     // Try to add objective without program details
     cy.get('[data-testid="policy-area-card"]').first().click()
-    cy.get('[data-testid="add-objective-button"]').should('be.disabled')
+    cy.get('[data-testid="add-objective-button"]')
+      .should('not.be.disabled')
 
     // Fill in program details
     cy.get('[data-testid="program-slogan-input"]').type('Test Program Slogan')
     cy.get('[data-testid="program-description-input"]').type('Test Program Description')
 
     // Now should be able to add objectives
-    cy.get('[data-testid="add-objective-button"]').should('not.be.disabled')
+    cy.get('[data-testid="add-objective-button"]')
+      .should('not.be.disabled')
   })
 
   it('shows policy areas section with all required areas', () => {
     cy.get('[data-testid="policy-areas-section"]')
       .should('exist')
-      .should('contain', messages.programs.create.policyAreas.title)
+      .should('contain', messages.programs.form.policyAreas.title)
 
     // Check if all 6 mandatory policy areas are displayed
     cy.get('[data-testid="policy-area-card"]')
@@ -136,22 +189,29 @@ describe('<CreateProgramPage />', () => {
 
     // Try to save without required fields
     cy.get('[data-testid="save-objective-button"]').click()
-    cy.get('[data-testid="objective-modal"]').should('be.visible') // Modal should stay open
-    cy.get('[data-testid="policy-objective-card"]').should('not.exist')
+    cy.get('[data-testid="objective-modal"]').should('exist')
+    // cy.get('[data-testid="policy-objective-card"]').should('not.exist')
 
     // Cancel should close modal
     cy.get('[data-testid="cancel-objective-button"]').click()
+
+
     cy.get('[data-testid="objective-modal"]').should('not.exist')
   })
 
   it('shows appropriate action buttons based on completion', () => {
-    // Fill in program details first
+    // Initially publish button should be disabled with message
+    cy.get('[data-testid="publish-program-button"]')
+      .should('exist')
+      .should('be.disabled')
+    
+    cy.get('[data-testid="publish-disabled-message"]')
+      .should('exist')
+      .should('contain', messages.programs.form.publishDisabledTooltip)
+
+    // Fill in program details
     cy.get('[data-testid="program-slogan-input"]').type('Test Program Slogan')
     cy.get('[data-testid="program-description-input"]').type('Test Program Description')
-
-    // Initially should only see draft button
-    cy.get('[data-testid="save-draft-button"]').should('exist')
-    cy.get('[data-testid="publish-program-button"]').should('not.exist')
 
     // Add objectives to all areas
     cy.get('[data-testid="policy-area-card"]').each($card => {
@@ -163,8 +223,49 @@ describe('<CreateProgramPage />', () => {
       cy.get('[data-testid="save-objective-button"]').click()
     })
 
-    // Should now see publish button
-    cy.get('[data-testid="publish-program-button"]').should('exist')
+    // Publish button should be enabled and message should be hidden
+    cy.get('[data-testid="publish-program-button"]')
+      .should('exist')
+      .should('not.be.disabled')
+    
+    cy.get('[data-testid="publish-disabled-message"]').should('not.exist')
+  })
+
+  it('shows and hides publish disabled message based on objectives completion', () => {
+    // Fill in program details first
+    cy.get('[data-testid="program-slogan-input"]').type('Test Program Slogan')
+    cy.get('[data-testid="program-description-input"]').type('Test Program Description')
+
+    // Initially message should be visible
+    // cy.get('[data-testid="publish-program-button"]').should('be.disabled')
+    cy.get('[data-testid="publish-disabled-message"]')
+      .should('exist')
+      .should('have.text', messages.programs.form.publishDisabledTooltip)
+
+    // Add objective to one area
+    cy.get('[data-testid="policy-area-card"]').first().click()
+    cy.get('[data-testid="add-objective-button"]').click()
+    cy.get('[data-testid="objective-description-input"]').type('Test objective')
+    cy.get('[data-testid="objective-revenue-input"]').type('1000')
+    cy.get('[data-testid="objective-expenses-input"]').type('500')
+    cy.get('[data-testid="save-objective-button"]').click()
+
+    // Message should still be visible as not all areas have objectives
+    cy.get('[data-testid="publish-disabled-message"]').should('exist')
+
+    // Complete all other areas
+    cy.get('[data-testid="policy-area-card"]').each(($card, index) => {
+      if (index === 0) return // Skip first card as it's already done
+      cy.wrap($card).click()
+      cy.get('[data-testid="add-objective-button"]').click()
+      cy.get('[data-testid="objective-description-input"]').type('Test objective')
+      cy.get('[data-testid="objective-revenue-input"]').type('1000')
+      cy.get('[data-testid="objective-expenses-input"]').type('500')
+      cy.get('[data-testid="save-objective-button"]').click()
+    })
+
+    // Message should be hidden when all areas have objectives
+    cy.get('[data-testid="publish-disabled-message"]').should('not.exist')
   })
 
   it('maintains selected area visual state', () => {

@@ -1,11 +1,15 @@
 'use client'
-import { Program } from '@/domain/models/program'
-import { Card, CardBody, CardHeader } from '@nextui-org/react'
+import { createDraftProgram } from '@/actions/programs/createDraftProgram'
+import { PolicyArea, Program } from '@/domain/models/program'
+import { User } from '@/domain/models/user'
+import { Card, CardBody, Spinner } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
-import { useState } from 'react'
-import LoginModal from './LoginModal'
-import { useAuth } from '@/app/hooks/useAuth'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { useUser } from '../contexts/UserContext'
+import LoginModal from './LoginModal'
+
+const policyAreas = ['economy', 'social', 'education', 'infrastructure', 'environment', 'security'] as const
 
 type ProgramsListProps = {
   programs?: Program[]
@@ -14,105 +18,132 @@ type ProgramsListProps = {
 export default function ProgramsList({ programs = [] }: ProgramsListProps) {
   const t = useTranslations('programs')
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const { currentUser } = useAuth()
+  const [isCreating, setIsCreating] = useState(false)
+  const { user } = useUser()
   const router = useRouter()
 
-  const handleCreateProgramClick = () => {
-    if (!currentUser) {
+  const handleCreateProgramClick = async (user: User | null) => {
+    if (!user) {
       setIsLoginModalOpen(true)
       return
     }
-    router.push('/programs/create')
+    try {
+      setIsCreating(true)
+      
+      // Create default policy areas with translations
+      const defaultPolicyAreas = policyAreas.reduce((acc, area) => {
+        acc[area] = {
+          id: area,
+          title: t(`policyAreas.${area}.title`),
+          description: t(`policyAreas.${area}.description`),
+          objectives: []
+        }
+        return acc
+      }, {} as Record<string, PolicyArea>)
+
+      const program = await createDraftProgram({ 
+        authorId: user.id,
+        slogan: '',
+        description: '',
+        policyAreas: defaultPolicyAreas
+      });
+      
+      router.push(`/programs/${program.id}/edit`)
+    } catch (error) {
+      console.error('Failed to create draft program:', error);
+      setIsCreating(false)
+      // You might want to show an error notification here
+    }
   }
 
-  const CreateProgramCard = () => (
-    <Card
-      data-testid="create-program-card"
-      className="shrink-0 min-w-[300px] max-w-[300px] flex items-center justify-center cursor-pointer bg-white/10 hover:bg-white/20 border-white/20 backdrop-blur-sm"
-      isPressable
-      onPress={handleCreateProgramClick}
-    >
-      <CardBody>
-        <div className="text-center">
-          <h3 className="text-xl font-semibold mb-2 text-white">{t('create.title')}</h3>
-          <p className="text-white/80">{t('create.description')}</p>
-        </div>
-      </CardBody>
-    </Card>
-  )
+  const renderCreateOrEditCard = () => {
+    if (user?.submittedProgram) {
+      return (
+        <Card
+          isPressable
+          isHoverable
+          className="min-w-[300px] max-w-[300px] bg-white/10 backdrop-blur-sm hover:bg-white/20"
+          onPress={() => router.push(`/programs/${user.submittedProgram}/edit`)}
+          data-testid="edit-program-card"
+        >
+          <CardBody className="p-4 flex flex-col items-center justify-center h-full">
+            <h3 className="text-xl font-semibold mb-2 text-white">
+              {t('edit.title')}
+            </h3>
+            <p className="text-white/80 text-center">
+              {t('edit.description')}
+            </p>
+          </CardBody>
+        </Card>
+      )
+    }
+
+    return (
+      <Card
+        isPressable
+        isHoverable
+        className="min-w-[300px] max-w-[300px] bg-white/10 backdrop-blur-sm hover:bg-white/20"
+        onPress={() => handleCreateProgramClick(user)}
+        data-testid="create-program-card"
+      >
+        <CardBody className="p-4 flex flex-col items-center justify-center h-full">
+          {isCreating ? (
+            <Spinner color="white" />
+          ) : (
+            <>
+              <h3 className="text-xl font-semibold mb-2 text-white">
+                {t('create.title')}
+              </h3>
+              <p className="text-white/80 text-center">
+                {t('create.description')}
+              </p>
+            </>
+          )}
+        </CardBody>
+      </Card>
+    )
+  }
 
   const renderProgramsList = () => {
     if (programs.length === 0) {
       return (
-        <div 
-          data-testid="programs-list"
-          className="flex gap-4"
-        >
+        <div className="flex gap-4 overflow-x-auto pb-4">
           <div 
             data-testid="programs-empty"
-            className="flex-1 text-center py-8 text-white/80"
+            className="flex-1 text-center text-white/80 mt-8"
           >
             {t('empty')}
           </div>
-          <CreateProgramCard />
+          {renderCreateOrEditCard()}
         </div>
       )
     }
 
     return (
-      <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4">
-        <div className="flex gap-4">
-          {programs.map((program) => (
-            <Card
-              key={program.id}
-              data-testid="program-card"
-              className="shrink-0 min-w-[300px] max-w-[300px] bg-white/10 hover:bg-white/20 border-white/20 backdrop-blur-sm"
-            >
-              <CardHeader className="flex flex-col items-start gap-2">
-                <h3 
-                  data-testid="program-slogan"
-                  className="text-xl font-semibold text-white"
-                >
-                  {program.slogan}
-                </h3>
-                <p 
-                  data-testid="program-description"
-                  className="text-small text-white/80"
-                >
-                  {program.description}
-                </p>
-              </CardHeader>
-              <CardBody>
-                <div 
-                  data-testid="program-metrics"
-                  className="flex justify-between items-center text-white"
-                >
-                  <div>
-                    <div 
-                      data-testid="public-support"
-                      className="text-success-400"
-                    >
-                      {program.metrics.publicSupport}% {t('metrics.support')}
-                    </div>
-                    <div 
-                      data-testid="feasibility-score"
-                      className="text-primary-300"
-                    >
-                      {program.metrics.feasibilityScore}% {t('metrics.feasible')}
-                    </div>
-                  </div>
-                  <div 
-                    data-testid="votes-count"
-                    className="text-lg font-semibold"
-                  >
-                    {program.metrics.votes} {t('metrics.votes')}
-                  </div>
-                </div>
-              </CardBody>
-            </Card>
-          ))}
-          <CreateProgramCard />
-        </div>
+      <div className="flex gap-4 overflow-x-auto pb-4">
+        {programs.map((program) => (
+          <Card
+            key={program.id}
+            className="min-w-[300px] max-w-[300px] bg-white/10 backdrop-blur-sm"
+            data-testid="program-card"
+          >
+            <CardBody className="p-4">
+              <h3 
+                className="text-xl font-semibold mb-2 text-white"
+                data-testid="program-slogan"
+              >
+                {program.slogan}
+              </h3>
+              <p 
+                className="text-white/80"
+                data-testid="program-description"
+              >
+                {program.description}
+              </p>
+            </CardBody>
+          </Card>
+        ))}
+        {renderCreateOrEditCard()}
       </div>
     )
   }
@@ -131,7 +162,7 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
       <LoginModal 
         isOpen={isLoginModalOpen}
         onClose={() => setIsLoginModalOpen(false)}
-        onSuccess={() => router.push('/programs/create')}
+        onSuccess={handleCreateProgramClick}
       />
     </div>
   )

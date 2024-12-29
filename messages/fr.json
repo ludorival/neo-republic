@@ -178,61 +178,82 @@
     "title": "Programmes",
     "description": "Découvrez les programmes proposés par les citoyens",
     "empty": "Aucun programme n'a encore été créé",
+    "form": {
+      "publishDisabledTooltip": "Ajoutez au moins un objectif à chaque domaine politique avant de publier",
+      "editProgram": "Modifier le Programme",
+      "editProgramDescription": "Affinez votre programme en ajoutant des objectifs et en ajustant les détails pour chaque domaine politique.",
+      "programSlogan": "Slogan du Programme",
+      "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
+      "programDescription": "Description du Programme",
+      "descriptionPlaceholder": "Décrivez la vision et les objectifs principaux de votre programme",
+      "addNewObjective": "Ajouter un Nouvel Objectif",
+      "editPoint": "Modifier le Point",
+      "description": "Description",
+      "revenue": "Revenus",
+      "expense": "Dépenses",
+      "close": "Fermer",
+      "save": "Enregistrer",
+      "saving": "Enregistrement...",
+      "addPoint": "Ajouter le Point",
+      "policyPoints": "Points Politiques",
+      "pointsAdded": "points ajoutés",
+      "edit": "Modifier",
+      "remove": "Supprimer",
+      "saveDraft": "Enregistrer le Brouillon",
+      "publishProgram": "Publier le Programme",
+      "policyAreas": {
+        "title": "Domaines Politiques",
+        "complete": "Complet",
+        "incomplete": "Incomplet"
+      },
+      "objective": {
+        "description": "Description",
+        "revenue": "Revenus",
+        "expenses": "Dépenses"
+      },
+      "addObjective": "Ajouter un Objectif",
+      "editObjective": "Modifier l'Objectif",
+      "cancel": "Annuler"
+    },
     "create": {
       "title": "Créer un Nouveau Programme",
       "description": "Définissez votre programme politique en spécifiant des objectifs pour chaque domaine politique.",
-      "form": {
-        "programSlogan": "Slogan du Programme",
-        "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
-        "programDescription": "Description du Programme",
-        "descriptionPlaceholder": "Décrivez la vision et les objectifs principaux de votre programme",
-        "addNewPoint": "Ajouter un Point",
-        "editPoint": "Modifier le Point",
-        "description": "Description",
-        "revenue": "Revenus",
-        "expense": "Dépenses",
-        "close": "Fermer",
-        "save": "Enregistrer",
-        "addPoint": "Ajouter le Point",
-        "policyPoints": "Points Politiques",
-        "pointsAdded": "points ajoutés",
-        "edit": "Modifier",
-        "remove": "Supprimer",
-        "saveDraft": "Enregistrer le Brouillon",
-        "publishProgram": "Publier le Programme"
-      },
-      "policyAreas": {
-        "title": "Domaines Politiques",
-        "economy": {
-          "title": "Économie",
-          "description": "Politiques économiques et objectifs financiers"
-        },
-        "social": {
-          "title": "Affaires Sociales",
-          "description": "Protection sociale et développement communautaire"
-        },
-        "education": {
-          "title": "Éducation",
-          "description": "Système éducatif et initiatives d'apprentissage"
-        },
-        "infrastructure": {
-          "title": "Infrastructure",
-          "description": "Infrastructure publique et développement urbain"
-        },
-        "environment": {
-          "title": "Environnement",
-          "description": "Protection de l'environnement et durabilité"
-        },
-        "security": {
-          "title": "Sécurité",
-          "description": "Sécurité publique et sécurité nationale"
-        }
-      }
+      "creating": "Création de votre programme..."
+    },
+    "edit": {
+      "title": "Modifier Votre Programme",
+      "description": "Continuez à travailler sur votre programme soumis"
     },
     "metrics": {
       "support": "soutien",
       "feasible": "faisabilité",
       "votes": "votes"
+    },
+    "policyAreas": {
+      "economy": {
+        "title": "Économie",
+        "description": "Politiques économiques, mesures fiscales et stratégies financières"
+      },
+      "social": {
+        "title": "Affaires Sociales",
+        "description": "Politiques de santé, protection sociale et services sociaux"
+      },
+      "education": {
+        "title": "Éducation",
+        "description": "Système éducatif, recherche et développement académique"
+      },
+      "infrastructure": {
+        "title": "Infrastructure",
+        "description": "Travaux publics, transports et développement urbain"
+      },
+      "environment": {
+        "title": "Environnement",
+        "description": "Protection de l'environnement et développement durable"
+      },
+      "security": {
+        "title": "Sécurité",
+        "description": "Sécurité publique, sécurité nationale et politiques de défense"
+      }
     }
   },
   "home": {

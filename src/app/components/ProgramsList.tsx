@@ -62,60 +62,55 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
     return (
       <div className="flex gap-4 overflow-x-auto pb-4 -mx-4 px-4">
         <div className="flex gap-4">
-          {programs.map((program) => {
-            // Get the first policy area as the main title
-            const firstPolicyArea = Object.values(program.policyAreas)[0]
-            
-            return (
-              <Card
-                key={program.id}
-                data-testid="program-card"
-                className="shrink-0 min-w-[300px] max-w-[300px] bg-white/10 hover:bg-white/20 border-white/20 backdrop-blur-sm"
-              >
-                <CardHeader className="flex flex-col items-start gap-2">
-                  <h3 
-                    data-testid="program-title"
-                    className="text-xl font-semibold text-white"
-                  >
-                    {firstPolicyArea.title}
-                  </h3>
-                  <p 
-                    data-testid="program-description"
-                    className="text-small text-white/80"
-                  >
-                    {firstPolicyArea.description}
-                  </p>
-                </CardHeader>
-                <CardBody>
-                  <div 
-                    data-testid="program-metrics"
-                    className="flex justify-between items-center text-white"
-                  >
-                    <div>
-                      <div 
-                        data-testid="public-support"
-                        className="text-success-400"
-                      >
-                        {program.metrics.publicSupport}% {t('metrics.support')}
-                      </div>
-                      <div 
-                        data-testid="feasibility-score"
-                        className="text-primary-300"
-                      >
-                        {program.metrics.feasibilityScore}% {t('metrics.feasible')}
-                      </div>
+          {programs.map((program) => (
+            <Card
+              key={program.id}
+              data-testid="program-card"
+              className="shrink-0 min-w-[300px] max-w-[300px] bg-white/10 hover:bg-white/20 border-white/20 backdrop-blur-sm"
+            >
+              <CardHeader className="flex flex-col items-start gap-2">
+                <h3 
+                  data-testid="program-slogan"
+                  className="text-xl font-semibold text-white"
+                >
+                  {program.slogan}
+                </h3>
+                <p 
+                  data-testid="program-description"
+                  className="text-small text-white/80"
+                >
+                  {program.description}
+                </p>
+              </CardHeader>
+              <CardBody>
+                <div 
+                  data-testid="program-metrics"
+                  className="flex justify-between items-center text-white"
+                >
+                  <div>
+                    <div 
+                      data-testid="public-support"
+                      className="text-success-400"
+                    >
+                      {program.metrics.publicSupport}% {t('metrics.support')}
                     </div>
                     <div 
-                      data-testid="votes-count"
-                      className="text-lg font-semibold"
+                      data-testid="feasibility-score"
+                      className="text-primary-300"
                     >
-                      {program.metrics.votes} {t('metrics.votes')}
+                      {program.metrics.feasibilityScore}% {t('metrics.feasible')}
                     </div>
                   </div>
-                </CardBody>
-              </Card>
-            )
-          })}
+                  <div 
+                    data-testid="votes-count"
+                    className="text-lg font-semibold"
+                  >
+                    {program.metrics.votes} {t('metrics.votes')}
+                  </div>
+                </div>
+              </CardBody>
+            </Card>
+          ))}
           <CreateProgramCard />
         </div>
       </div>

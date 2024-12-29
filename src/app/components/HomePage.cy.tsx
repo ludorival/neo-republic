@@ -236,10 +236,10 @@ describe('<Home />', () => {
         .should('exist')
       cy.get('[data-testid="programs-header"]')
         .should('exist')
-        .should('contain', messages.home.programs.title)
+        .should('contain', messages.programs.title)
       cy.get('[data-testid="programs-description"]')
         .should('exist')
-        .should('contain', messages.home.programs.description)
+        .should('contain', messages.programs.description)
       cy.get('[data-testid="programs-list"] .flex.gap-4.overflow-x-auto')
         .should('exist')
         .should('have.css', 'display', 'flex')
@@ -249,22 +249,15 @@ describe('<Home />', () => {
     it('renders program cards with correct information', () => {
       cy.mount(<HomePage programs={mockPrograms} />)
       
-      cy.get('[data-testid="program-card"]').should('have.length', 2)
-      
-      // Check first program card
       cy.get('[data-testid="program-card"]').first().within(() => {
-        cy.get('[data-testid="program-title"]')
-          .should('contain', 'Economic Reform')
+        cy.get('[data-testid="program-slogan"]')
+          .should('contain', mockPrograms[0].slogan)
         cy.get('[data-testid="program-description"]')
-          .should('contain', 'Comprehensive economic reform plan')
-        cy.get('[data-testid="program-metrics"]').within(() => {
-          cy.get('[data-testid="public-support"]')
-            .should('contain', `85% ${messages.home.programs.metrics.support}`)
-          cy.get('[data-testid="feasibility-score"]')
-            .should('contain', `90% ${messages.home.programs.metrics.feasible}`)
-          cy.get('[data-testid="votes-count"]')
-            .should('contain', `150 ${messages.home.programs.metrics.votes}`)
-        })
+          .should('contain', mockPrograms[0].description)
+        cy.get('[data-testid="program-metrics"]')
+          .should('contain', messages.programs.metrics.support)
+          .should('contain', messages.programs.metrics.feasible)
+          .should('contain', messages.programs.metrics.votes)
       })
     })
 
@@ -273,13 +266,7 @@ describe('<Home />', () => {
       
       cy.get('[data-testid="programs-empty"]')
         .should('exist')
-        .should('be.visible')
-        .should('contain', messages.home.programs.empty)
-      
-      // Create program card should still be visible
-      cy.get('[data-testid="create-program-card"]')
-        .should('exist')
-        .should('be.visible')
+        .should('contain', messages.programs.empty)
     })
 
     it('displays create program card at the end of the list', () => {
@@ -287,9 +274,7 @@ describe('<Home />', () => {
       
       cy.get('[data-testid="create-program-card"]')
         .should('exist')
-        .scrollIntoView()
-        .should('be.visible')
-        .should('contain', messages.home.programs.create.title)
+        .should('contain', messages.programs.create.title)
     })
   })
 

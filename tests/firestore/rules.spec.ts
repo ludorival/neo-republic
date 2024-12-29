@@ -244,5 +244,25 @@ describe('Firestore Security Rules', function() {
         })
       );
     });
+
+    it('should prevent non-admin users from changing roles', async () => {
+      userRepository = new FirebaseCRUDRepository<string, User>(userContext.firestore(), 'users');
+      
+      await assertFails(
+        userRepository.update('user-uid', {
+          role: 'admin'
+        })
+      );
+    });
+
+    it('should allow admin users to change roles', async () => {
+      userRepository = new FirebaseCRUDRepository<string, User>(adminContext.firestore(), 'users');
+      
+      await assertSucceeds(
+        userRepository.update('user-uid', {
+          role: 'reviewer'
+        })
+      );
+    });
   });
 }); 

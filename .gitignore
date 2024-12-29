@@ -43,3 +43,4 @@ firestore-debug.log
 cypress/screenshots
 serviceAccount.json
 cypress.env.json
+scripts/generate-icons.sh

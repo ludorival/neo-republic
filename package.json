@@ -3,7 +3,6 @@
   "version": "0.3.0",
   "private": true,
   "type": "module",
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,12 +11,6 @@
     "lint:fix": "next lint --fix",
     "test:e2e": "cypress run",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --component",
-    "tsc": "tsc",
-    "test": "npm run cypress:run",
-    "posttest": "npm run test:unit && npm run test:firestore",
-    "test:unit": "mocha --exit 'tests/unit/**/*.spec.ts'",
-    "test:firestore": "firebase emulators:exec --only firestore \"mocha --exit 'tests/firestore/**/*.spec.ts'\""
     "cypress:run": "cypress run --component",
     "tsc": "tsc",
     "test": "npm run cypress:run",

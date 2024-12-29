@@ -62,33 +62,3 @@ export interface Program {
     votes: number;
   };
 }
-
-/**
- * Represents a vote cast by a user
- */
-export interface Vote {
-  id: string;
-  userId: string;
-  programId: string;
-  timestamp: Date;
-  rating: number;
-  feedback?: string;
-}
-
-/**
- * Represents a user in the system
- */
-export interface User {
-  id: string;
-  email: string;
-  displayName: string;
-  role: 'citizen' | 'admin' | 'reviewer';
-  createdAt: Date;
-  votingHistory: string[]; // Array of program IDs
-  submittedPrograms: string[]; // Array of program IDs
-  profile: {
-    avatar?: string;
-    bio?: string;
-    expertise?: string[];
-  };
-} 

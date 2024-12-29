@@ -25,7 +25,7 @@
 - [x] Refactor project using Domain-Driven Design pattern (#40)
 
 ### Testing
-- [ ] Implement Cypress E2E tests for sandbox environment (#46)
+- [x] Implement Cypress E2E tests for sandbox environment (#46)
 
 ## [Milestone 2: Authentication 🔐](https://github.com/ludorival/neo-republic/milestone/2)
 
@@ -51,7 +51,7 @@
 - [ ] Create program preview (#24)
 - [ ] Connect program creation flow to corresponding actions (#41)
 - [ ] Limit the number of programs to be created (#50)
-- [ ] A user should create only one program at once (#49)
+- [x] A user should create only one program at once (#49)
 
 ### Program Validation System
 - [ ] Implement financial validation checks (#25)

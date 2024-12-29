@@ -17,6 +17,7 @@ import { expect, use } from 'chai';
 import * as fs from 'fs';
 import { after, before, beforeEach, describe, it } from 'mocha';
 
+
 const DEFAULT_PROGRAM: PartialId<string, Program> = {
   slogan: 'Test Program',
   description: 'Test Description',
@@ -165,6 +166,50 @@ describe('Firestore Security Rules', function() {
         programRepository.delete(programId)
       );
     });
+
+    it('should prevent users from creating multiple programs', async () => {
+      // First create a user with a submitted program
+      await testEnv.withSecurityRulesDisabled(async (context) => {
+        userRepository = new FirebaseCRUDRepository<string, User>(context.firestore(), 'users');
+        await userRepository.update('user-uid', {
+          submittedProgram: 'existing-program-id'
+        });
+      });
+
+      // Try to create a new program
+      programRepository = new FirebaseCRUDRepository<string, Program>(userContext.firestore(), 'programs');
+      await assertFails(
+        programRepository.create({
+          ...DEFAULT_PROGRAM,
+          authorId: 'user-uid',
+          status: 'draft'
+        })
+      );
+    });
+
+    it('should allow creating a new program after previous one is deleted', async () => {
+      // First create a user with no submitted program
+      await testEnv.withSecurityRulesDisabled(async (context) => {
+        userRepository = new FirebaseCRUDRepository<string, User>(context.firestore(), 'users');
+        await userRepository.create({
+          id: 'user-uid',
+          role: 'citizen',
+          email: 'user@test.com',
+          displayName: 'Regular User',
+          createdAt: new Date()
+        });
+      });
+
+      // Try to create new program
+      programRepository = new FirebaseCRUDRepository<string, Program>(userContext.firestore(), 'programs');
+      await assertSucceeds(
+        programRepository.create({
+          ...DEFAULT_PROGRAM,
+          authorId: 'user-uid',
+          status: 'draft'
+        })
+      );
+    });
   });
 
   describe('Votes Collection', () => {
@@ -241,6 +286,26 @@ describe('Firestore Security Rules', function() {
       await assertFails(
         userRepository.update('admin-uid', {
           displayName: 'Hacked Name'
+        })
+      );
+    });
+
+    it('should prevent non-admin users from changing roles', async () => {
+      userRepository = new FirebaseCRUDRepository<string, User>(userContext.firestore(), 'users');
+      
+      await assertFails(
+        userRepository.update('user-uid', {
+          role: 'admin'
+        })
+      );
+    });
+
+    it('should allow admin users to change roles', async () => {
+      userRepository = new FirebaseCRUDRepository<string, User>(adminContext.firestore(), 'users');
+      
+      await assertSucceeds(
+        userRepository.update('user-uid', {
+          role: 'reviewer'
         })
       );
     });

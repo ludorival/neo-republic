@@ -5,7 +5,7 @@ export interface User {
   displayName: string;
   createdAt: Date;
   votingHistory?: string[]; // Array of program IDs
-  submittedPrograms?: string[]; // Array of program IDs
+  submittedProgram?: string; // ID of the program the user has submitted
   profile?: {
     avatar?: string;
     bio?: string;

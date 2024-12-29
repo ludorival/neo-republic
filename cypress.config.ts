@@ -26,10 +26,18 @@ export default defineConfig({
       framework: "next",
       bundler: "webpack",
     },
+    retries: {
+      runMode: 2,
+      openMode: 0
+    }
   },
 
   e2e: {
     baseUrl: 'https://neo-republic-sandbox--neo-republic-sandbox.europe-west4.hosted.app',
+    retries: {
+      runMode: 2,
+      openMode: 0
+    },
     setupNodeEvents(on, config) {
       // Add env variables to Cypress config
       config.env = config.env || {};

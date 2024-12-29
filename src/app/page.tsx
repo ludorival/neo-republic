@@ -6,4 +6,3 @@ export default async function Home() {
   return <HomePage programs={[]} />
 }
 
-export default Home

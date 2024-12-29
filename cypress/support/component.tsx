@@ -25,7 +25,6 @@ import { NextUIProvider } from '@nextui-org/react'
 import messages from '../../messages/fr.json'
 import { RouterProvider } from './RouterProvider'
 import Layout from '@/app/components/Layout';
-import { mockDataStore, createFirestoreStubs, clearMockDataStore } from './mocks/firestore';
 
 interface MountOptions {
   router?: {
@@ -42,7 +41,6 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount & ((component: React.ReactNode, options?: MountOptions) => Cypress.Chainable)
-      getMockFirestoreData(): typeof mockDataStore
     }
   }
 }
@@ -52,8 +50,6 @@ Cypress.Commands.add('mount', (component, options: MountOptions = {}) => {
   const { router = {} } = options
 
   // Clear mock data and create fresh stubs before each mount
-  clearMockDataStore();
-  createFirestoreStubs();
 
   // Create router stubs for this test
   const routerStubs = {
@@ -79,10 +75,6 @@ Cypress.Commands.add('mount', (component, options: MountOptions = {}) => {
   )
 })
 
-// Add helper to access mock data store (useful for assertions)
-Cypress.Commands.add('getMockFirestoreData', () => {
-  return mockDataStore;
-});
 
 // Example use:
 // cy.mount(<MyComponent />)

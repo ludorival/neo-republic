@@ -3,6 +3,7 @@ import { auth } from '@/infra/firebase/auth'
 import { Program } from '@/domain/models/program'
 import messages from '../../../messages/fr.json'
 import HomePage from './HomePage'
+import * as repositories from '@/infra/firebase/firestore'
 
 describe('<Home />', () => {
   let stubSignInWithGoogle: sinon.SinonStub
@@ -10,7 +11,14 @@ describe('<Home />', () => {
     // Create a stub for signInWithGoogle
     stubSignInWithGoogle = cy.stub(auth, 'signInWithGoogle')
       .as('signInWithGoogle')
-      .returns(Promise.resolve())
+      .returns(Promise.resolve({
+        uid: '123',
+        email: 'john@example.com',
+        displayName: 'John Doe',
+        photoURL: 'https://example.com/profile.jpg'
+    }))
+    cy.stub(repositories.users, 'read').returns(Promise.resolve(null))
+    cy.stub(repositories.users, 'create').returns(Promise.resolve())
   })
 
   it('renders top bar with navigation and login button', () => {

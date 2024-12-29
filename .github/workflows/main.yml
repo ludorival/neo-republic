@@ -27,6 +27,12 @@ jobs:
     - name: Build Next.js app
       run: npm run build
 
+    - name: Run E2E tests
+      run: npm run test:e2e
+      env:
+        SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+        CYPRESS_TEST_UID: ${{ secrets.CYPRESS_TEST_UID }}
+
     - name: Get package version
       id: package-version
       run: echo "VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV

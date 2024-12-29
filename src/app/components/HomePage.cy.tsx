@@ -7,8 +7,6 @@ import * as repositories from '@/infra/firebase/firestore'
 
 describe('<Home />', () => {
   let stubSignInWithGoogle: sinon.SinonStub
-  let stubReadUser: sinon.SinonStub
-  let stubCreateUser: sinon.SinonStub
   beforeEach(() => {
     // Create a stub for signInWithGoogle
     stubSignInWithGoogle = cy.stub(auth, 'signInWithGoogle')
@@ -19,8 +17,8 @@ describe('<Home />', () => {
         displayName: 'John Doe',
         photoURL: 'https://example.com/profile.jpg'
     }))
-    stubReadUser = cy.stub(repositories.users, 'read').returns(Promise.resolve(null))
-    stubCreateUser = cy.stub(repositories.users, 'create').returns(Promise.resolve())
+    cy.stub(repositories.users, 'read').returns(Promise.resolve(null))
+    cy.stub(repositories.users, 'create').returns(Promise.resolve())
   })
 
   it('renders top bar with navigation and login button', () => {

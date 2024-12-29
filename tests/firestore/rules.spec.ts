@@ -1,20 +1,42 @@
+import { Program } from '@/domain/models/program';
+import { User } from '@/domain/models/user';
+import { Vote } from '@/domain/models/vote';
+import { PartialId } from '@/domain/repositories/baseRepository';
+import { ProgramRepository } from '@/domain/repositories/program';
+import { UserRepository } from '@/domain/repositories/user';
+import { VoteRepository } from '@/domain/repositories/vote';
+import { FirebaseCRUDRepository } from '@/infra/firebase/FirebaseCRUDRepository';
 import {
-  assertSucceeds,
   assertFails,
+  assertSucceeds,
   initializeTestEnvironment,
   RulesTestContext,
   RulesTestEnvironment
 } from '@firebase/rules-unit-testing';
-import { getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { expect, use } from 'chai';
 import * as fs from 'fs';
-import { describe, before, beforeEach, after, it } from 'mocha';
-import { ProgramRepository } from '@/repositories/program';
-import { UserRepository } from '@/repositories/user';
-import { VoteRepository } from '@/repositories/vote';
-import { expect } from 'chai';
+import { after, before, beforeEach, describe, it } from 'mocha';
 
+const DEFAULT_PROGRAM: PartialId<string, Program> = {
+  slogan: 'Test Program',
+  description: 'Test Description',
+  status: 'draft' as const,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  authorId: 'admin-uid',
+  policyAreas: {},
+  financialValidation: {
+    totalBudget: 0,
+    isBalanced: false,
+    reviewComments: []
+  },
+  metrics: {
+    publicSupport: 0,
+    feasibilityScore: 0,
+    votes: 0
+  }
+}
 describe('Firestore Security Rules', function() {
-  // Increase timeout for setup
   this.timeout(10000);
 
   let testEnv: RulesTestEnvironment;
@@ -24,6 +46,10 @@ describe('Firestore Security Rules', function() {
   let unauthContext: RulesTestContext;
   let userRepository: UserRepository;
   let voteRepository: VoteRepository;
+  let programRepository: ProgramRepository;
+
+  type ProgramInput = PartialId<string, Program>; 
+  
 
   before(async () => {
     testEnv = await initializeTestEnvironment({
@@ -39,18 +65,15 @@ describe('Firestore Security Rules', function() {
   beforeEach(async () => {
     await testEnv.clearFirestore();
     
-    // Create contexts with proper claims
     adminContext = testEnv.authenticatedContext('admin-uid', { email: 'admin@test.com' });
     userContext = testEnv.authenticatedContext('user-uid', { email: 'user@test.com' });
     reviewerContext = testEnv.authenticatedContext('reviewer-uid', { email: 'reviewer@test.com' });
     unauthContext = testEnv.unauthenticatedContext();
 
-    // First, create users collection with admin bypass
     await testEnv.withSecurityRulesDisabled(async (context) => {
-      const db = context.firestore();
-      userRepository = new UserRepository(db);
+      userRepository = new FirebaseCRUDRepository<string, User>(context.firestore(), 'users');
       
-      await userRepository.createUser({
+      await userRepository.create({
         id: 'admin-uid',
         role: 'admin',
         email: 'admin@test.com',
@@ -58,7 +81,7 @@ describe('Firestore Security Rules', function() {
         createdAt: new Date()
       });
       
-      await userRepository.createUser({
+      await userRepository.create({
         id: 'reviewer-uid',
         role: 'reviewer',
         email: 'reviewer@test.com',
@@ -66,7 +89,7 @@ describe('Firestore Security Rules', function() {
         createdAt: new Date()
       });
       
-      await userRepository.createUser({
+      await userRepository.create({
         id: 'user-uid',
         role: 'citizen',
         email: 'user@test.com',
@@ -82,76 +105,49 @@ describe('Firestore Security Rules', function() {
 
   describe('Programs Collection', () => {
     it('should allow users to read published programs', async () => {
-      // Create the published program with security rules disabled
       let programId: string = '';
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
-        const programRepository = new ProgramRepository(db);
-        programId = await programRepository.createProgram({
-          authorId: 'admin-uid',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          policyAreas: {}
-        });
-        await programRepository.updateProgramStatus(programId, 'published');
+        programRepository = new FirebaseCRUDRepository<string, Program>(context.firestore(), 'programs');
+        const program = await programRepository.create({...DEFAULT_PROGRAM, authorId: 'admin-uid', status: 'published'});
+        programId = program.id;
       });
 
-      // Now test reading with unauthenticated user
-      const unAuthDb = unauthContext.firestore();
-      const programRepository = new ProgramRepository(unAuthDb);
-      const program = await programRepository.getProgram(programId);
+      programRepository = new FirebaseCRUDRepository<string, Program>(unauthContext.firestore(), 'programs');
+      const program = await programRepository.read(programId);
       expect(program).to.not.be.null;
 
-      // and test that unauthenticated user can read published programs
       await assertSucceeds(
-        programRepository.getProgramsByStatus('published')
+        programRepository.findAllBy('status', '==', 'published')
       );
     });
 
     it('should allow authors to create draft programs', async () => {
-      const userDb = userContext.firestore();
-      const programRepository = new ProgramRepository(userDb);
+      programRepository = new FirebaseCRUDRepository<string, Program>(userContext.firestore(), 'programs');
       
       await assertSucceeds(
-        programRepository.createProgram({
-          authorId: 'user-uid',
-          policyAreas: {}
-        })
+        programRepository.create({...DEFAULT_PROGRAM, authorId: 'user-uid'})
       );
     });
 
     it('should prevent creating non-draft programs', async () => {
-      const userDb = userContext.firestore();
-      const programRepository = new ProgramRepository(userDb);
+      programRepository = new FirebaseCRUDRepository<string, Program>(userContext.firestore(), 'programs');
       
-      // Note: This should fail because createProgram always sets status to 'draft'
-      // We might want to test this differently or update the test case
       await assertSucceeds(
-        programRepository.createProgram({
-          authorId: 'user-uid',
-          policyAreas: {}
-        })
+        programRepository.create({...DEFAULT_PROGRAM, authorId: 'user-uid'})
       );
     });
 
     it('should allow authors to delete their own draft programs', async () => {
-      // Create a draft program with security rules disabled
       let programId: string = '';
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
-        const programRepository = new ProgramRepository(db);
-        programId = await programRepository.createProgram({
-          authorId: 'user-uid',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          policyAreas: {}
-        });
+        programRepository = new FirebaseCRUDRepository<string, Program>(context.firestore(), 'programs');
+        const program = await programRepository.create({...DEFAULT_PROGRAM, authorId: 'user-uid'});
+        programId = program.id;
       });
 
-      const userDb = userContext.firestore();
-      // Author should be able to delete their program
+      programRepository = new FirebaseCRUDRepository<string, Program>(userContext.firestore(), 'programs');
       await assertSucceeds(
-        userDb.doc(`programs/${programId}`).delete()
+        programRepository.delete(programId)
       );
     });
 
@@ -159,44 +155,36 @@ describe('Firestore Security Rules', function() {
       // Create a program owned by user-uid
       let programId: string = '';
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
-        const programRepository = new ProgramRepository(db);
-        programId = await programRepository.createProgram({
-          authorId: 'user-uid',
-          createdAt: new Date(),
-          updatedAt: new Date(),
-          policyAreas: {}
-        });
+        programRepository = new FirebaseCRUDRepository<string, Program>(context.firestore(), 'programs');
+        const program = await programRepository.create({...DEFAULT_PROGRAM, authorId: 'user-uid'});
+        programId = program.id;
       });
 
-      // Try to delete with reviewer (non-author)
-      const reviewerDb = reviewerContext.firestore();
+      programRepository = new FirebaseCRUDRepository<string, Program>(reviewerContext.firestore(), 'programs');
       await assertFails(
-        reviewerDb.doc(`programs/${programId}`).delete()
+        programRepository.delete(programId)
       );
     });
   });
 
   describe('Votes Collection', () => {
     it('should allow authenticated users to vote once per program', async () => {
-      const userDb = userContext.firestore();
-      voteRepository = new VoteRepository(userDb);
+      voteRepository = new FirebaseCRUDRepository<string, Vote>(userContext.firestore(), 'votes');
 
       const voteData = {
+        id: 'user-uid_program-1',
         userId: 'user-uid',
         programId: 'program-1',
         timestamp: new Date(),
         rating: 5
       };
 
-      // First vote should succeed
       await assertSucceeds(
-        voteRepository.createVote(voteData)
+        voteRepository.create(voteData)
       );
 
-      // Second vote should fail
       await assertFails(
-        voteRepository.createVote({
+        voteRepository.create({
           ...voteData,
           rating: 3
         })
@@ -204,12 +192,11 @@ describe('Firestore Security Rules', function() {
     });
 
     it('should allow users to update only feedback in their votes', async () => {
-      // Create initial vote with security rules disabled
       await testEnv.withSecurityRulesDisabled(async (context) => {
-        const db = context.firestore();
-        voteRepository = new VoteRepository(db);
+        voteRepository = new FirebaseCRUDRepository<string, Vote>(context.firestore(), 'votes');
         
-        await voteRepository.createVote({
+        await voteRepository.create({
+          id: 'user-uid_program-1',
           userId: 'user-uid',
           programId: 'program-1',
           timestamp: new Date(),
@@ -217,48 +204,42 @@ describe('Firestore Security Rules', function() {
         });
       });
 
-      const userDb = userContext.firestore();
-      voteRepository = new VoteRepository(userDb);
+      voteRepository = new FirebaseCRUDRepository<string, Vote>(userContext.firestore(), 'votes');
 
-      // Should succeed: updating only feedback
       await assertSucceeds(
-        voteRepository.updateVoteFeedback('user-uid_program-1', 'Updated feedback')
+        voteRepository.update('user-uid_program-1', { feedback: 'Updated feedback' })
       );
 
-      // Should fail: trying to update rating
       await assertFails(
-        voteRepository.updateVoteRating('user-uid_program-1', 3)
+        voteRepository.update('user-uid_program-1', { rating: 3 })
       );
     });
   });
 
   describe('Users Collection', () => {
     it('should allow users to read other user profiles', async () => {
-      const userDb = userContext.firestore();
-      userRepository = new UserRepository(userDb);
+      userRepository = new FirebaseCRUDRepository<string, User>(userContext.firestore(), 'users');
       
       await assertSucceeds(
-        userRepository.getUser('admin-uid')
+        userRepository.read('admin-uid')
       );
     });
 
     it('should allow users to update their own profiles', async () => {
-      const userDb = userContext.firestore();
-      userRepository = new UserRepository(userDb);
+      userRepository = new FirebaseCRUDRepository<string, User>(userContext.firestore(), 'users');
       
       await assertSucceeds(
-        userRepository.updateUser('user-uid', {
+        userRepository.update('user-uid', {
           displayName: 'Updated Name'
         })
       );
     });
 
     it('should prevent users from updating other profiles', async () => {
-      const userDb = userContext.firestore();
-      userRepository = new UserRepository(userDb);
+      userRepository = new FirebaseCRUDRepository<string, User>(userContext.firestore(), 'users');
       
       await assertFails(
-        userRepository.updateUser('admin-uid', {
+        userRepository.update('admin-uid', {
           displayName: 'Hacked Name'
         })
       );

@@ -41,3 +41,5 @@ next-env.d.ts
 database-debug.log
 firestore-debug.log
 cypress/screenshots
+serviceAccount.json
+cypress.env.json

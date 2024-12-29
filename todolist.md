@@ -15,28 +15,34 @@
 - [x] [Create database rules](https://github.com/ludorival/neo-republic/issues/9)
 - [x] [Setup basic CRUD operations](https://github.com/ludorival/neo-republic/issues/10)
 
+### Architecture
+- [x] [Refactor project using Domain-Driven Design pattern](https://github.com/ludorival/neo-republic/issues/40)
+
+### Testing
+- [ ] [Implement Cypress E2E tests for sandbox environment](https://github.com/ludorival/neo-republic/issues/46)
+
 ## [Milestone 2: Authentication 🔐](https://github.com/ludorival/neo-republic/milestone/2)
 
 ### User Authentication System
-- [ ] [Implement Firebase authentication](https://github.com/ludorival/neo-republic/issues/11)
-- [ ] [Create login/signup pages](https://github.com/ludorival/neo-republic/issues/12)
+- [x] [Implement Firebase authentication](https://github.com/ludorival/neo-republic/issues/11)
+- [x] [Create login/signup pages](https://github.com/ludorival/neo-republic/issues/12)
 - [ ] [Setup protected routes](https://github.com/ludorival/neo-republic/issues/13)
 - [ ] [Create user profile management](https://github.com/ludorival/neo-republic/issues/14)
 - [ ] [Implement role-based access control](https://github.com/ludorival/neo-republic/issues/15)
 
 ## [Milestone 3: Program Creation 📝](https://github.com/ludorival/neo-republic/milestone/3)
 
+### Home Page UI Implementation
+- [x] [Create horizontal program cards list component](https://github.com/ludorival/neo-republic/issues/33)
+- [x] [Implement program creation card with CTA button](https://github.com/ludorival/neo-republic/issues/34)
+- [x] [Add authentication flow for program creation](https://github.com/ludorival/neo-republic/issues/35)
+- [ ] [Create program list data fetching and state management](https://github.com/ludorival/neo-republic/issues/36)
+
 ### Program Creation Interface
-- [ ] Create program form with all required sections:
-  - [ ] [Economy & Finance](https://github.com/ludorival/neo-republic/issues/16)
-  - [ ] [Social Services](https://github.com/ludorival/neo-republic/issues/17)
-  - [ ] [Education](https://github.com/ludorival/neo-republic/issues/18)
-  - [ ] [Infrastructure](https://github.com/ludorival/neo-republic/issues/19)
-  - [ ] [Environment & Energy](https://github.com/ludorival/neo-republic/issues/20)
-  - [ ] [Security & Justice](https://github.com/ludorival/neo-republic/issues/21)
 - [ ] [Implement form validation](https://github.com/ludorival/neo-republic/issues/22)
 - [ ] [Add budget calculation system](https://github.com/ludorival/neo-republic/issues/23)
 - [ ] [Create program preview](https://github.com/ludorival/neo-republic/issues/24)
+- [ ] [Connect program creation flow to corresponding actions](https://github.com/ludorival/neo-republic/issues/41)
 
 ### Program Validation System
 - [ ] [Implement financial validation checks](https://github.com/ludorival/neo-republic/issues/25)

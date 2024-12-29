@@ -20,6 +20,100 @@
       "comprehensive": "Couverture politique complète",
       "financial": "Système de validation financière",
       "focus": "Accent sur les idées plutôt que les personnalités"
+    },
+    "programs": {
+      "title": "Programmes en Vedette",
+      "description": "Découvrez les programmes créés par les citoyens qui façonnent notre avenir. Chaque programme représente une vision du changement, soutenue par des plans détaillés et le soutien de la communauté. Votez, discutez et créez votre propre programme pour faire la différence.",
+      "empty": "Aucun programme disponible",
+      "create": {
+        "title": "Créer Votre Programme",
+        "description": "Partagez votre vision de l'avenir"
+      },
+      "metrics": {
+        "support": "Soutien",
+        "feasible": "Faisable",
+        "votes": "votes"
+      }
+    }
+  },
+  "auth": {
+    "loginRequired": "Connexion Requise",
+    "loginToCreate": "Veuillez vous connecter pour créer un programme",
+    "error": "Échec de l'authentification. Veuillez réessayer.",
+    "signingIn": "Connexion en cours...",
+    "continueWithGoogle": "Continuer avec Google",
+    "signOut": "Se déconnecter"
+  },
+  "programs": {
+    "create": {
+      "title": "Créer un Programme",
+      "description": "Sélectionnez les domaines politiques que vous souhaitez aborder dans votre programme.",
+      "continue": "Continuer",
+      "form": {
+        "addNewPoint": "Ajouter un objectif",
+        "addPoint": "Ajouter",
+        "editPoint": "Modifier l'objectif",
+        "edit": "Modifier",
+        "save": "Enregistrer",
+        "close": "Fermer",
+        "policyPoints": "Objectifs",
+        "pointsAdded": "objectifs ajoutés",
+        "remove": "Supprimer",
+        "budget": "Budget",
+        "revenue": "Revenu",
+        "expense": "Dépense",
+        "completeArea": "Terminer le Domaine",
+        "saveDraft": "Enregistrer le Brouillon",
+        "publishProgram": "Publier le Programme",
+        "description": "Description",
+        "programSlogan": "Slogan du Programme",
+        "programDescription": "Description du Programme",
+        "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
+        "descriptionPlaceholder": "Décrivez brièvement la vision et les objectifs de votre programme"
+      },
+      "policyAreas": {
+        "title": "Domaines Politiques",
+        "economy": {
+          "title": "Économie",
+          "description": "Politiques économiques, fiscales et monétaires"
+        },
+        "education": {
+          "title": "Éducation",
+          "description": "Système éducatif et formation"
+        },
+        "environment": {
+          "title": "Environnement",
+          "description": "Protection de l'environnement et développement durable"
+        },
+        "social": {
+          "title": "Social",
+          "description": "Protection sociale et politiques sociales"
+        },
+        "infrastructure": {
+          "title": "Infrastructure",
+          "description": "Transport, travaux publics et développement urbain"
+        },
+        "security": {
+          "title": "Sécurité & Justice",
+          "description": "Forces de l'ordre, défense nationale et système judiciaire"
+        }
+      },
+      "errors": {
+        "required": "Veuillez remplir tous les champs obligatoires"
+      }
+    }
+  },
+  "about": {
+    "title": "À propos de Neo Republic",
+    "description": "Neo Republic est une plateforme démocratique innovante qui permet aux citoyens de proposer et d'évaluer des programmes politiques.",
+    "features": {
+      "title": "Fonctionnalités clés",
+      "list": {
+        "propose": "Proposez vos idées de programmes",
+        "evaluate": "Évaluez la faisabilité des propositions",
+        "vote": "Votez pour les meilleurs programmes",
+        "discuss": "Participez aux discussions"
+      }
     }
   }
 } 

@@ -49,6 +49,8 @@
 - [ ] Add budget calculation system (#23)
 - [ ] Create program preview (#24)
 - [ ] Connect program creation flow to corresponding actions (#41)
+- [ ] Limit the number of programs to be created (#50)
+- [ ] A user should create only one program at once (#49)
 
 ### Program Validation System
 - [ ] Implement financial validation checks (#25)

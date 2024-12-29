@@ -29,6 +29,9 @@ jobs:
 
     - name: Run E2E tests
       run: npm run test:e2e
+      env:
+        SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
+        CYPRESS_TEST_UID: ${{ secrets.CYPRESS_TEST_UID }}
 
     - name: Get package version
       id: package-version

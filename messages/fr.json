@@ -30,33 +30,27 @@
   },
   "privacy": {
     "title": "Politique de Confidentialité",
-    "introduction": {
-      "title": "Introduction",
-      "description": "Cette Politique de Confidentialité décrit comment Neo Republic ('nous', 'notre' ou 'nos') collecte et traite vos informations via notre plateforme. Nous utilisons Google Firebase pour notre infrastructure, et en utilisant notre service, vous acceptez également la Politique de Confidentialité et les Conditions d'Utilisation de Google."
-    },
     "dataCollection": {
       "title": "Collecte des Données",
-      "description": "Nous collectons et traitons les informations via les services Firebase :",
+      "description": "Nous collectons et traitons les informations via les services Firebase. Pour des informations détaillées sur les pratiques de confidentialité et de sécurité de Firebase, y compris la conformité au RGPD, le chiffrement des données et leur localisation, veuillez consulter la documentation sur la Confidentialité et la Sécurité de Firebase à l'adresse https://firebase.google.com/support/privacy. Nous collectons les types d'informations suivants :",
       "items": {
-        "authentication": "Données d'authentification via Firebase Authentication (Connexion Google)",
-        "usage": "Données d'utilisation et interactions stockées dans Firebase Firestore",
-        "technical": "Informations techniques traitées par Firebase Analytics et Performance Monitoring",
-        "hosting": "Journaux d'accès et données connexes via Firebase Hosting"
+        "personal": "Informations personnelles fournies lors de l'inscription et des mises à jour du profil",
+        "usage": "Données d'utilisation et interactions avec notre plateforme",
+        "technical": "Informations techniques concernant votre appareil et votre connexion"
       }
     },
     "dataUse": {
       "title": "Utilisation des Données",
-      "description": "Vos données sont traitées et stockées via les services Firebase aux fins suivantes :",
+      "description": "Nous utilisons vos données aux fins suivantes :",
       "items": {
-        "service": "Pour authentifier et maintenir votre compte via Firebase Authentication",
-        "storage": "Pour stocker et récupérer vos propositions de programmes et votes dans Firebase Firestore",
-        "analytics": "Pour analyser l'utilisation de la plateforme via Firebase Analytics",
-        "security": "Pour assurer la sécurité de la plateforme via les règles de sécurité Firebase"
+        "service": "Pour fournir et maintenir nos services",
+        "improvement": "Pour améliorer et optimiser notre plateforme",
+        "communication": "Pour communiquer des mises à jour et informations importantes"
       }
     },
     "dataSecurity": {
       "title": "Sécurité des Données",
-      "description": "Nous implémentons les règles de sécurité Firebase et suivons les meilleures pratiques de sécurité de Google Cloud pour protéger vos données. Toutes les données sont chiffrées en transit et au repos selon les normes de sécurité Firebase."
+      "description": "Nous mettons en œuvre des mesures de sécurité appropriées pour protéger vos données contre tout accès, modification ou divulgation non autorisés."
     },
     "dataLocation": {
       "title": "Localisation des Données",
@@ -64,12 +58,12 @@
     },
     "userRights": {
       "title": "Vos Droits",
-      "description": "Selon le RGPD et autres lois applicables, vous disposez de certains droits concernant vos données :",
+      "description": "Vous disposez des droits suivants concernant vos données personnelles :",
       "items": {
-        "access": "Droit d'accès à vos données personnelles stockées dans Firebase",
-        "rectification": "Droit de rectification des données inexactes dans nos bases de données",
-        "deletion": "Droit de demander la suppression de vos données des services Firebase",
-        "portability": "Droit à la portabilité des données dans un format lisible par machine"
+        "access": "Droit d'accès à vos données personnelles",
+        "rectification": "Droit de rectification des données inexactes",
+        "deletion": "Droit de demander la suppression de vos données",
+        "portability": "Droit à la portabilité des données"
       }
     },
     "thirdParty": {
@@ -84,7 +78,7 @@
     },
     "contact": {
       "title": "Nous Contacter",
-      "description": "Pour toute question relative à la confidentialité ou pour exercer vos droits sur vos données, veuillez nous contacter. Pour plus d'informations sur le traitement de vos données par Google, veuillez consulter la Politique de Confidentialité de Google."
+      "description": "Si vous avez des questions concernant cette Politique de Confidentialité, veuillez nous contacter."
     }
   },
   "terms": {
@@ -95,26 +89,25 @@
     },
     "acceptance": {
       "title": "Acceptation des Conditions",
-      "description": "En accédant ou en utilisant Neo Republic, vous acceptez d'être lié par ces conditions d'utilisation et les conditions d'utilisation de Firebase."
+      "description": "En utilisant notre service, vous acceptez ces conditions générales."
     },
     "userConduct": {
       "title": "Conduite des Utilisateurs",
-      "description": "Les utilisateurs doivent suivre ces directives lors de l'utilisation de la plateforme :",
+      "description": "Les utilisateurs doivent suivre ces directives lors de l'utilisation de notre plateforme :",
       "items": {
         "respect": "Respecter les autres utilisateurs et leurs opinions",
         "content": "Publier uniquement du contenu approprié et pertinent",
-        "security": "Ne pas tenter de contourner les mesures de sécurité Firebase",
-        "accuracy": "Fournir des informations exactes dans les propositions de programme",
-        "abuse": "Ne pas abuser des services Firebase ou dépasser les quotas d'utilisation"
+        "security": "Ne pas tenter de contourner les mesures de sécurité",
+        "accuracy": "Fournir des informations exactes dans les soumissions"
       }
     },
     "content": {
       "title": "Politique de Contenu",
-      "description": "Directives pour le contenu hébergé sur la plateforme Firebase :",
+      "description": "Directives pour le contenu sur notre plateforme :",
       "items": {
-        "ownership": "Vous conservez la propriété de votre contenu stocké dans Firebase",
-        "license": "Vous nous accordez une licence pour stocker et traiter votre contenu via les services Firebase",
-        "removal": "Nous nous réservons le droit de supprimer tout contenu qui viole les politiques Firebase"
+        "ownership": "Vous conservez la propriété de votre contenu",
+        "license": "Vous nous accordez une licence d'utilisation de votre contenu",
+        "removal": "Nous nous réservons le droit de supprimer tout contenu inapproprié"
       }
     },
     "service": {
@@ -128,53 +121,57 @@
     },
     "liability": {
       "title": "Limitation de Responsabilité",
-      "description": "Neo Republic et Firebase ne sont pas responsables des dommages indirects, accessoires ou consécutifs."
+      "description": "Nous ne sommes pas responsables des dommages indirects, accessoires ou consécutifs."
     },
     "termination": {
       "title": "Résiliation du Compte",
-      "description": "Nous nous réservons le droit de résilier les comptes qui violent ces conditions ou les conditions d'utilisation de Firebase."
+      "description": "Nous nous réservons le droit de résilier les comptes qui violent ces conditions."
     },
     "changes": {
       "title": "Modifications des Conditions",
-      "description": "Nous pouvons mettre à jour ces conditions pour refléter les changements dans les services Firebase ou notre plateforme."
+      "description": "Nous pouvons mettre à jour ces conditions pour refléter les changements dans nos services."
     }
   },
   "cookies": {
     "title": "Politique des Cookies",
     "introduction": {
       "title": "Introduction",
-      "description": "Cette politique explique comment nous utilisons les cookies et les technologies Firebase."
+      "description": "Cette Politique des Cookies explique comment nous utilisons les cookies et technologies similaires."
     },
-    "firebaseCookies": {
-      "title": "Cookies Firebase et Stockage Local",
-      "description": "Nous utilisons les services Firebase qui stockent des données localement :",
+    "whatAreCookies": {
+      "title": "Que Sont les Cookies",
+      "description": "Les cookies sont de petits fichiers texte stockés sur votre appareil lorsque vous visitez notre site web."
+    },
+    "typesOfCookies": {
+      "title": "Types de Cookies Utilisés",
+      "description": "Nous utilisons les types de cookies suivants :",
       "items": {
-        "auth": {
-          "title": "Jetons d'Authentification",
-          "description": "Firebase Authentication stocke des jetons pour la gestion des sessions utilisateur"
+        "essential": {
+          "title": "Cookies Essentiels",
+          "description": "Nécessaires au fonctionnement de base du site"
+        },
+        "functional": {
+          "title": "Cookies Fonctionnels",
+          "description": "Améliorent votre expérience en mémorisant vos préférences"
         },
         "analytics": {
-          "title": "Données Analytics",
-          "description": "Firebase Analytics utilise des cookies pour analyser les modèles d'utilisation"
-        },
-        "performance": {
-          "title": "Données de Performance",
-          "description": "Firebase Performance Monitoring collecte des métriques de performance"
+          "title": "Cookies d'Analyse",
+          "description": "Nous aident à comprendre comment les visiteurs utilisent notre site"
         }
       }
     },
     "control": {
       "title": "Contrôle des Cookies",
-      "description": "Vous pouvez contrôler le stockage lié à Firebase :",
+      "description": "Vous pouvez contrôler et gérer les cookies de différentes manières :",
       "items": {
-        "browser": "Ajuster les paramètres du navigateur pour gérer les cookies Firebase",
-        "settings": "Utiliser nos paramètres de confidentialité Firebase",
-        "optout": "Désactiver la collecte Firebase Analytics"
+        "browser": "Ajuster les paramètres de votre navigateur",
+        "settings": "Utiliser notre panneau de paramètres des cookies",
+        "thirdParty": "Visiter les sites tiers pour les options de désactivation"
       }
     },
     "updates": {
       "title": "Mises à Jour de Cette Politique",
-      "description": "Cette politique peut être mise à jour pour refléter les changements dans les services Firebase ou la réglementation."
+      "description": "Nous pouvons mettre à jour cette Politique des Cookies pour refléter les changements dans nos pratiques."
     }
   },
   "programs": {

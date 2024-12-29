@@ -30,33 +30,27 @@
   },
   "privacy": {
     "title": "Privacy Policy",
-    "introduction": {
-      "title": "Introduction",
-      "description": "This Privacy Policy describes how Neo Republic ('we', 'our', or 'us') collects and processes your information through our platform. We use Google Firebase for our infrastructure, and by using our service, you also agree to Google's Privacy Policy and Terms of Service."
-    },
     "dataCollection": {
       "title": "Data Collection",
-      "description": "We collect and process information through Firebase services:",
+      "description": "We collect and process information through Firebase services. For detailed information about Firebase's privacy and security practices, including GDPR compliance, data encryption, and data location, please refer to Firebase's Privacy and Security documentation at https://firebase.google.com/support/privacy. We collect the following types of information:",
       "items": {
-        "authentication": "Authentication data through Firebase Authentication (Google Sign-In)",
-        "usage": "Usage data and interactions stored in Firebase Firestore",
-        "technical": "Technical information processed by Firebase Analytics and Performance Monitoring",
-        "hosting": "Access logs and related data through Firebase Hosting"
+        "personal": "Personal information provided during registration and profile updates",
+        "usage": "Usage data and interactions with our platform",
+        "technical": "Technical information about your device and connection"
       }
     },
     "dataUse": {
       "title": "Use of Data",
-      "description": "Your data is processed and stored using Firebase services for the following purposes:",
+      "description": "We use your data for the following purposes:",
       "items": {
-        "service": "To authenticate and maintain your account through Firebase Authentication",
-        "storage": "To store and retrieve your program proposals and votes in Firebase Firestore",
-        "analytics": "To analyze platform usage through Firebase Analytics",
-        "security": "To ensure platform security using Firebase Security Rules"
+        "service": "To provide and maintain our services",
+        "improvement": "To improve and optimize our platform",
+        "communication": "To communicate important updates and information"
       }
     },
     "dataSecurity": {
       "title": "Data Security",
-      "description": "We implement Firebase Security Rules and follow Google Cloud's security best practices to protect your data. All data is encrypted in transit and at rest according to Firebase's security standards."
+      "description": "We implement appropriate security measures to protect your data from unauthorized access, alteration, or disclosure."
     },
     "dataLocation": {
       "title": "Data Location",
@@ -64,12 +58,12 @@
     },
     "userRights": {
       "title": "Your Rights",
-      "description": "Under GDPR and other applicable laws, you have certain rights regarding your data:",
+      "description": "You have the following rights regarding your personal data:",
       "items": {
-        "access": "Right to access your personal data stored in Firebase",
-        "rectification": "Right to correct inaccurate data in our databases",
-        "deletion": "Right to request deletion of your data from Firebase services",
-        "portability": "Right to data portability in a machine-readable format"
+        "access": "Right to access your personal data",
+        "rectification": "Right to correct inaccurate data",
+        "deletion": "Right to request deletion of your data",
+        "portability": "Right to data portability"
       }
     },
     "thirdParty": {
@@ -84,7 +78,7 @@
     },
     "contact": {
       "title": "Contact Us",
-      "description": "For privacy-related inquiries or to exercise your data rights, please contact us. For more information about how Google processes your data, please refer to Google's Privacy Policy."
+      "description": "If you have any questions about this Privacy Policy, please contact us."
     }
   },
   "terms": {

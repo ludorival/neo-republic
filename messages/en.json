@@ -32,7 +32,7 @@
     "title": "Privacy Policy",
     "dataCollection": {
       "title": "Data Collection",
-      "description": "We collect and process information through Firebase services. For detailed information about Firebase's privacy and security practices, including GDPR compliance, data encryption, and data location, please refer to Firebase's Privacy and Security documentation at https://firebase.google.com/support/privacy. We collect the following types of information:",
+      "description": "We collect and process information through Firebase services. For detailed information about Firebase's privacy and security practices, including GDPR compliance, data encryption, and data location, please refer to <link>Firebase's Privacy and Security documentation</link>. We collect the following types of information:",
       "items": {
         "personal": "Personal information provided during registration and profile updates",
         "usage": "Usage data and interactions with our platform",

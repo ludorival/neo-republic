@@ -32,7 +32,7 @@
     "title": "Politique de Confidentialité",
     "dataCollection": {
       "title": "Collecte des Données",
-      "description": "Nous collectons et traitons les informations via les services Firebase. Pour des informations détaillées sur les pratiques de confidentialité et de sécurité de Firebase, y compris la conformité au RGPD, le chiffrement des données et leur localisation, veuillez consulter la documentation sur la Confidentialité et la Sécurité de Firebase à l'adresse https://firebase.google.com/support/privacy. Nous collectons les types d'informations suivants :",
+      "description": "Nous collectons et traitons les informations via les services Firebase. Pour des informations détaillées sur les pratiques de confidentialité et de sécurité de Firebase, y compris la conformité au RGPD, le chiffrement des données et leur localisation, veuillez consulter <link>la documentation sur la Confidentialité et la Sécurité de Firebase</link>. Nous collectons les types d'informations suivants :",
       "items": {
         "personal": "Informations personnelles fournies lors de l'inscription et des mises à jour du profil",
         "usage": "Données d'utilisation et interactions avec notre plateforme",

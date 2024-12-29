@@ -11,7 +11,20 @@ export default function PrivacyPolicy() {
         <div className="prose prose-lg prose-invert">
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">{t('dataCollection.title')}</h2>
-            <p>{t('dataCollection.description')}</p>
+            <p>
+              {t.rich('dataCollection.description', {
+                link: (chunks) => (
+                  <a 
+                    href="https://firebase.google.com/support/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary-400 hover:text-primary-300 underline"
+                  >
+                    {chunks}
+                  </a>
+                )
+              })}
+            </p>
             <ul className="list-disc pl-6 mt-4">
               <li>{t('dataCollection.items.personal')}</li>
               <li>{t('dataCollection.items.usage')}</li>

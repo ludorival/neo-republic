@@ -11,9 +11,9 @@
     "lint:fix": "next lint --fix",
     "test:e2e": "cypress run",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --component",
+    "test:component": "cypress run --component",
     "tsc": "tsc",
-    "test": "npm run cypress:run",
+    "test": "npm run test:component",
     "posttest": "npm run test:unit && npm run test:firestore",
     "test:unit": "mocha --exit 'tests/unit/**/*.spec.ts'",
     "test:firestore": "firebase emulators:exec --only firestore \"mocha --exit 'tests/firestore/**/*.spec.ts'\""

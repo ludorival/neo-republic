@@ -43,6 +43,7 @@
 - [x] Implement program creation card with CTA button (#34)
 - [x] Add authentication flow for program creation (#35)
 - [ ] Create program list data fetching and state management (#36)
+- [ ] Reorganize home page for a more professional layout (#53)
 
 ### Program Creation Interface
 - [ ] Implement form validation (#22)

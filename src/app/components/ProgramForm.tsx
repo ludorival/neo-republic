@@ -243,6 +243,12 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
   const [isSubmitting, setIsSubmitting] = useState(false)
   const selectedAreaRef = useRef<HTMLDivElement>(null)
 
+  // Helper function to sort policy areas by position
+  const sortedPolicyAreas = () => {
+    return Object.entries(program.policyAreas)
+      .sort(([, a], [, b]) => a.position - b.position);
+  }
+
   const handleAreaSelect = (id: string) => {
     setSelectedArea(id)
     setTimeout(() => {
@@ -376,7 +382,7 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
         <div data-testid="policy-areas-section">
           <h2 className="text-2xl font-semibold mb-4 text-white">{t('policyAreas.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Object.entries(program.policyAreas).map(([id, area]) => (
+            {sortedPolicyAreas().map(([id, area]) => (
               <PolicyAreaCard
                 key={id}
                 id={id}

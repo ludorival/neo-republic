@@ -24,6 +24,7 @@ export interface PolicyArea {
   id: string;
   title: string;
   description: string;
+  position: number;
   objectives: Objective[];
   implementation?: {
     timeline: string;

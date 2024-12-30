@@ -5,54 +5,60 @@ import ProgramForm from './ProgramForm'
 
 describe('<ProgramForm />', () => {
   const mockProgram: Program = {
-    id: '1',
-    slogan: '',
-    description: '',
+    id: '123',
+    slogan: 'Test Slogan',
+    description: 'Test Description',
     status: 'draft',
     createdAt: new Date(),
     updatedAt: new Date(),
-    authorId: 'test-user',
+    authorId: 'user123',
     policyAreas: {
       economy: {
         id: 'economy',
-        title: 'Economic Reform',
-        description: 'Economic policy area',
+        title: 'Economy',
+        description: 'Economic policies',
+        position: 1,
         objectives: []
       },
       education: {
         id: 'education',
-        title: 'Education Reform',
-        description: 'Education policy area',
+        title: 'Education',
+        description: 'Education policies',
+        position: 2,
         objectives: []
       },
       environment: {
         id: 'environment',
-        title: 'Environmental Policy',
-        description: 'Environmental policy area',
+        title: 'Environment',
+        description: 'Environmental policies',
+        position: 3,
         objectives: []
       },
       healthcare: {
         id: 'healthcare',
-        title: 'Healthcare Reform',
-        description: 'Healthcare policy area',
+        title: 'Healthcare',
+        description: 'Healthcare policies',
+        position: 4,
         objectives: []
       },
       infrastructure: {
         id: 'infrastructure',
-        title: 'Infrastructure Development',
-        description: 'Infrastructure policy area',
+        title: 'Infrastructure',
+        description: 'Infrastructure policies',
+        position: 5,
         objectives: []
       },
       social: {
         id: 'social',
-        title: 'Social Programs',
-        description: 'Social policy area',
+        title: 'Social',
+        description: 'Social policies',
+        position: 6,
         objectives: []
       }
     },
     financialValidation: {
       totalBudget: 0,
-      isBalanced: false,
+      isBalanced: true,
       reviewComments: []
     },
     metrics: {

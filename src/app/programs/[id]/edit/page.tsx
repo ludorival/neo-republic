@@ -54,7 +54,7 @@ export default function EditProgramPage() {
   }
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto px-4 py-8 md:px-8 lg:px-12">
        <ProgramForm 
           program={program}
           onSubmit={handleSubmit}

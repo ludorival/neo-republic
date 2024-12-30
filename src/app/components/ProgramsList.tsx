@@ -116,12 +116,13 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
     try {
       setIsCreating(true)
       
-      // Create default policy areas with translations
-      const defaultPolicyAreas = policyAreas.reduce((acc, area) => {
+      // Create default policy areas with translations and positions
+      const defaultPolicyAreas = policyAreas.reduce((acc, area, index) => {
         acc[area] = {
           id: area,
           title: t(`policyAreas.${area}.title`),
           description: t(`policyAreas.${area}.description`),
+          position: index + 1,
           objectives: []
         }
         return acc

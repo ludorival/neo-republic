@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react'
-import { Navbar, NavbarBrand, NavbarContent, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
+import { Navbar, NavbarBrand, NavbarContent, Link, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, Spinner } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './LoginModal'
 import { auth } from '../../infra/firebase/auth'
@@ -14,7 +14,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   const t = useTranslations('home')
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const { user } = useUser()
+  const { user, isLoading } = useUser()
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true)
@@ -44,7 +44,11 @@ export default function Layout({ children }: LayoutProps) {
           </Link>
         </NavbarBrand>
         <NavbarContent justify="end">
-            {user ? (
+          {isLoading ? (
+            <div data-testid="auth-loading" className="flex items-center">
+              <Spinner size="sm" color="white" className="opacity-50" />
+            </div>
+          ) : user ? (
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <div className="flex items-center gap-2 cursor-pointer" data-testid="user-menu-trigger">
@@ -60,7 +64,6 @@ export default function Layout({ children }: LayoutProps) {
               </DropdownTrigger>
               <DropdownMenu 
                 aria-label="User menu"
-                className="bg-primary-900/90 backdrop-blur-md text-white"
               >
                 <DropdownItem 
                   key="logout" 
@@ -74,16 +77,13 @@ export default function Layout({ children }: LayoutProps) {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <Button 
+            <Link
               data-testid="login-button"
-              color="primary"
-              variant="shadow"
-              size="lg"
+              className="text-lg text-white hover:text-primary-300 transition-colors cursor-pointer"
               onPress={handleLoginClick}
-              className="bg-primary-700 hover:bg-primary-600"
             >
               {t('login')}
-            </Button>
+            </Link>
           )}
         </NavbarContent>
       </Navbar>

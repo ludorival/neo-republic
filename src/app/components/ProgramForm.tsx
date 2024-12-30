@@ -1,83 +1,236 @@
 'use client'
-import { Program, PolicyArea, Objective } from '@/domain/models/program'
-import { Input, Textarea, Button, Card, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, CardBody, Spinner, Tooltip } from '@nextui-org/react'
-import { useTranslations } from 'next-intl'
-import { useState, useRef } from 'react'
 import { updateDraftProgram } from '@/actions/programs/updateDraftProgram'
 import { publishProgramForReview } from '@/actions/programs/publishProgramForReview'
+import { Objective, PolicyArea, Program } from '@/domain/models/program'
+import { Button, Card, CardBody, Input, Spinner, Textarea } from '@nextui-org/react'
+import { useTranslations } from 'next-intl'
+import { useRef, useState } from 'react'
+import ObjectiveModal from './ObjectiveModal'
 
-interface ProgramFormProps {
+type ProgramFormProps = {
   program: Program
   onSubmit?: (program: Program) => void
 }
 
-interface ObjectiveModalProps {
-  isOpen: boolean
-  onClose: () => void
-  onSave: (objective: Objective) => void
-  objective?: Objective
-}
-
-function ObjectiveModal({ isOpen, onClose, onSave, objective }: ObjectiveModalProps) {
+// Component for program details section
+const ProgramDetails = ({
+  program,
+  onChange,
+  onBlur
+}: {
+  program: Program
+  onChange: (field: keyof Program) => (value: string) => void
+  onBlur: () => void
+}) => {
   const t = useTranslations('programs.form')
-  const [description, setDescription] = useState(objective?.description || '')
-  const [revenue, setRevenue] = useState(objective?.budget.revenue.toString() || '')
-  const [expenses, setExpenses] = useState(objective?.budget.expenses.toString() || '')
-
-  const handleSave = () => {
-    if (!description || !revenue || !expenses) return
-
-    onSave({
-      description,
-      budget: {
-        revenue: Number(revenue),
-        expenses: Number(expenses)
-      }
-    })
-    onClose()
-  }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} data-testid="objective-modal">
-      <ModalContent>
-        <ModalHeader>{objective ? t('editObjective') : t('addObjective')}</ModalHeader>
-        <ModalBody>
-          <div className="space-y-4">
-            <Textarea
-              label={t('objective.description')}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              data-testid="objective-description-input"
-              required
-            />
-            <Input
-              type="number"
-              label={t('objective.revenue')}
-              value={revenue}
-              onChange={(e) => setRevenue(e.target.value)}
-              data-testid="objective-revenue-input"
-              required
-            />
-            <Input
-              type="number"
-              label={t('objective.expenses')}
-              value={expenses}
-              onChange={(e) => setExpenses(e.target.value)}
-              data-testid="objective-expenses-input"
-              required
+    <div className="space-y-4">
+      <Input
+        label={t('programSlogan')}
+        placeholder={t('sloganPlaceholder')}
+        value={program.slogan}
+        onChange={(e) => onChange('slogan')(e.target.value)}
+        onBlur={onBlur}
+        variant="bordered"
+        classNames={{
+          label: "text-white",
+          input: "text-white",
+          inputWrapper: "bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20",
+        }}
+        data-testid="program-slogan-input"
+        required
+      />
+      
+      <Textarea
+        label={t('programDescription')}
+        placeholder={t('descriptionPlaceholder')}
+        value={program.description}
+        onChange={(e) => onChange('description')(e.target.value)}
+        onBlur={onBlur}
+        variant="bordered"
+        classNames={{
+          label: "text-white",
+          input: "text-white",
+          inputWrapper: "bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20",
+        }}
+        minRows={3}
+        data-testid="program-description-input"
+        required
+      />
+    </div>
+  )
+}
+
+// Component for policy area card
+const PolicyAreaCard = ({
+  id,
+  area,
+  isSelected,
+  onSelect
+}: {
+  id: string
+  area: PolicyArea
+  isSelected: boolean
+  onSelect: (id: string) => void
+}) => {
+  const isComplete = area.objectives.length > 0
+
+  return (
+    <Card
+      isPressable
+      isHoverable
+      onPress={() => onSelect(id)}
+      className={`bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 ${isComplete ? 'border-success border-2' : ''} ${isSelected ? 'ring-2 ring-primary' : ''}`}
+      data-testid="policy-area-card"
+    >
+      <CardBody className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <h3 className="text-xl font-semibold text-white">
+            {area.title}
+          </h3>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-white/80">
+              {area.objectives.length} objectives
+            </span>
+            <div 
+              data-testid={isComplete ? "policy-area-status-complete" : "policy-area-status-incomplete"}
+              className={`rounded-full w-3 h-3 ${isComplete ? 'bg-success' : 'bg-white/30'}`}
             />
           </div>
-        </ModalBody>
-        <ModalFooter>
-          <Button color="danger" variant="light" onPress={onClose} data-testid="cancel-objective-button">
-            {t('cancel')}
+        </div>
+        <p className="text-white/70">
+          {area.description}
+        </p>
+      </CardBody>
+    </Card>
+  )
+}
+
+// Component for objective card
+const ObjectiveCard = ({
+  objective,
+  onEdit,
+  onRemove
+}: {
+  objective: Objective
+  onEdit: (objective: Objective) => void
+  onRemove: (objective: Objective) => void
+}) => {
+  const t = useTranslations('programs.form')
+
+  return (
+    <Card className="w-full bg-white/10 backdrop-blur-sm border border-white/20" data-testid="policy-objective-card">
+      <CardBody className="p-4">
+        <div className="flex justify-between items-start mb-2">
+          <div className="flex-1">
+            <p className="text-white/90">{objective.description}</p>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              color="primary"
+              variant="light"
+              size="sm"
+              onPress={() => onEdit(objective)}
+              data-testid="edit-objective-button"
+            >
+              {t('edit')}
+            </Button>
+            <Button
+              color="danger"
+              variant="light"
+              size="sm"
+              onPress={() => onRemove(objective)}
+              data-testid="remove-objective-button"
+            >
+              {t('remove')}
+            </Button>
+          </div>
+        </div>
+        <div className="mt-2 p-2 bg-white/5 rounded">
+          <div className="flex justify-between">
+            <p className="text-success-400">
+              {t('revenue')}: +${objective.budget.revenue}
+            </p>
+            <p className="text-danger-400">
+              {t('expense')}: -${objective.budget.expenses}
+            </p>
+          </div>
+        </div>
+      </CardBody>
+    </Card>
+  )
+}
+
+// Component for selected area details
+const SelectedAreaDetails = ({
+  area,
+  onClose,
+  onAddObjective,
+  onEditObjective,
+  onRemoveObjective
+}: {
+  area: PolicyArea
+  onClose: () => void
+  onAddObjective: () => void
+  onEditObjective: (objective: Objective) => void
+  onRemoveObjective: (objective: Objective) => void
+}) => {
+  const t = useTranslations('programs.form')
+
+  return (
+    <div className="mt-8 border-t border-white/20 pt-8">
+      <div className="mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 
+            data-testid="policy-area-title"
+            className="text-2xl font-semibold text-white"
+          >
+            {area.title}
+          </h2>
+          <Button
+            color="default"
+            variant="light"
+            onPress={onClose}
+            data-testid="cancel-button"
+            size="sm"
+            className="text-white"
+          >
+            {t('close')}
           </Button>
-          <Button color="primary" onPress={handleSave} data-testid="save-objective-button">
-            {t('save')}
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+        </div>
+        <p className="text-white/70">
+          {area.description}
+        </p>
+      </div>
+
+      <div className="mb-8">
+        <Button
+          color="primary"
+          onPress={onAddObjective}
+          data-testid="add-objective-button"
+        >
+          {t('addNewObjective')}
+        </Button>
+      </div>
+
+      <div className="space-y-4 mb-8">
+        <div className="flex justify-between items-center">
+          <h3 className="text-lg font-semibold text-white">{t('policyPoints')}</h3>
+          <div className="text-white/80">
+            {area.objectives.length} {t('pointsAdded')}
+          </div>
+        </div>
+        {area.objectives.map((objective, index) => (
+          <ObjectiveCard
+            key={index}
+            objective={objective}
+            onEdit={onEditObjective}
+            onRemove={onRemoveObjective}
+          />
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -92,7 +245,6 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
 
   const handleAreaSelect = (id: string) => {
     setSelectedArea(id)
-    // Wait for the next render cycle when the section is rendered
     setTimeout(() => {
       selectedAreaRef.current?.scrollIntoView({ 
         behavior: 'smooth',
@@ -108,7 +260,6 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
       onSubmit?.(savedProgram)
     } catch (error) {
       console.error('Failed to update program:', error)
-      // You might want to show an error notification here
     } finally {
       setIsSubmitting(false)
     }
@@ -193,7 +344,6 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
       onSubmit?.(publishedProgram)
     } catch (error) {
       console.error('Failed to publish program:', error)
-      // You might want to show an error notification here
     } finally {
       setIsSubmitting(false)
     }
@@ -217,168 +367,35 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
       </div>
 
       <form className="space-y-8">
-        <div className="space-y-4">
-          <Input
-            label={t('programSlogan')}
-            placeholder={t('sloganPlaceholder')}
-            value={program.slogan}
-            onChange={(e) => handleChange('slogan')(e.target.value)}
-            onBlur={handleBlur}
-            variant="bordered"
-            classNames={{
-              label: "text-white",
-              input: "text-white",
-              inputWrapper: "bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20",
-            }}
-            data-testid="program-slogan-input"
-            required
-          />
-          
-          <Textarea
-            label={t('programDescription')}
-            placeholder={t('descriptionPlaceholder')}
-            value={program.description}
-            onChange={(e) => handleChange('description')(e.target.value)}
-            onBlur={handleBlur}
-            variant="bordered"
-            classNames={{
-              label: "text-white",
-              input: "text-white",
-              inputWrapper: "bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20",
-            }}
-            minRows={3}
-            data-testid="program-description-input"
-            required
-          />
-        </div>
+        <ProgramDetails
+          program={program}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
 
         <div data-testid="policy-areas-section">
           <h2 className="text-2xl font-semibold mb-4 text-white">{t('policyAreas.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {Object.entries(program.policyAreas).map(([id, area]) => {
-              const isComplete = isAreaComplete(area);
-              const isSelected = selectedArea === id;
-              return (
-                <Card
-                  key={id}
-                  isPressable
-                  isHoverable
-                  onPress={() => handleAreaSelect(id)}
-                  className={`bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20 ${isComplete ? 'border-success border-2' : ''} ${isSelected ? 'ring-2 ring-primary' : ''}`}
-                  data-testid="policy-area-card"
-                >
-                  <CardBody className="p-4">
-                    <div className="flex justify-between items-start mb-2">
-                      <h3 className="text-xl font-semibold text-white">
-                        {area.title}
-                      </h3>
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm text-white/80">
-                          {area.objectives.length} objectives
-                        </span>
-                        <div 
-                          data-testid={isComplete ? "policy-area-status-complete" : "policy-area-status-incomplete"}
-                          className={`rounded-full w-3 h-3 ${isComplete ? 'bg-success' : 'bg-white/30'}`}
-                        />
-                      </div>
-                    </div>
-                    <p className="text-white/70">
-                      {area.description}
-                    </p>
-                  </CardBody>
-                </Card>
-              )
-            })}
+            {Object.entries(program.policyAreas).map(([id, area]) => (
+              <PolicyAreaCard
+                key={id}
+                id={id}
+                area={area}
+                isSelected={selectedArea === id}
+                onSelect={handleAreaSelect}
+              />
+            ))}
           </div>
 
           {selectedArea && (
-            <div 
-              ref={selectedAreaRef}
-              className="mt-8 border-t border-white/20 pt-8"
-            >
-              <div className="mb-8">
-                <div className="flex justify-between items-center mb-4">
-                  <h2 
-                    data-testid="policy-area-title"
-                    className="text-2xl font-semibold text-white"
-                  >
-                    {program.policyAreas[selectedArea].title}
-                  </h2>
-                  <Button
-                    color="default"
-                    variant="light"
-                    onPress={() => setSelectedArea(null)}
-                    data-testid="cancel-button"
-                    size="sm"
-                    className="text-white"
-                  >
-                    {t('close')}
-                  </Button>
-                </div>
-                <p className="text-white/70">
-                  {program.policyAreas[selectedArea].description}
-                </p>
-              </div>
-
-              <div className="mb-8">
-                <Button
-                  color="primary"
-                  onPress={handleAddObjective}
-                  data-testid="add-objective-button"
-                >
-                  {t('addNewObjective')}
-                </Button>
-              </div>
-
-              <div className="space-y-4 mb-8">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold text-white">{t('policyPoints')}</h3>
-                  <div className="text-white/80">
-                    {program.policyAreas[selectedArea].objectives.length} {t('pointsAdded')}
-                  </div>
-                </div>
-                {program.policyAreas[selectedArea].objectives.map((objective, index) => (
-                  <Card key={index} className="w-full bg-white/10 backdrop-blur-sm border border-white/20" data-testid="policy-objective-card">
-                    <CardBody className="p-4">
-                      <div className="flex justify-between items-start mb-2">
-                        <div className="flex-1">
-                          <p className="text-white/90">{objective.description}</p>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button
-                            color="primary"
-                            variant="light"
-                            size="sm"
-                            onPress={() => handleEditObjective(objective)}
-                            data-testid="edit-objective-button"
-                          >
-                            {t('edit')}
-                          </Button>
-                          <Button
-                            color="danger"
-                            variant="light"
-                            size="sm"
-                            onPress={() => handleRemoveObjective(objective)}
-                            data-testid="remove-objective-button"
-                          >
-                            {t('remove')}
-                          </Button>
-                        </div>
-                      </div>
-                      <div className="mt-2 p-2 bg-white/5 rounded">
-                        <div className="flex justify-between">
-                          <p className="text-success-400">
-                            {t('revenue')}: +${objective.budget.revenue}
-                          </p>
-                          <p className="text-danger-400">
-                            {t('expense')}: -${objective.budget.expenses}
-                          </p>
-                        </div>
-                      </div>
-                    </CardBody>
-                  </Card>
-                ))}
-              </div>
+            <div ref={selectedAreaRef}>
+              <SelectedAreaDetails
+                area={program.policyAreas[selectedArea]}
+                onClose={() => setSelectedArea(null)}
+                onAddObjective={handleAddObjective}
+                onEditObjective={handleEditObjective}
+                onRemoveObjective={handleRemoveObjective}
+              />
             </div>
           )}
         </div>

@@ -207,9 +207,12 @@
         "incomplete": "Incomplet"
       },
       "objective": {
-        "description": "Description",
+        "label": "Libellé",
+        "labelPlaceholder": "Décrivez une action politique spécifique et mesurable (ex: 'Mettre en place la gratuité des transports pour les étudiants')",
         "revenue": "Revenus",
-        "expenses": "Dépenses"
+        "revenuePlaceholder": "Estimez les revenus ou économies annuels générés par cette politique (ex: réduction des coûts d'infrastructure, augmentation des recettes fiscales)",
+        "expenses": "Dépenses",
+        "expensesPlaceholder": "Estimez le coût annuel de mise en œuvre et de maintien de cette politique (ex: coûts opérationnels, subventions, infrastructure)"
       },
       "addObjective": "Ajouter un Objectif",
       "editObjective": "Modifier l'Objectif",

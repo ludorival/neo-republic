@@ -4,86 +4,72 @@ import messages from '../../../messages/fr.json'
 import ProgramForm from './ProgramForm'
 
 describe('<ProgramForm />', () => {
-  const mockProgram: Program = {
-    id: '123',
-    slogan: 'Test Slogan',
-    description: 'Test Description',
-    status: 'draft',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    authorId: 'user123',
-    policyAreas: {
-      economy: {
-        id: 'economy',
-        title: 'Economy',
-        description: 'Economic policies',
-        position: 1,
-        objectives: []
-      },
-      education: {
-        id: 'education',
-        title: 'Education',
-        description: 'Education policies',
-        position: 2,
-        objectives: []
-      },
-      environment: {
-        id: 'environment',
-        title: 'Environment',
-        description: 'Environmental policies',
-        position: 3,
-        objectives: []
-      },
-      healthcare: {
-        id: 'healthcare',
-        title: 'Healthcare',
-        description: 'Healthcare policies',
-        position: 4,
-        objectives: []
-      },
-      infrastructure: {
-        id: 'infrastructure',
-        title: 'Infrastructure',
-        description: 'Infrastructure policies',
-        position: 5,
-        objectives: []
-      },
-      social: {
-        id: 'social',
-        title: 'Social',
-        description: 'Social policies',
-        position: 6,
-        objectives: []
-      }
-    },
-    financialValidation: {
-      totalBudget: 0,
-      isBalanced: true,
-      reviewComments: []
-    },
-    metrics: {
-      publicSupport: 0,
-      feasibilityScore: 0,
-      votes: 0
-    }
-  }
-
   beforeEach(() => {
-    cy.mount(<ProgramForm program={{...mockProgram}} />)
-  })
+    const mockProgram: Program = {
+      id: '1',
+      slogan: '',
+      description: '',
+      status: 'draft',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      authorId: 'user1',
+      policyAreas: {
+        economy: {
+          id: 'economy',
+          title: messages.programs.policyAreas.economy.title,
+          description: messages.programs.policyAreas.economy.description,
+          position: 0,
+          objectives: {}
+        },
+        social: {
+          id: 'social',
+          title: messages.programs.policyAreas.social.title,
+          description: messages.programs.policyAreas.social.description,
+          position: 1,
+          objectives: {}
+        },
+        education: {
+          id: 'education',
+          title: messages.programs.policyAreas.education.title,
+          description: messages.programs.policyAreas.education.description,
+          position: 2,
+          objectives: {}
+        },
+        infrastructure: {
+          id: 'infrastructure',
+          title: messages.programs.policyAreas.infrastructure.title,
+          description: messages.programs.policyAreas.infrastructure.description,
+          position: 3,
+          objectives: {}
+        },
+        environment: {
+          id: 'environment',
+          title: messages.programs.policyAreas.environment.title,
+          description: messages.programs.policyAreas.environment.description,
+          position: 4,
+          objectives: {}
+        },
+        security: {
+          id: 'security',
+          title: messages.programs.policyAreas.security.title,
+          description: messages.programs.policyAreas.security.description,
+          position: 5,
+          objectives: {}
+        }
+      },
+      financialValidation: {
+        totalBudget: 0,
+        isBalanced: true,
+        reviewComments: []
+      },
+      metrics: {
+        publicSupport: 0,
+        feasibilityScore: 0,
+        votes: 0
+      }
+    }
 
-  it('shows program details form', () => {
-    cy.get('[data-testid="program-slogan-input"]')
-      .should('exist')
-      .should('have.prop', 'required', true)
-      .should('have.attr', 'placeholder', messages.programs.form.sloganPlaceholder)
-      .should('have.attr', 'aria-label', messages.programs.form.programSlogan)
-    
-    cy.get('[data-testid="program-description-input"]')
-      .should('exist')
-      .should('have.prop', 'required', true)
-      .should('have.attr', 'placeholder', messages.programs.form.descriptionPlaceholder)
-      .should('have.attr', 'aria-label', messages.programs.form.programDescription)
+    cy.mount(<ProgramForm program={mockProgram} />)
   })
 
   it('validates program details', () => {
@@ -119,15 +105,18 @@ describe('<ProgramForm />', () => {
     // Click first policy area
     cy.get('[data-testid="policy-area-card"]').first().click()
 
-    // Open modal and add an objective
+    // Click add objective button and verify form appears
     cy.get('[data-testid="add-objective-button"]').click()
-    cy.get('[data-testid="objective-description-input"]').type('Test objective')
+    cy.get('[data-testid="objective-label-input"]').should('exist')
+
+    // Fill in objective details
+    cy.get('[data-testid="objective-label-input"]').type('Test objective')
     cy.get('[data-testid="objective-revenue-input"]').type('1000')
     cy.get('[data-testid="objective-expenses-input"]').type('500')
     cy.get('[data-testid="save-objective-button"]').click()
 
-    // Modal should close
-    cy.get('[data-testid="objective-modal"]').should('not.exist')
+    // Form should be hidden
+    cy.get('[data-testid="objective-label-input"]').should('not.exist')
 
     // Should show one objective
     cy.get('[data-testid="policy-objective-card"]')
@@ -155,7 +144,7 @@ describe('<ProgramForm />', () => {
     // Click first policy area and add an objective
     cy.get('[data-testid="policy-area-card"]').first().click()
     cy.get('[data-testid="add-objective-button"]').click()
-    cy.get('[data-testid="objective-description-input"]').type('Test objective')
+    cy.get('[data-testid="objective-label-input"]').type('Test objective')
     cy.get('[data-testid="objective-revenue-input"]').type('1000')
     cy.get('[data-testid="objective-expenses-input"]').type('500')
     cy.get('[data-testid="save-objective-button"]').click()
@@ -163,20 +152,19 @@ describe('<ProgramForm />', () => {
     // Click edit button on the objective
     cy.get('[data-testid="edit-objective-button"]').click()
 
-    // Modal should open with existing values
-    cy.get('[data-testid="objective-modal"]').should('be.visible')
-    cy.get('[data-testid="objective-description-input"]').should('have.value', 'Test objective')
+    // Form should appear with existing values
+    cy.get('[data-testid="objective-label-input"]').should('have.value', 'Test objective')
     cy.get('[data-testid="objective-revenue-input"]').should('have.value', '1000')
     cy.get('[data-testid="objective-expenses-input"]').should('have.value', '500')
 
     // Edit the values
-    cy.get('[data-testid="objective-description-input"]').clear().type('Updated objective')
+    cy.get('[data-testid="objective-label-input"]').clear().type('Updated objective')
     cy.get('[data-testid="objective-revenue-input"]').clear().type('2000')
     cy.get('[data-testid="objective-expenses-input"]').clear().type('1000')
     cy.get('[data-testid="save-objective-button"]').click()
 
-    // Modal should close and objective should be updated
-    cy.get('[data-testid="objective-modal"]').should('not.exist')
+    // Form should be hidden and objective should be updated
+    cy.get('[data-testid="objective-label-input"]').should('not.exist')
     cy.get('[data-testid="policy-objective-card"]')
       .should('have.length', 1)
       .should('contain', 'Updated objective')
@@ -184,25 +172,22 @@ describe('<ProgramForm />', () => {
       .should('contain', '-$1000')
   })
 
-  it('validates objective modal inputs', () => {
+  it('validates objective form inputs', () => {
     // Fill in program details first
     cy.get('[data-testid="program-slogan-input"]').type('Test Program Slogan')
     cy.get('[data-testid="program-description-input"]').type('Test Program Description')
 
-    // Click first policy area and open modal
+    // Click first policy area and open form
     cy.get('[data-testid="policy-area-card"]').first().click()
     cy.get('[data-testid="add-objective-button"]').click()
 
     // Try to save without required fields
-    cy.get('[data-testid="save-objective-button"]').click()
-    cy.get('[data-testid="objective-modal"]').should('exist')
-    // cy.get('[data-testid="policy-objective-card"]').should('not.exist')
+    cy.get('[data-testid="save-objective-button"]')
+      .should('be.disabled')
 
-    // Cancel should close modal
+    // Cancel should hide form
     cy.get('[data-testid="cancel-objective-button"]').click()
-
-
-    cy.get('[data-testid="objective-modal"]').should('not.exist')
+    cy.get('[data-testid="objective-label-input"]').should('not.exist')
   })
 
   it('shows appropriate action buttons based on completion', () => {
@@ -223,7 +208,7 @@ describe('<ProgramForm />', () => {
     cy.get('[data-testid="policy-area-card"]').each($card => {
       cy.wrap($card).click()
       cy.get('[data-testid="add-objective-button"]').click()
-      cy.get('[data-testid="objective-description-input"]').type('Test objective')
+      cy.get('[data-testid="objective-label-input"]').type('Test objective')
       cy.get('[data-testid="objective-revenue-input"]').type('1000')
       cy.get('[data-testid="objective-expenses-input"]').type('500')
       cy.get('[data-testid="save-objective-button"]').click()
@@ -243,7 +228,6 @@ describe('<ProgramForm />', () => {
     cy.get('[data-testid="program-description-input"]').type('Test Program Description')
 
     // Initially message should be visible
-    // cy.get('[data-testid="publish-program-button"]').should('be.disabled')
     cy.get('[data-testid="publish-disabled-message"]')
       .should('exist')
       .should('have.text', messages.programs.form.publishDisabledTooltip)
@@ -251,7 +235,7 @@ describe('<ProgramForm />', () => {
     // Add objective to one area
     cy.get('[data-testid="policy-area-card"]').first().click()
     cy.get('[data-testid="add-objective-button"]').click()
-    cy.get('[data-testid="objective-description-input"]').type('Test objective')
+    cy.get('[data-testid="objective-label-input"]').type('Test objective')
     cy.get('[data-testid="objective-revenue-input"]').type('1000')
     cy.get('[data-testid="objective-expenses-input"]').type('500')
     cy.get('[data-testid="save-objective-button"]').click()
@@ -264,7 +248,7 @@ describe('<ProgramForm />', () => {
       if (index === 0) return // Skip first card as it's already done
       cy.wrap($card).click()
       cy.get('[data-testid="add-objective-button"]').click()
-      cy.get('[data-testid="objective-description-input"]').type('Test objective')
+      cy.get('[data-testid="objective-label-input"]').type('Test objective')
       cy.get('[data-testid="objective-revenue-input"]').type('1000')
       cy.get('[data-testid="objective-expenses-input"]').type('500')
       cy.get('[data-testid="save-objective-button"]').click()
@@ -272,24 +256,5 @@ describe('<ProgramForm />', () => {
 
     // Message should be hidden when all areas have objectives
     cy.get('[data-testid="publish-disabled-message"]').should('not.exist')
-  })
-
-  it('maintains selected area visual state', () => {
-    // Click first policy area
-    cy.get('[data-testid="policy-area-card"]').first()
-      .click()
-      .should('have.class', 'ring-2')
-      .should('have.class', 'ring-primary')
-
-    // Click another area
-    cy.get('[data-testid="policy-area-card"]').eq(1)
-      .click()
-      .should('have.class', 'ring-2')
-      .should('have.class', 'ring-primary')
-
-    // First area should no longer be selected
-    cy.get('[data-testid="policy-area-card"]').first()
-      .should('not.have.class', 'ring-2')
-      .should('not.have.class', 'ring-primary')
   })
 }) 

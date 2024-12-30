@@ -8,8 +8,9 @@ export type ProgramStatus = 'draft' | 'under_review' | 'approved' | 'rejected' |
  */
 export interface Objective {
   id?: string;
-  description: string;
+  label: string;
   budget: Budget;
+  position: number;
 }
 
 export interface Budget {
@@ -25,7 +26,7 @@ export interface PolicyArea {
   title: string;
   description: string;
   position: number;
-  objectives: Objective[];
+  objectives: Record<string, Objective>;
   implementation?: {
     timeline: string;
     milestones: string[];

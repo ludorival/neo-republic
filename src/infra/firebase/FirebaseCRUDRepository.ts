@@ -6,14 +6,13 @@ type AnyFirestore = Firestore | FirebaseFirestore;
 export class FirebaseCRUDRepository<I extends string | number, T extends HasId<I>> implements CRUDRepository<I, T> {
   constructor(
     private readonly db: AnyFirestore,
-    private readonly collectionName: string
+    private readonly collectionName: string,
+    private readonly pathResolver: (id?: I) => string[] = (id) => id ? [String(id)] : []
   ) {}
 
   async create(data: PartialId<I, T>): Promise<T> {
     const collectionRef = collection(this.db as Firestore, this.collectionName);
-    const docRef = data.id ? 
-      doc(collectionRef, String(data.id)) : 
-      doc(collectionRef);
+    const docRef = doc(collectionRef, ...this.pathResolver(data.id))
 
     const newData = { ...data, id: docRef.id as I } as T;
     try {
@@ -27,7 +26,7 @@ export class FirebaseCRUDRepository<I extends string | number, T extends HasId<I
 
   async read(id: I): Promise<T | null> {
     const collectionRef = collection(this.db as Firestore, this.collectionName);
-    const docRef = doc(collectionRef, String(id));
+    const docRef = doc(collectionRef, ...this.pathResolver(id));
     const docSnap = await getDoc(docRef);
     if (!docSnap.exists()) return null;
     return { ...docSnap.data(), id } as T;
@@ -35,13 +34,13 @@ export class FirebaseCRUDRepository<I extends string | number, T extends HasId<I
 
   async update(id: I, data: Partial<T>): Promise<void> {
     const collectionRef = collection(this.db as Firestore, this.collectionName);
-    const docRef = doc(collectionRef, String(id));
+    const docRef = doc(collectionRef, ...this.pathResolver(id));
     await updateDoc(docRef, data as DocumentData);
   }
 
   async delete(id: I): Promise<void> {
     const collectionRef = collection(this.db as Firestore, this.collectionName);
-    const docRef = doc(collectionRef, String(id));
+    const docRef = doc(collectionRef, ...this.pathResolver(id));
     await deleteDoc(docRef);
   }
 

@@ -123,7 +123,7 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
           title: t(`policyAreas.${area}.title`),
           description: t(`policyAreas.${area}.description`),
           position: index + 1,
-          objectives: []
+          objectives: {}
         }
         return acc
       }, {} as Record<string, PolicyArea>)

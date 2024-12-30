@@ -8,7 +8,7 @@ export async function publishProgramForReview(program: Program): Promise<Program
 
   // Check if program has at least one objective in each policy area
   const hasObjectivesInAllAreas = Object.values(program.policyAreas).every(
-    area => area.objectives.length > 0
+    area => Object.keys(area.objectives).length > 0
   )
 
   if (!hasObjectivesInAllAreas) {

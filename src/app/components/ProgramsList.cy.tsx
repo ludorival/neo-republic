@@ -22,14 +22,14 @@ describe("<ProgramsList />", () => {
           title: "Economic Reform",
           description: "Economic policy area",
           position: 1,
-          objectives: []
+          objectives: {}
         },
         education: {
           id: "education",
           title: "Education Reform",
           description: "Education policy area",
           position: 2,
-          objectives: []
+          objectives: {}
         }
       },
       financialValidation: {
@@ -57,7 +57,7 @@ describe("<ProgramsList />", () => {
           title: "Education Reform",
           description: "Education policy area",
           position: 2,
-          objectives: []
+          objectives: {}
         }
       },
       financialValidation: {

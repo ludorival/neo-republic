@@ -13,8 +13,7 @@
     "cypress:open": "cypress open",
     "test:component": "cypress run --component",
     "tsc": "tsc",
-    "test": "npm run test:component",
-    "posttest": "npm run test:unit && npm run test:firestore",
+    "test": "npm run test:component && npm run test:unit && npm run test:firestore",
     "test:unit": "mocha --exit 'tests/unit/**/*.spec.ts'",
     "test:firestore": "firebase emulators:exec --only firestore \"mocha --exit 'tests/firestore/**/*.spec.ts'\""
   },

@@ -1,4 +1,3 @@
-'use server'
 import { auth } from "@/infra/firebase/auth"
 import { User } from "@/domain/models/user"
 import { getUserFromFirebaseUser } from "@/infra/firebase/firestore";

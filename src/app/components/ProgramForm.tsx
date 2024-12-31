@@ -36,9 +36,9 @@ const ProgramDetails = ({
         onBlur={onBlur}
         variant="bordered"
         classNames={{
-          label: "text-white",
-          input: "text-white",
-          inputWrapper: "bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20",
+          label: "text-black",
+          input: "text-black",
+          inputWrapper: "bg-white border-white/20 hover:bg-white/90",
         }}
         data-testid="program-slogan-input"
         required
@@ -52,9 +52,9 @@ const ProgramDetails = ({
         onBlur={onBlur}
         variant="bordered"
         classNames={{
-          label: "text-white",
-          input: "text-white",
-          inputWrapper: "bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20",
+          label: "text-black",
+          input: "text-black",
+          inputWrapper: "bg-white border-white/20 hover:bg-white/90",
         }}
         minRows={3}
         data-testid="program-description-input"

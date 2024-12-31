@@ -1,4 +1,4 @@
-import { PolicyArea, Program, createProgram } from '@/domain/models/program';
+import { Program, createProgram } from '@/domain/models/program';
 import { programs, users } from '@/infra/firebase/firestore';
 
 interface CreateDraftProgramInput {
@@ -14,34 +14,8 @@ export async function createDraftProgram({
   description = '',
   policyAreas = [] 
 }: CreateDraftProgramInput): Promise<Program> {
-  const now = new Date();
   
-  const draft: Omit<Program, 'id'> = {
-    slogan,
-    description,
-    status: 'draft',
-    createdAt: now,
-    updatedAt: now,
-    authorId,
-    policyAreas: policyAreas.reduce((acc, policyArea) => {
-      acc[policyArea] = {
-        objectives: [],
-      };
-      return acc;
-    }, {} as Record<string, PolicyArea>),
-    financialValidation: {
-      totalBudget: 0,
-      isBalanced: false,
-      reviewComments: [],
-    },
-    metrics: {
-      publicSupport: 0,
-      feasibilityScore: 0,
-      votes: 0,
-    }
-  };
-
-  const program = await programs.create(draft);
+  const program = await programs.create(createProgram({slogan, description, authorId, policyAreas}));
   
   // Update the user's submittedProgram field
   await users.update(authorId, {

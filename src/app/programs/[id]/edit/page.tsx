@@ -3,10 +3,13 @@ import { readProgram } from '@/actions/programs/readProgram'
 import ProgramForm from '@/app/components/ProgramForm'
 import { Program } from '@/domain/models/program'
 import { programs } from '@/infra/firebase/firestore'
-import { useParams } from 'next/navigation'
 
-export default async function EditProgramPage() {
-  const { id } = useParams()
+export default async function EditProgramPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  const { id } = await params
   const program = await readProgram(id as string)
 
 

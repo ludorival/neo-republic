@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { Modal, ModalContent, ModalHeader, ModalBody, Button, Spinner } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import { signInWithGoogle } from '@/actions/auth/signInWithGoogle'
+import { User } from '@/domain/models/user'
 
 interface LoginModalProps {
   isOpen: boolean
   onClose: () => void
-  onSuccess?: () => void
+  onSuccess?: (user: User) => void
 }
 
 const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
@@ -19,9 +20,9 @@ const LoginModal = ({ isOpen, onClose, onSuccess }: LoginModalProps) => {
       setIsLoading(true)
       setError(null)
       
-      await signInWithGoogle()
+      const user = await signInWithGoogle()
       onClose()
-      onSuccess?.()
+      onSuccess?.(user)
     } catch (error) {
       console.error('Authentication error:', error)
       setError(t('auth.error'))

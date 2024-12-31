@@ -27,7 +27,7 @@ export default defineConfig({
       bundler: "webpack",
     },
     retries: {
-      runMode: 2,
+      runMode: 1,
       openMode: 0
     }
   },
@@ -35,7 +35,7 @@ export default defineConfig({
   e2e: {
     baseUrl: 'https://neo-republic-sandbox--neo-republic-sandbox.europe-west4.hosted.app',
     retries: {
-      runMode: 2,
+      runMode: 1,
       openMode: 0
     },
     setupNodeEvents(on, config) {

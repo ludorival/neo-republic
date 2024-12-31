@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import { Navbar, NavbarBrand, NavbarContent, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
+import { Navbar, NavbarBrand, NavbarContent, Link, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, Spinner } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './LoginModal'
 import { auth } from '../../infra/firebase/auth'
-import { useAuth } from '@/app/hooks/useAuth'
 import Image from 'next/image'
+import { useUser } from '../contexts/UserContext'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -14,7 +14,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   const t = useTranslations('home')
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const { currentUser } = useAuth()
+  const { user, isLoading } = useUser()
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true)
@@ -44,23 +44,26 @@ export default function Layout({ children }: LayoutProps) {
           </Link>
         </NavbarBrand>
         <NavbarContent justify="end">
-          {currentUser ? (
+          {isLoading ? (
+            <div data-testid="auth-loading" className="flex items-center">
+              <Spinner size="sm" color="white" className="opacity-50" />
+            </div>
+          ) : user ? (
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <div className="flex items-center gap-2 cursor-pointer" data-testid="user-menu-trigger">
                   <Avatar 
-                    name={currentUser.displayName || undefined}
-                    src={currentUser.photoURL || undefined}
+                    name={user.displayName || undefined}
+                    src={user.profile?.avatar || undefined}
                     size="sm"
                   />
                   <span data-testid="user-name" className="text-lg text-white">
-                    {currentUser.displayName}
+                    {user.displayName}
                   </span>
                 </div>
               </DropdownTrigger>
               <DropdownMenu 
                 aria-label="User menu"
-                className="bg-primary-900/90 backdrop-blur-md text-white"
               >
                 <DropdownItem 
                   key="logout" 
@@ -74,16 +77,13 @@ export default function Layout({ children }: LayoutProps) {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <Button 
+            <Link
               data-testid="login-button"
-              color="primary"
-              variant="shadow"
-              size="lg"
+              className="text-lg text-white hover:text-primary-300 transition-colors cursor-pointer"
               onPress={handleLoginClick}
-              className="bg-primary-700 hover:bg-primary-600"
             >
               {t('login')}
-            </Button>
+            </Link>
           )}
         </NavbarContent>
       </Navbar>
@@ -93,8 +93,11 @@ export default function Layout({ children }: LayoutProps) {
         onClose={() => setIsLoginModalOpen(false)}
       />
 
-      <div className="flex-grow">
-        {children}
+      <div className="flex-grow relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-800/75 to-primary-900/70 backdrop-blur-[2px]" />
+        <div className="relative">
+          {children}
+        </div>
       </div>
     </div>
   )

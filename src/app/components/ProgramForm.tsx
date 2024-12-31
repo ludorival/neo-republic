@@ -5,6 +5,9 @@ import { Objective, PolicyArea, Program } from '@/domain/models/program'
 import { Button, Card, CardBody, Input, Spinner, Textarea } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import { useRef, useState } from 'react'
+import { updateObjective } from '@/actions/programs/updateObjective'
+import { addObjective } from '@/actions/programs/addObjective'
+import { deleteObjective } from '@/actions/programs/deleteObjective'
 
 type ProgramFormProps = {
   program: Program
@@ -73,8 +76,11 @@ const PolicyAreaCard = ({
   isSelected: boolean
   onSelect: (id: string) => void
 }) => {
-  const isComplete = Object.keys(area.objectives).length > 0
+  const t = useTranslations('programs.policyAreas')
+  const isComplete = area.objectives.length > 0
 
+  const areaTitle = t(`${id}.title`)
+  const areaDescription = t(`${id}.description`)
   return (
     <Card
       isPressable
@@ -85,7 +91,7 @@ const PolicyAreaCard = ({
       <CardBody className="p-4">
         <div className="flex justify-between items-start mb-2">
           <h3 className="text-xl font-semibold text-white">
-            {area.title}
+            {areaTitle}
           </h3>
           <div 
             data-testid={isComplete ? "policy-area-status-complete" : "policy-area-status-incomplete"}
@@ -93,11 +99,11 @@ const PolicyAreaCard = ({
           />
         </div>
         <p className="text-white/70 mb-3">
-          {area.description}
+          {areaDescription}
         </p>
-        {Object.keys(area.objectives).length > 0 ? (
+        {area.objectives.length > 0 ? (
           <ul className="space-y-1">
-            {Object.values(area.objectives).map((objective, index) => (
+            {area.objectives.map((objective, index) => (
               <li key={index} className="text-sm text-white/80 flex items-center">
                 <span className="w-2 h-2 bg-white/50 rounded-full mr-2" />
                 {objective.label}
@@ -172,12 +178,10 @@ const ObjectiveCard = ({
 // Component for objective form
 const ObjectiveForm = ({
   objective,
-  position = objective?.position,
   onSave,
   onCancel
 }: {
   objective?: Objective
-  position?: number
   onSave: (objective: Objective) => void
   onCancel: () => void
 }) => {
@@ -190,10 +194,7 @@ const ObjectiveForm = ({
     if (!label || !revenue || !expenses) return
 
     onSave({
-      ...objective,
-      id: objective?.id ?? String(position ?? objective?.position ?? 0),
       label: label,
-      position: position ?? objective?.position ?? 0,
       budget: {
         revenue: Number(revenue),
         expenses: Number(expenses)
@@ -260,21 +261,25 @@ const ObjectiveForm = ({
 
 // Component for selected area details
 const SelectedAreaDetails = ({
+  areaId,
   area,
   onAddObjective,
   onEditObjective,
   onRemoveObjective
 }: {
+  areaId: string
   area: PolicyArea
   onClose: () => void
   onAddObjective: (objective: Objective) => void
-  onEditObjective: (objective: Objective) => void
+  onEditObjective: (objective: Objective, initialObjective: Objective) => void
   onRemoveObjective: (objective: Objective) => void
 }) => {
-  const t = useTranslations('programs.form')
+  const t = useTranslations('programs')
   const [showObjectiveForm, setShowObjectiveForm] = useState(false)
   const [editingObjective, setEditingObjective] = useState<Objective | undefined>()
 
+  const areaTitle = t(`policyAreas.${areaId}.title`)
+  const areaDescription = t(`policyAreas.${areaId}.description`)
   const handleAddClick = () => {
     setEditingObjective(undefined)
     setShowObjectiveForm(true)
@@ -287,7 +292,7 @@ const SelectedAreaDetails = ({
 
   const handleSaveObjective = (objective: Objective) => {
     if (editingObjective) {
-      onEditObjective(objective)
+      onEditObjective(objective, editingObjective)
     } else {
       onAddObjective(objective)
     }
@@ -295,12 +300,13 @@ const SelectedAreaDetails = ({
     setEditingObjective(undefined)
   }
 
+
   return (
     <div className="mt-8 bg-white/5 rounded-lg p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h3 className="text-2xl font-semibold text-white mb-2">{area.title}</h3>
-          <p className="text-white/70">{area.description}</p>
+          <h3 className="text-2xl font-semibold text-white mb-2">{areaTitle}</h3>
+          <p className="text-white/70">{areaDescription}</p>
         </div>
         <Button
           color="primary"
@@ -308,7 +314,7 @@ const SelectedAreaDetails = ({
           data-testid="add-objective-button"
           isDisabled={showObjectiveForm}
         >
-          {t('addNewObjective')}
+          {t('form.addNewObjective')}
         </Button>
       </div>
 
@@ -316,7 +322,6 @@ const SelectedAreaDetails = ({
         <ObjectiveForm
           objective={editingObjective}
           onSave={handleSaveObjective}
-          position={editingObjective?.position ?? Object.keys(area.objectives).length}
           onCancel={() => {
             setShowObjectiveForm(false)
             setEditingObjective(undefined)
@@ -325,7 +330,7 @@ const SelectedAreaDetails = ({
       )}
 
       <div className="space-y-4">
-        {Object.values(area.objectives).sort((a, b) => a.position - b.position).map((objective, index) => (
+        {area.objectives.map((objective, index) => (
           <ObjectiveCard
             key={index}
             objective={objective}
@@ -339,17 +344,14 @@ const SelectedAreaDetails = ({
 }
 
 export default function ProgramForm({ program: initialProgram, onSubmit }: ProgramFormProps) {
-  const t = useTranslations('programs.form')
+  const t = useTranslations('programs')
   const [program, setProgram] = useState(initialProgram)
   const [selectedArea, setSelectedArea] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const selectedAreaRef = useRef<HTMLDivElement>(null)
 
-  // Helper function to sort policy areas by position
-  const sortedPolicyAreas = () => {
-    return Object.entries(program.policyAreas)
-      .sort(([, a], [, b]) => a.position - b.position);
-  }
+
+  const sortedPolicyAreas = t('policyAreaKeys').split(',')
 
   const handleAreaSelect = (id: string) => {
     setSelectedArea(id)
@@ -361,10 +363,11 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
     }, 100)
   }
 
-  const saveChanges = async (updatedProgram: Program) => {
+  const saveChanges = async (block: () => Promise<Program>) => {
     try {
       setIsSubmitting(true)
-      const savedProgram = await updateDraftProgram(updatedProgram)
+      const savedProgram = await block()
+      setProgram(savedProgram)
       onSubmit?.(savedProgram)
     } catch (error) {
       console.error('Failed to update program:', error)
@@ -383,79 +386,29 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
   }
 
   const handleBlur = () => {
-    saveChanges(program)
+    saveChanges(() => updateDraftProgram(program))
   }
 
   const handleAddObjective = (objective: Objective) => {
     if (!selectedArea) return
 
-    const area = program.policyAreas[selectedArea]
-    if (!area) return
 
-    const updatedProgram = {
-      ...program,
-      policyAreas: {
-        ...program.policyAreas,
-        [selectedArea]: {
-          ...area,
-          objectives: {
-            ...area.objectives,
-            [objective.id ?? objective.position]: objective
-          }
-        }
-      },
-      updatedAt: new Date()
-    }
-
-    setProgram(updatedProgram)
-    saveChanges(updatedProgram)
+    saveChanges(() => addObjective({ programId: program.id, policyAreaId: selectedArea, objective }))
   }
 
-  const handleEditObjective = (objective: Objective) => {
+  const handleEditObjective = async (objective: Objective, initialObjective: Objective) => {
     if (!selectedArea) return
 
-    const area = program.policyAreas[selectedArea]
-    if (!area) return
-
-    const updatedProgram = {
-      ...program,
-      policyAreas: {
-        ...program.policyAreas,
-        [selectedArea]: {
-          ...area,
-          objectives: {
-            ...area.objectives,
-            [objective.id ?? objective.position]: objective
-          }
-        }
-      },
-      updatedAt: new Date()
-    }
-
-    setProgram(updatedProgram)
-    saveChanges(updatedProgram)
+    saveChanges(() => updateObjective({ programId: program.id, policyAreaId: selectedArea, objective, label: initialObjective.label }))
   }
 
   const handleRemoveObjective = (objective: Objective) => {
     if (!selectedArea) return
 
-    const updatedProgram = { ...program }
-    const area = updatedProgram.policyAreas[selectedArea]
-    if (!area) return
-
-    updatedProgram.policyAreas[selectedArea] = {
-      ...area,
-      objectives: Object.fromEntries(
-        Object.entries(area.objectives).filter(([key]) => key !== objective.id)
-      )
-    }
-    updatedProgram.updatedAt = new Date()
-
-    setProgram(updatedProgram)
-    saveChanges(updatedProgram)
+    saveChanges(() => deleteObjective({ programId: program.id, policyAreaId: selectedArea, objective }))
   }
 
-  const isAreaComplete = (area: PolicyArea) => Object.keys(area.objectives).length > 0
+  const isAreaComplete = (area: PolicyArea) => area.objectives.length > 0
   const canPublish = Object.values(program.policyAreas).every(isAreaComplete)
 
   const handlePublish = async () => {
@@ -475,15 +428,15 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
       {isSubmitting && (
         <div className="fixed bottom-4 right-4 flex items-center gap-2 bg-white/10 backdrop-blur-sm p-2 rounded-lg shadow-lg">
           <Spinner size="sm" />
-          <span className="text-sm text-white">{t('saving')}</span>
+          <span className="text-sm text-white">{t('form.saving')}</span>
         </div>
       )}
       <div className="mb-8">
         <h1 className="text-4xl font-bold mb-4 text-white">
-          {t('editProgram')}
+          {t('form.editProgram')}
         </h1>
         <p className="text-xl text-white/80">
-          {t('editProgramDescription')}
+          {t('form.editProgramDescription')}
         </p>
       </div>
 
@@ -495,13 +448,13 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
         />
 
         <div data-testid="policy-areas-section">
-          <h2 className="text-2xl font-semibold mb-4 text-white">{t('policyAreas.title')}</h2>
+          <h2 className="text-2xl font-semibold mb-4 text-white">{t('form.policyAreas.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {sortedPolicyAreas().map(([id, area]) => (
+            {sortedPolicyAreas.map((id) => (
               <PolicyAreaCard
                 key={id}
                 id={id}
-                area={area}
+                area={program.policyAreas[id]}
                 isSelected={selectedArea === id}
                 onSelect={handleAreaSelect}
               />
@@ -511,6 +464,7 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
           {selectedArea && (
             <div ref={selectedAreaRef}>
               <SelectedAreaDetails
+                areaId={selectedArea}
                 area={program.policyAreas[selectedArea]}
                 onClose={() => setSelectedArea(null)}
                 onAddObjective={handleAddObjective}
@@ -524,7 +478,7 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
         <div className="flex justify-end items-center gap-4">
           {!canPublish && (
             <p className="text-sm text-danger-400" data-testid="publish-disabled-message">
-              {t('publishDisabledTooltip')}
+              {t('form.publishDisabledTooltip')}
             </p>
           )}
           <Button
@@ -535,7 +489,7 @@ export default function ProgramForm({ program: initialProgram, onSubmit }: Progr
             onPress={handlePublish}
             isDisabled={!canPublish}
           >
-            {t('publishProgram')}
+            {t('form.publishProgram')}
           </Button>
         </div>
       </form>

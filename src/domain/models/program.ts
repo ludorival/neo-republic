@@ -7,26 +7,17 @@ export type ProgramStatus = 'draft' | 'under_review' | 'approved' | 'rejected' |
  * Represents an objective with amount and description
  */
 export interface Objective {
-  id?: string;
   label: string;
-  budget: Budget;
-  position: number;
+  budget: {revenue: number, expenses: number};
 }
 
-export interface Budget {
-  revenue: number;
-  expenses: number;
-}
+
 
 /**
  * Base interface for all policy areas
  */
 export interface PolicyArea {
-  id: string;
-  title: string;
-  description: string;
-  position: number;
-  objectives: Record<string, Objective>;
+  objectives: Objective[];
   implementation?: {
     timeline: string;
     milestones: string[];
@@ -62,5 +53,32 @@ export interface Program {
     feasibilityScore: number;
     implementationProgress?: number;
     votes: number;
+  };
+}
+
+export function createProgram({slogan, description, authorId, policyAreas}: {slogan?: string, description?: string, authorId: string, policyAreas: string[]}): Omit<Program, 'id'> {
+  return {
+    slogan: slogan || '',
+    description: description || '',
+    status: 'draft',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    authorId: authorId,
+    policyAreas: policyAreas.reduce((acc, policyArea) => {
+      acc[policyArea] = {
+        objectives: [],
+      };
+      return acc;
+    }, {} as Record<string, PolicyArea>),
+    financialValidation: {
+      totalBudget: 0,
+      isBalanced: false,
+      reviewComments: [],
+    },
+    metrics: {
+      publicSupport: 0,
+      feasibilityScore: 0,
+      votes: 0,
+    },
   };
 }

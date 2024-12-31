@@ -179,22 +179,20 @@
     "description": "Découvrez les programmes proposés par les citoyens",
     "empty": "Aucun programme n'a encore été créé",
     "form": {
-      "publishDisabledTooltip": "Ajoutez au moins un objectif à chaque domaine politique avant de publier",
       "editProgram": "Modifier le Programme",
       "editProgramDescription": "Affinez votre programme en ajoutant des objectifs et en ajustant les détails pour chaque domaine politique.",
       "programSlogan": "Slogan du Programme",
       "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
       "programDescription": "Description du Programme",
-      "descriptionPlaceholder": "Décrivez la vision et les objectifs principaux de votre programme",
+      "descriptionPlaceholder": "Décrivez la vision principale et les objectifs de votre programme",
       "addNewObjective": "Ajouter un Nouvel Objectif",
       "editPoint": "Modifier le Point",
       "description": "Description",
       "revenue": "Revenus",
-      "expense": "Dépenses",
+      "expense": "Dépense",
       "close": "Fermer",
       "save": "Enregistrer",
-      "saving": "Enregistrement...",
-      "addPoint": "Ajouter le Point",
+      "addPoint": "Ajouter un Point",
       "policyPoints": "Points Politiques",
       "pointsAdded": "points ajoutés",
       "edit": "Modifier",
@@ -216,12 +214,15 @@
       },
       "addObjective": "Ajouter un Objectif",
       "editObjective": "Modifier l'Objectif",
-      "cancel": "Annuler"
+      "cancel": "Annuler",
+      "publishDisabledTooltip": "Ajoutez au moins un objectif à chaque domaine politique avant de publier",
+      "saving": "Enregistrement des modifications..."
     },
     "create": {
       "title": "Créer un Nouveau Programme",
       "description": "Définissez votre programme politique en spécifiant des objectifs pour chaque domaine politique.",
-      "creating": "Création de votre programme..."
+      "creating": "Création de votre programme...",
+      "error": "Échec de la création du programme. Veuillez réessayer."
     },
     "edit": {
       "title": "Modifier Votre Programme",
@@ -232,6 +233,7 @@
       "feasible": "faisabilité",
       "votes": "votes"
     },
+    "policyAreaKeys": "economy,social,education,infrastructure,environment,security",
     "policyAreas": {
       "economy": {
         "title": "Économie",

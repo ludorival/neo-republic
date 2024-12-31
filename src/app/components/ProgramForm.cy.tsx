@@ -1,74 +1,25 @@
 import React from 'react'
-import { Program } from '@/domain/models/program'
+import { Program, createProgram } from '@/domain/models/program'
 import messages from '../../../messages/fr.json'
 import ProgramForm from './ProgramForm'
+import * as repositories from "@/infra/firebase/firestore";
+
 
 describe('<ProgramForm />', () => {
   beforeEach(() => {
-    const mockProgram: Program = {
-      id: '1',
-      slogan: '',
-      description: '',
-      status: 'draft',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      authorId: 'user1',
-      policyAreas: {
-        economy: {
-          id: 'economy',
-          title: messages.programs.policyAreas.economy.title,
-          description: messages.programs.policyAreas.economy.description,
-          position: 0,
-          objectives: {}
-        },
-        social: {
-          id: 'social',
-          title: messages.programs.policyAreas.social.title,
-          description: messages.programs.policyAreas.social.description,
-          position: 1,
-          objectives: {}
-        },
-        education: {
-          id: 'education',
-          title: messages.programs.policyAreas.education.title,
-          description: messages.programs.policyAreas.education.description,
-          position: 2,
-          objectives: {}
-        },
-        infrastructure: {
-          id: 'infrastructure',
-          title: messages.programs.policyAreas.infrastructure.title,
-          description: messages.programs.policyAreas.infrastructure.description,
-          position: 3,
-          objectives: {}
-        },
-        environment: {
-          id: 'environment',
-          title: messages.programs.policyAreas.environment.title,
-          description: messages.programs.policyAreas.environment.description,
-          position: 4,
-          objectives: {}
-        },
-        security: {
-          id: 'security',
-          title: messages.programs.policyAreas.security.title,
-          description: messages.programs.policyAreas.security.description,
-          position: 5,
-          objectives: {}
-        }
-      },
-      financialValidation: {
-        totalBudget: 0,
-        isBalanced: true,
-        reviewComments: []
-      },
-      metrics: {
-        publicSupport: 0,
-        feasibilityScore: 0,
-        votes: 0
-      }
-    }
+    const mockProgram: Program = {...createProgram({
+      authorId: '1',
+      policyAreas: messages.programs['policyAreaKeys'].split(',')
+    }), id: '1'}
 
+    const programsCollection: Record<string, Program> = {
+      [mockProgram.id]: mockProgram
+    }
+    cy.stub(repositories.programs, 'read').callsFake((id) => Promise.resolve(programsCollection[id]) )
+    cy.stub(repositories.programs, 'update').callsFake((id, program) => {
+      programsCollection[id] = {...programsCollection[id], ...program}
+      return Promise.resolve(programsCollection[id])  
+    })
     cy.mount(<ProgramForm program={mockProgram} />)
   })
 

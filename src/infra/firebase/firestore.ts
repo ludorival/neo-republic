@@ -10,7 +10,7 @@ import { UserRepository } from "@/domain/repositories/user";
 import { VoteRepository } from "@/domain/repositories/vote";
 import { User as FirebaseUser } from 'firebase/auth';
 
-const firestore = getFirestore(firebaseApp);
+export const firestore = getFirestore(firebaseApp);
 
 export const users : UserRepository = new FirebaseCRUDRepository<string, User>(firestore, 'users');
 export const programs : ProgramRepository = new FirebaseCRUDRepository<string, Program>(firestore, 'programs');

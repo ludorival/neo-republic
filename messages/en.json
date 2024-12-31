@@ -213,12 +213,14 @@
       "addObjective": "Add Objective",
       "editObjective": "Edit Objective",
       "cancel": "Cancel",
-      "publishDisabledTooltip": "Add at least one objective to each policy area before publishing"
+      "publishDisabledTooltip": "Add at least one objective to each policy area before publishing",
+      "saving": "Saving changes..."
     },
     "create": {
       "title": "Create a New Program",
       "description": "Define your political program by specifying objectives for each policy area.",
-      "creating": "Creating your program..."
+      "creating": "Creating your program...",
+      "error": "Failed to create program. Please try again."
     },
     "edit": {
       "title": "Edit Your Program",
@@ -229,6 +231,7 @@
       "feasible": "feasibility",
       "votes": "votes"
     },
+    "policyAreaKeys": "economy,social,education,infrastructure,environment,security",
     "policyAreas": {
       "economy": {
         "title": "Economy",

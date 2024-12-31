@@ -1,6 +1,6 @@
 'use client'
 import { createDraftProgram } from '@/actions/programs/createDraftProgram'
-import { PolicyArea, Program } from '@/domain/models/program'
+import { Program } from '@/domain/models/program'
 import { User } from '@/domain/models/user'
 import { Card, CardBody, Spinner } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
@@ -9,7 +9,6 @@ import { useState } from 'react'
 import { useUser } from '../contexts/UserContext'
 import LoginModal from './LoginModal'
 
-const policyAreas = ['economy', 'social', 'education', 'infrastructure', 'environment', 'security'] as const
 
 type ProgramsListProps = {
   programs?: Program[]
@@ -105,8 +104,11 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
   const t = useTranslations('programs')
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const { user } = useUser()
   const router = useRouter()
+  const policyAreas = t('policyAreaKeys').split(',') // ['economy', 'social', 'education', 'infrastructure', 'environment', 'security'] as const
+
 
   const handleCreateProgramClick = async (user: User | null) => {
     if (!user) {
@@ -115,29 +117,20 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
     }
     try {
       setIsCreating(true)
+      setError(null)
       
-      // Create default policy areas with translations and positions
-      const defaultPolicyAreas = policyAreas.reduce((acc, area, index) => {
-        acc[area] = {
-          id: area,
-          title: t(`policyAreas.${area}.title`),
-          description: t(`policyAreas.${area}.description`),
-          position: index + 1,
-          objectives: {}
-        }
-        return acc
-      }, {} as Record<string, PolicyArea>)
-
       const program = await createDraftProgram({ 
         authorId: user.id,
         slogan: '',
         description: '',
-        policyAreas: defaultPolicyAreas
+        policyAreas: policyAreas
       });
       
       router.push(`/programs/${program.id}/edit`)
     } catch (error) {
       console.error('Failed to create draft program:', error);
+      setError(t('create.error'))
+    } finally {
       setIsCreating(false)
     }
   }
@@ -185,6 +178,14 @@ export default function ProgramsList({ programs = [] }: ProgramsListProps) {
           {t('description')}
         </p>
       </div>
+      {error && (
+        <div 
+          className="mb-4 p-4 bg-danger-500/10 border border-danger-500/20 rounded-lg text-danger-500"
+          data-testid="create-program-error"
+        >
+          {error}
+        </div>
+      )}
       {renderProgramsList()}
       <LoginModal 
         isOpen={isLoginModalOpen}

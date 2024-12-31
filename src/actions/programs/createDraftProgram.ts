@@ -1,19 +1,18 @@
-import { Program, PolicyArea } from '@/domain/models/program';
-import { programs } from '@/infra/firebase/firestore';
-import { users } from '@/infra/firebase/firestore';
+import { PolicyArea, Program, createProgram } from '@/domain/models/program';
+import { programs, users } from '@/infra/firebase/firestore';
 
 interface CreateDraftProgramInput {
   authorId: string;
   slogan?: string;
   description?: string;
-  policyAreas?: Record<string, PolicyArea>;
+  policyAreas: string[];
 }
 
 export async function createDraftProgram({ 
   authorId, 
   slogan = '', 
   description = '',
-  policyAreas = {} 
+  policyAreas = [] 
 }: CreateDraftProgramInput): Promise<Program> {
   const now = new Date();
   
@@ -24,7 +23,12 @@ export async function createDraftProgram({
     createdAt: now,
     updatedAt: now,
     authorId,
-    policyAreas,
+    policyAreas: policyAreas.reduce((acc, policyArea) => {
+      acc[policyArea] = {
+        objectives: [],
+      };
+      return acc;
+    }, {} as Record<string, PolicyArea>),
     financialValidation: {
       totalBudget: 0,
       isBalanced: false,

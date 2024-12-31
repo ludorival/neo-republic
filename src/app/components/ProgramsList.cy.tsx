@@ -1,5 +1,5 @@
 import React from "react";
-import { Program } from "@/domain/models/program";
+import { Program, createProgram } from "@/domain/models/program";
 import messages from "../../../messages/fr.json";
 import ProgramsList from "./ProgramsList";
 import { auth } from "@/infra/firebase/auth";
@@ -9,67 +9,28 @@ import { User } from "firebase/auth";
 describe("<ProgramsList />", () => {
   const mockPrograms: Program[] = [
     {
+      ...createProgram({
+        authorId: "hidden",
+        slogan: "Economic Reform",
+        description: "Comprehensive economic reform plan",
+        policyAreas: messages.programs['policyAreaKeys'].split(',')
+      }),
       id: "1",
-      slogan: "Economic Reform",
-      description: "Comprehensive economic reform plan",
       status: "published" as const,
       createdAt: new Date("2024-01-01"),
-      updatedAt: new Date("2024-01-01"),
-      authorId: "hidden",
-      policyAreas: {
-        economy: {
-          id: "economy",
-          title: "Economic Reform",
-          description: "Economic policy area",
-          position: 1,
-          objectives: {}
-        },
-        education: {
-          id: "education",
-          title: "Education Reform",
-          description: "Education policy area",
-          position: 2,
-          objectives: {}
-        }
-      },
-      financialValidation: {
-        totalBudget: 0,
-        isBalanced: false,
-        reviewComments: []
-      },
-      metrics: {
-        publicSupport: 0,
-        feasibilityScore: 0,
-        votes: 0
-      }
+      updatedAt: new Date("2024-01-01")
     },
     {
+      ...createProgram({
+        authorId: "hidden",
+        slogan: "Education Reform",
+        description: "Modern education system reform",
+        policyAreas: messages.programs['policyAreaKeys'].split(',')
+      }),
       id: "2",
-      slogan: "Education Reform",
-      description: "Modern education system reform",
       status: "published" as const,
       createdAt: new Date("2024-01-02"),
-      updatedAt: new Date("2024-01-02"),
-      authorId: "hidden",
-      policyAreas: {
-        education: {
-          id: "education",
-          title: "Education Reform",
-          description: "Education policy area",
-          position: 2,
-          objectives: {}
-        }
-      },
-      financialValidation: {
-        totalBudget: 0,
-        isBalanced: false,
-        reviewComments: []
-      },
-      metrics: {
-        publicSupport: 0,
-        feasibilityScore: 0,
-        votes: 0
-      }
+      updatedAt: new Date("2024-01-02")
     }
   ];
 
@@ -214,7 +175,13 @@ describe("<ProgramsList />", () => {
         callback(mockUser)
         return Promise.resolve(mockUser)
       })
-      const mockProgram = { ...mockPrograms[0], id: "new-program-id" };
+      const mockProgram = {
+        ...createProgram({
+          authorId: mockUser.uid,
+          policyAreas: messages.programs['policyAreaKeys'].split(',')
+        }),
+        id: "new-program-id"
+      };
       cy.stub(repositories.programs, "create").resolves(mockProgram);
 
       cy.mount(<ProgramsList programs={mockPrograms} />);
@@ -230,7 +197,7 @@ describe("<ProgramsList />", () => {
         .and("have.been.calledWith", "/programs/new-program-id/edit");
     });
 
-    it("creates draft program and updates user submittedProgram when authenticated user clicks create program", () => {
+    it("shows error message when program creation fails", () => {
       // Mock authenticated user
       const mockUser = {
         displayName: "John Doe",
@@ -243,45 +210,78 @@ describe("<ProgramsList />", () => {
         return () => {};
       });
 
-      // Mock program creation
-      const mockProgram = { ...mockPrograms[0], id: "new-program-id" };
-      cy.stub(repositories.programs, "create").resolves(mockProgram);
+      // Mock program creation failure
+      cy.stub(repositories.programs, "create").rejects(new Error("Failed to create program"));
 
-      cy.mount(<ProgramsList programs={mockPrograms} />);
+      cy.mount(<ProgramsList programs={mockPrograms} />, {
+        currentUser: {
+          id: "123",
+          role: "citizen",
+          createdAt: new Date(),
+          displayName: "John Doe",
+          email: "john@example.com"
+        }
+      });
 
+      // Click create program
       cy.get('[data-testid="create-program-card"]').click();
 
-      // Verify user update was called with correct program ID
-      cy.get("@updateUser")
-        .should("have.been.calledOnce")
-        .and("have.been.calledWith", mockUser.uid, {
-          submittedProgram: mockProgram.id
-        });
+      // Verify error message is displayed
+      cy.get('[data-testid="create-program-error"]')
+        .should("exist")
+        .should("contain", messages.programs.create.error);
 
-      // Verify navigation
+      // Verify create button is still enabled
+      cy.get('[data-testid="create-program-card"]')
+        .should("exist")
+        .should("not.be.disabled");
+    });
+
+    it("handles multiple creation attempts after failure", () => {
+      // Mock authenticated user
+      const mockUser = {
+        displayName: "John Doe",
+        email: "john@example.com",
+        uid: "123",
+        photoURL: null,
+      };
+      cy.stub(auth, "onAuthStateChanged").callsFake((callback) => {
+        callback(mockUser);
+        return () => {};
+      });
+
+      // Mock program creation to fail first then succeed
+      const createStub = cy.stub(repositories.programs, "create");
+      createStub.onFirstCall().rejects(new Error("Failed to create program"));
+      const mockProgram = {
+        ...createProgram({
+          authorId: mockUser.uid,
+          policyAreas: messages.programs['policyAreaKeys'].split(',')
+        }),
+        id: "new-program-id"
+      };
+      createStub.onSecondCall().resolves(mockProgram);
+
+      cy.mount(<ProgramsList programs={mockPrograms} />, {
+        currentUser: {
+          id: "123",
+          role: "citizen",
+          createdAt: new Date(),
+          displayName: "John Doe",
+          email: "john@example.com"
+        }
+      });
+
+      // First attempt - should fail
+      cy.get('[data-testid="create-program-card"]').click();
+      cy.get('[data-testid="create-program-error"]').should("exist");
+
+      // Second attempt - should succeed
+      cy.get('[data-testid="create-program-card"]').click();
+      cy.get('[data-testid="create-program-error"]').should("not.exist");
       cy.get("@routerPush")
         .should("have.been.calledOnce")
         .and("have.been.calledWith", "/programs/new-program-id/edit");
-    });
-
-    it("shows error message when authentication fails during program creation", () => {
-      // Update stub to reject with error
-      stubSignInWithGoogle.rejects(new Error("Authentication failed"));
-
-      cy.mount(<ProgramsList programs={mockPrograms} />);
-
-      // Click create program, then try to authenticate
-      cy.get('[data-testid="create-program-card"]').click();
-      cy.get('[data-testid="google-signin-button"]').click();
-
-      // Verify error message is shown
-      cy.get('[data-testid="error-message"]')
-        .should("exist")
-        .should("be.visible")
-        .should("have.text", messages.auth.error);
-
-      // Verify we stay on the same page
-      cy.get('[data-testid="login-modal"]').should("be.visible");
     });
   });
 });

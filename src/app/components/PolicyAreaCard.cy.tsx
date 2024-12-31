@@ -20,7 +20,7 @@ describe('<PolicyAreaCard />', () => {
     cy.get('[data-testid="policy-area-status-incomplete"]').should('exist')
   })
 
-  it('displays objectives and budget totals when objectives exist', () => {
+  it('displays objective with its budget details', () => {
     const areaWithObjectives: PolicyArea = {
       objectives: [{
         label: 'Test objective',
@@ -31,19 +31,49 @@ describe('<PolicyAreaCard />', () => {
 
     cy.mount(<PolicyAreaCard {...getDefaultProps()} area={areaWithObjectives} />)
     
-    // Check objective is listed
+    // Check objective label and budget details
     cy.contains('Test objective').should('be.visible')
+    cy.contains('span', '+1000k€').should('have.class', 'text-success-400')
+    cy.contains('span', '-500k€').should('have.class', 'text-danger-400')
+    cy.contains('span', '✓ 500k€').should('have.class', 'text-success-400')
     
-    // Check budget totals
-    cy.contains('+1000k€').should('be.visible')
-    cy.contains('-500k€').should('be.visible')
-    cy.contains('✓ 500k€').should('be.visible')
+    // Check area total budget
+    cy.get('.border-t').within(() => {
+      cy.contains('p', '+1000k€').should('have.class', 'text-success-400')
+      cy.contains('p', '-500k€').should('have.class', 'text-danger-400')
+      cy.contains('p', '✓ 500k€').should('have.class', 'text-success-400')
+    })
     
     // Check complete status
     cy.get('[data-testid="policy-area-status-complete"]').should('exist')
   })
 
-  it('shows negative balance indicator when expenses exceed revenue', () => {
+  it('shows and hides objective details when clicking More/Less', () => {
+    const areaWithObjectives: PolicyArea = {
+      objectives: [{
+        label: 'Test objective',
+        details: 'Implementation details',
+        budget: { revenue: 1000, expenses: 500 }
+      }]
+    }
+
+    cy.mount(<PolicyAreaCard {...getDefaultProps()} area={areaWithObjectives} />)
+    
+    // Initially details should be hidden
+    cy.get('[data-testid="objective-details-0"]').should('not.exist')
+    
+    // Click More button
+    cy.get('[data-testid="objective-details-button-0"]').click()
+    cy.get('[data-testid="objective-details-0"]')
+      .should('be.visible')
+      .and('contain', 'Implementation details')
+    
+    // Click Less button
+    cy.get('[data-testid="objective-details-button-0"]').click()
+    cy.get('[data-testid="objective-details-0"]').should('not.exist')
+  })
+
+  it('shows negative balance indicators for objective and total when expenses exceed revenue', () => {
     const areaWithNegativeBudget: PolicyArea = {
       objectives: [{
         label: 'Test objective',
@@ -54,9 +84,17 @@ describe('<PolicyAreaCard />', () => {
 
     cy.mount(<PolicyAreaCard {...getDefaultProps()} area={areaWithNegativeBudget} />)
     
-    cy.contains('+500k€').should('be.visible')
-    cy.contains('-1000k€').should('be.visible')
-    cy.contains('! -500k€').should('be.visible')
+    // Check objective budget details with negative balance
+    cy.contains('span', '+500k€').should('have.class', 'text-success-400')
+    cy.contains('span', '-1000k€').should('have.class', 'text-danger-400')
+    cy.contains('span', '! -500k€').should('have.class', 'text-danger-400')
+    
+    // Check area total budget with negative balance
+    cy.get('.border-t').within(() => {
+      cy.contains('p', '+500k€').should('have.class', 'text-success-400')
+      cy.contains('p', '-1000k€').should('have.class', 'text-danger-400')
+      cy.contains('p', '! -500k€').should('have.class', 'text-danger-400')
+    })
   })
 
   it('shows selected state when isSelected is true', () => {
@@ -70,7 +108,7 @@ describe('<PolicyAreaCard />', () => {
     cy.get('@onSelect').should('have.been.calledWith', 'economy')
   })
 
-  it('shows multiple objectives with total budget', () => {
+  it('shows multiple objectives with individual and total budgets', () => {
     const areaWithMultipleObjectives: PolicyArea = {
       objectives: [
         {
@@ -88,13 +126,36 @@ describe('<PolicyAreaCard />', () => {
 
     cy.mount(<PolicyAreaCard {...getDefaultProps()} area={areaWithMultipleObjectives} />)
     
-    // Check both objectives are listed
-    cy.contains('First objective').should('be.visible')
-    cy.contains('Second objective').should('be.visible')
+    // Check first objective budget details
+    cy.contains('First objective').parent().parent().within(() => {
+      cy.contains('span', '+1000k€').should('have.class', 'text-success-400')
+      cy.contains('span', '-500k€').should('have.class', 'text-danger-400')
+      cy.contains('span', '✓ 500k€').should('have.class', 'text-success-400')
+    })
+
+    // Check second objective budget details
+    cy.contains('Second objective').parent().parent().within(() => {
+      cy.contains('span', '+2000k€').should('have.class', 'text-success-400')
+      cy.contains('span', '-1000k€').should('have.class', 'text-danger-400')
+      cy.contains('span', '✓ 1000k€').should('have.class', 'text-success-400')
+    })
     
     // Check total budget (1000 + 2000 = 3000 revenue, 500 + 1000 = 1500 expenses)
-    cy.contains('+3000k€').should('be.visible')
-    cy.contains('-1500k€').should('be.visible')
-    cy.contains('✓ 1500k€').should('be.visible')
+    cy.get('.border-t').within(() => {
+      cy.contains('p', '+3000k€').should('have.class', 'text-success-400')
+      cy.contains('p', '-1500k€').should('have.class', 'text-danger-400')
+      cy.contains('p', '✓ 1500k€').should('have.class', 'text-success-400')
+    })
+
+    // Test expanding details for both objectives
+    cy.get('[data-testid="objective-details-button-0"]').click()
+    cy.get('[data-testid="objective-details-0"]')
+      .should('be.visible')
+      .and('contain', 'First details')
+
+    cy.get('[data-testid="objective-details-button-1"]').click()
+    cy.get('[data-testid="objective-details-1"]')
+      .should('be.visible')
+      .and('contain', 'Second details')
   })
 }) 

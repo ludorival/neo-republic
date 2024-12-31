@@ -205,6 +205,8 @@
       "objective": {
         "label": "Label",
         "labelPlaceholder": "Enter a specific policy action (e.g., 'Free public transport for students')",
+        "details": "Implementation Details",
+        "detailsPlaceholder": "Explain how this objective will be implemented and financed. Include cost reduction strategies and revenue sources.",
         "revenue": "Revenue (k€)",
         "revenuePlaceholder": "Expected annual revenue (e.g., reduced costs, increased taxes)",
         "expenses": "Expenses (k€)",

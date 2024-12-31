@@ -137,7 +137,8 @@ const ObjectiveCard = ({
       <CardBody className="p-4">
         <div className="flex justify-between items-start mb-2">
           <div className="flex-1">
-            <p className="text-white/90">{objective.label}</p>
+            <p className="text-white/90 font-medium">{objective.label}</p>
+            <p className="text-white/70 mt-2 text-sm">{objective.details}</p>
           </div>
           <div className="flex gap-2">
             <Button
@@ -187,14 +188,16 @@ const ObjectiveForm = ({
 }) => {
   const t = useTranslations('programs.form')
   const [label, setLabel] = useState(objective?.label || '')
+  const [details, setDetails] = useState(objective?.details || '')
   const [revenue, setRevenue] = useState(objective?.budget.revenue.toString() || '')
   const [expenses, setExpenses] = useState(objective?.budget.expenses.toString() || '')
 
   const handleSave = () => {
-    if (!label || !revenue || !expenses) return
+    if (!label || !details || !revenue || !expenses) return
 
     onSave({
       label: label,
+      details: details,
       budget: {
         revenue: Number(revenue),
         expenses: Number(expenses)
@@ -214,6 +217,15 @@ const ObjectiveForm = ({
             data-testid="objective-label-input"
             required
             minRows={2}
+          />
+          <Textarea
+            label={t('objective.details')}
+            placeholder={t('objective.detailsPlaceholder')}
+            value={details}
+            onChange={(e) => setDetails(e.target.value)}
+            data-testid="objective-details-input"
+            required
+            minRows={3}
           />
           <div className="grid grid-cols-2 gap-4">
             <Input
@@ -248,7 +260,7 @@ const ObjectiveForm = ({
               color="primary"
               onPress={handleSave}
               data-testid="save-objective-button"
-              isDisabled={!label || !revenue || !expenses}
+              isDisabled={!label || !details || !revenue || !expenses}
             >
               {t('save')}
             </Button>

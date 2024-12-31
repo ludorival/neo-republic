@@ -207,6 +207,8 @@
       "objective": {
         "label": "Libellé",
         "labelPlaceholder": "Entrez une action politique spécifique (ex: 'Gratuité des transports étudiants')",
+        "details": "Détails de mise en œuvre",
+        "detailsPlaceholder": "Expliquez comment cet objectif sera mis en œuvre et financé. Incluez les stratégies de réduction des coûts et les sources de revenus.",
         "revenue": "Revenus (k€)",
         "revenuePlaceholder": "Revenus annuels prévus (ex: réduction des coûts, taxes)",
         "expenses": "Dépenses (k€)",

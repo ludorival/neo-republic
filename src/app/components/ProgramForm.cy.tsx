@@ -62,6 +62,7 @@ describe('<ProgramForm />', () => {
 
     // Fill in objective details
     cy.get('[data-testid="objective-label-input"]').type('Test objective')
+    cy.get('[data-testid="objective-details-input"]').type('Implementation details for test objective')
     cy.get('[data-testid="objective-revenue-input"]').type('1000')
     cy.get('[data-testid="objective-expenses-input"]').type('500')
     cy.get('[data-testid="save-objective-button"]').click()
@@ -73,6 +74,7 @@ describe('<ProgramForm />', () => {
     cy.get('[data-testid="policy-objective-card"]')
       .should('have.length', 1)
       .should('contain', 'Test objective')
+      .should('contain', 'Implementation details for test objective')
       .should('contain', '+$1000')
       .should('contain', '-$500')
 
@@ -96,6 +98,7 @@ describe('<ProgramForm />', () => {
     cy.get('[data-testid="policy-area-card"]').first().click()
     cy.get('[data-testid="add-objective-button"]').click()
     cy.get('[data-testid="objective-label-input"]').type('Test objective')
+    cy.get('[data-testid="objective-details-input"]').type('Implementation details for test objective')
     cy.get('[data-testid="objective-revenue-input"]').type('1000')
     cy.get('[data-testid="objective-expenses-input"]').type('500')
     cy.get('[data-testid="save-objective-button"]').click()
@@ -105,11 +108,13 @@ describe('<ProgramForm />', () => {
 
     // Form should appear with existing values
     cy.get('[data-testid="objective-label-input"]').should('have.value', 'Test objective')
+    cy.get('[data-testid="objective-details-input"]').should('have.value', 'Implementation details for test objective')
     cy.get('[data-testid="objective-revenue-input"]').should('have.value', '1000')
     cy.get('[data-testid="objective-expenses-input"]').should('have.value', '500')
 
     // Edit the values
     cy.get('[data-testid="objective-label-input"]').clear().type('Updated objective')
+    cy.get('[data-testid="objective-details-input"]').clear().type('Updated implementation details')
     cy.get('[data-testid="objective-revenue-input"]').clear().type('2000')
     cy.get('[data-testid="objective-expenses-input"]').clear().type('1000')
     cy.get('[data-testid="save-objective-button"]').click()
@@ -119,6 +124,7 @@ describe('<ProgramForm />', () => {
     cy.get('[data-testid="policy-objective-card"]')
       .should('have.length', 1)
       .should('contain', 'Updated objective')
+      .should('contain', 'Updated implementation details')
       .should('contain', '+$2000')
       .should('contain', '-$1000')
   })
@@ -160,6 +166,7 @@ describe('<ProgramForm />', () => {
       cy.wrap($card).click()
       cy.get('[data-testid="add-objective-button"]').click()
       cy.get('[data-testid="objective-label-input"]').type('Test objective')
+      cy.get('[data-testid="objective-details-input"]').type('Implementation details for test objective')
       cy.get('[data-testid="objective-revenue-input"]').type('1000')
       cy.get('[data-testid="objective-expenses-input"]').type('500')
       cy.get('[data-testid="save-objective-button"]').click()
@@ -187,6 +194,7 @@ describe('<ProgramForm />', () => {
     cy.get('[data-testid="policy-area-card"]').first().click()
     cy.get('[data-testid="add-objective-button"]').click()
     cy.get('[data-testid="objective-label-input"]').type('Test objective')
+    cy.get('[data-testid="objective-details-input"]').type('Implementation details for test objective')
     cy.get('[data-testid="objective-revenue-input"]').type('1000')
     cy.get('[data-testid="objective-expenses-input"]').type('500')
     cy.get('[data-testid="save-objective-button"]').click()
@@ -200,6 +208,7 @@ describe('<ProgramForm />', () => {
       cy.wrap($card).click()
       cy.get('[data-testid="add-objective-button"]').click()
       cy.get('[data-testid="objective-label-input"]').type('Test objective')
+      cy.get('[data-testid="objective-details-input"]').type('Implementation details for test objective')
       cy.get('[data-testid="objective-revenue-input"]').type('1000')
       cy.get('[data-testid="objective-expenses-input"]').type('500')
       cy.get('[data-testid="save-objective-button"]').click()

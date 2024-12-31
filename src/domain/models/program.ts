@@ -8,6 +8,7 @@ export type ProgramStatus = 'draft' | 'under_review' | 'approved' | 'rejected' |
  */
 export interface Objective {
   label: string;
+  details: string;
   budget: {revenue: number, expenses: number};
 }
 

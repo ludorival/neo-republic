@@ -1,3 +1,4 @@
+'use client'
 import { PolicyArea, computePolicyAreaBudget } from '@/domain/models/program'
 import { Card, CardBody, Link } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'

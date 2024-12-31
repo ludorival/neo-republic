@@ -178,6 +178,10 @@
     "title": "Programmes",
     "description": "Découvrez les programmes proposés par les citoyens",
     "empty": "Aucun programme n'a encore été créé",
+    "notFound": "Programme non trouvé",
+    "backToList": "Retour aux Programmes",
+    "vote": "Voter pour ce Programme",
+    "alreadyVoted": "Déjà Voté",
     "form": {
       "editProgram": "Modifier le Programme",
       "editProgramDescription": "Affinez votre programme en ajoutant des objectifs et en ajustant les détails pour chaque domaine politique.",
@@ -231,9 +235,10 @@
       "description": "Continuez à travailler sur votre programme soumis"
     },
     "metrics": {
-      "support": "soutien",
-      "feasible": "faisabilité",
-      "votes": "votes"
+      "title": "Métriques du Programme",
+      "support": "Soutien",
+      "feasible": "Faisabilité",
+      "votes": "Votes"
     },
     "policyAreaKeys": "economy,social,education,infrastructure,environment,security",
     "policyAreas": {

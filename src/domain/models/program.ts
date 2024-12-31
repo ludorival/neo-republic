@@ -12,7 +12,20 @@ export interface Objective {
   budget: {revenue: number, expenses: number};
 }
 
-
+/**
+ * Computes the total budget for a policy area
+ * @param policyArea The policy area to compute totals for
+ * @returns Object containing total revenue and expenses
+ */
+export function computePolicyAreaBudget(policyArea: PolicyArea): {totalRevenue: number, totalExpenses: number} {
+  return policyArea.objectives.reduce(
+    (acc, objective) => ({
+      totalRevenue: acc.totalRevenue + objective.budget.revenue,
+      totalExpenses: acc.totalExpenses + objective.budget.expenses
+    }),
+    { totalRevenue: 0, totalExpenses: 0 }
+  );
+}
 
 /**
  * Base interface for all policy areas

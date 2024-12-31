@@ -46,9 +46,12 @@
 - [ ] Implement form validation (#22)
 - [ ] Add budget calculation system (#23)
 - [ ] Create program preview (#24)
-- [ ] Connect program creation flow to corresponding actions (#41)
+- [x] Connect program creation flow to corresponding actions (#41)
 - [ ] Limit the number of programs to be created (#50)
 - [x] A user should create only one program at once (#49)
+
+### Program View Interface
+- [ ] Implement View Program Page (#58)
 
 ### Program Validation System
 - [ ] Implement financial validation checks (#25)

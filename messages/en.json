@@ -279,19 +279,22 @@
     },
     "howItWorks": {
       "title": "How It Works",
-      "citizen": {
-        "title": "As a Citizen",
-        "vote": "Vote on election day or express your voting intentions for programs that interest you",
-        "propose": "Propose your own programs with detailed policy objectives"
+      "propose": {
+        "title": "Propose",
+        "description": "Whether you're a citizen or a political party, submit your program with concrete funding elements"
       },
-      "party": {
-        "title": "As a Political Party",
-        "propose": "Submit your comprehensive political programs"
+      "validate": {
+        "title": "Validate",
+        "description": "If you're an expert, join an advisory team to validate the feasibility of these programs",
+        "apply": "Apply as Expert"
       },
-      "expert": {
-        "title": "As an Expert",
-        "description": "Review programs and validate financial data of proposed objectives",
-        "apply": "Apply as an Expert"
+      "vote": {
+        "title": "Vote",
+        "description": "Vote for programs that inspire you. The top 3 programs will be selected to form a common program"
+      },
+      "govern": {
+        "title": "Govern",
+        "description": "The authors of the 3 selected programs collaborate to create a common program that meets the majority's expectations"
       }
     },
     "about": {

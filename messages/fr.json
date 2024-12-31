@@ -281,19 +281,22 @@
     },
     "howItWorks": {
       "title": "Comment ça marche",
-      "citizen": {
-        "title": "En tant que Citoyen",
-        "vote": "Votez le jour de l'élection ou exprimez vos intentions de vote pour les programmes qui vous intéressent",
-        "propose": "Proposez vos propres programmes avec des objectifs politiques détaillés"
+      "propose": {
+        "title": "Proposer",
+        "description": "Que vous soyez un citoyen ou un parti politique, soumettez votre programme en fournissant des éléments concrets de financement"
       },
-      "party": {
-        "title": "En tant que Parti Politique",
-        "propose": "Soumettez vos programmes politiques complets"
-      },
-      "expert": {
-        "title": "En tant qu'Expert",
-        "description": "Examinez les programmes et validez les données financières des objectifs proposés",
+      "validate": {
+        "title": "Valider",
+        "description": "Si vous êtes un expert, rejoignez une équipe de conseil pour valider la faisabilité de ces programmes",
         "apply": "Postuler comme Expert"
+      },
+      "vote": {
+        "title": "Voter",
+        "description": "Votez pour les programmes qui vous inspirent. Les 3 programmes les plus populaires seront sélectionnés pour former un programme commun"
+      },
+      "govern": {
+        "title": "Gouverner",
+        "description": "Les auteurs des 3 programmes sélectionnés collaborent pour créer un programme commun qui satisfait les attentes de la majorité"
       }
     },
     "about": {

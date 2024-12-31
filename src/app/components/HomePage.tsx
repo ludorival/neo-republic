@@ -111,26 +111,29 @@ export default function HomePage({ programs = [] }: HomePageProps) {
           <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-800/75 to-primary-900/70 backdrop-blur-[2px]" />
           <div className="container mx-auto px-4 relative">
             <h2 className="text-3xl font-bold text-center mb-12 text-white">{t('howItWorks.title')}</h2>
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="p-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 transition-colors text-white shadow-lg">
-                <h3 className="text-xl font-semibold mb-4">{t('howItWorks.citizen.title')}</h3>
-                <p className="mb-4">{t('howItWorks.citizen.vote')}</p>
-                <p>{t('howItWorks.citizen.propose')}</p>
+                <h3 className="text-xl font-semibold mb-4">{t('howItWorks.propose.title')}</h3>
+                <p className="mb-4">{t('howItWorks.propose.description')}</p>
               </div>
               <div className="p-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 transition-colors text-white shadow-lg">
-                <h3 className="text-xl font-semibold mb-4">{t('howItWorks.party.title')}</h3>
-                <p>{t('howItWorks.party.propose')}</p>
-              </div>
-              <div className="p-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 transition-colors text-white shadow-lg">
-                <h3 className="text-xl font-semibold mb-4">{t('howItWorks.expert.title')}</h3>
-                <p className="mb-4">{t('howItWorks.expert.description')}</p>
+                <h3 className="text-xl font-semibold mb-4">{t('howItWorks.validate.title')}</h3>
+                <p className="mb-4">{t('howItWorks.validate.description')}</p>
                 <Button 
                   color="primary"
                   href="/experts/apply"
                   as="a"
                 >
-                  {t('howItWorks.expert.apply')}
+                  {t('howItWorks.validate.apply')}
                 </Button>
+              </div>
+              <div className="p-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 transition-colors text-white shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">{t('howItWorks.vote.title')}</h3>
+                <p className="mb-4">{t('howItWorks.vote.description')}</p>
+              </div>
+              <div className="p-6 bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 hover:bg-white/10 transition-colors text-white shadow-lg">
+                <h3 className="text-xl font-semibold mb-4">{t('howItWorks.govern.title')}</h3>
+                <p className="mb-4">{t('howItWorks.govern.description')}</p>
               </div>
             </div>
           </div>

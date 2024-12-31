@@ -66,6 +66,15 @@
   - Public support
   - Implementation success
 
+## Final Election Phase & Program Synthesis
+- Top 3 programs are selected based on voter support
+- Authors of the top 3 programs must collaborate to:
+  - Negotiate and combine their proposals
+  - Create a unified common program
+  - Ensure the final program satisfies majority expectations
+- Final program should represent a consensus between the best proposals
+- Focus on finding common ground and optimal solutions
+
 ## Educational Goals
 - Understanding complex policy trade-offs
 - Learning about budget constraints

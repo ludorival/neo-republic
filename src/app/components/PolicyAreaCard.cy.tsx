@@ -32,7 +32,7 @@ describe('<PolicyAreaCard />', () => {
     cy.mount(<PolicyAreaCard {...getDefaultProps()} area={areaWithObjectives} />)
     
     // Check objective label and budget details
-    cy.contains('Test objective').should('be.visible')
+    cy.get('[data-testid="objective-label-0"]').should('contain', 'Test objective')
     cy.contains('span', '+1000k€').should('have.class', 'text-success-400')
     cy.contains('span', '-500k€').should('have.class', 'text-danger-400')
     cy.contains('span', '✓ 500k€').should('have.class', 'text-success-400')
@@ -48,7 +48,7 @@ describe('<PolicyAreaCard />', () => {
     cy.get('[data-testid="policy-area-status-complete"]').should('exist')
   })
 
-  it('shows and hides objective details when clicking More/Less', () => {
+  it('shows and hides objective details when clicking the label', () => {
     const areaWithObjectives: PolicyArea = {
       objectives: [{
         label: 'Test objective',
@@ -62,14 +62,14 @@ describe('<PolicyAreaCard />', () => {
     // Initially details should be hidden
     cy.get('[data-testid="objective-details-0"]').should('not.exist')
     
-    // Click More button
-    cy.get('[data-testid="objective-details-button-0"]').click()
+    // Click label to expand
+    cy.get('[data-testid="objective-label-0"]').click()
     cy.get('[data-testid="objective-details-0"]')
       .should('be.visible')
       .and('contain', 'Implementation details')
     
-    // Click Less button
-    cy.get('[data-testid="objective-details-button-0"]').click()
+    // Click label again to collapse
+    cy.get('[data-testid="objective-label-0"]').click()
     cy.get('[data-testid="objective-details-0"]').should('not.exist')
   })
 
@@ -127,14 +127,14 @@ describe('<PolicyAreaCard />', () => {
     cy.mount(<PolicyAreaCard {...getDefaultProps()} area={areaWithMultipleObjectives} />)
     
     // Check first objective budget details
-    cy.contains('First objective').parent().parent().within(() => {
+    cy.get('[data-testid="objective-label-0"]').parent().parent().within(() => {
       cy.contains('span', '+1000k€').should('have.class', 'text-success-400')
       cy.contains('span', '-500k€').should('have.class', 'text-danger-400')
       cy.contains('span', '✓ 500k€').should('have.class', 'text-success-400')
     })
 
     // Check second objective budget details
-    cy.contains('Second objective').parent().parent().within(() => {
+    cy.get('[data-testid="objective-label-1"]').parent().parent().within(() => {
       cy.contains('span', '+2000k€').should('have.class', 'text-success-400')
       cy.contains('span', '-1000k€').should('have.class', 'text-danger-400')
       cy.contains('span', '✓ 1000k€').should('have.class', 'text-success-400')
@@ -148,12 +148,12 @@ describe('<PolicyAreaCard />', () => {
     })
 
     // Test expanding details for both objectives
-    cy.get('[data-testid="objective-details-button-0"]').click()
+    cy.get('[data-testid="objective-label-0"]').click()
     cy.get('[data-testid="objective-details-0"]')
       .should('be.visible')
       .and('contain', 'First details')
 
-    cy.get('[data-testid="objective-details-button-1"]').click()
+    cy.get('[data-testid="objective-label-1"]').click()
     cy.get('[data-testid="objective-details-1"]')
       .should('be.visible')
       .and('contain', 'Second details')

@@ -1,5 +1,5 @@
 import { PolicyArea, computePolicyAreaBudget } from '@/domain/models/program'
-import { Card, CardBody } from '@nextui-org/react'
+import { Card, CardBody, Link } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import { useState } from 'react'
 
@@ -29,8 +29,8 @@ export default function PolicyAreaCard({
     )
   }
 
-  const handleMoreClick = (e: React.MouseEvent, index: number) => {
-    e.stopPropagation()
+  const handleMoreClick = (index: number) => {
+    //e.stopPropagation()
     toggleObjective(index)
   }
 
@@ -63,15 +63,17 @@ export default function PolicyAreaCard({
               {area.objectives.map((objective, index) => (
                 <li key={index} className="text-sm text-white/80">
                   <div className="flex items-center mb-1">
-                    <span className="w-2 h-2 bg-white/50 rounded-full mr-2 flex-shrink-0" />
-                    <span className="flex-grow">{objective.label}</span>
-                    <button
-                      onClick={(e) => handleMoreClick(e, index)}
-                      className="ml-2 text-xs text-white/70 hover:text-white"
-                      data-testid={`objective-details-button-${index}`}
+                    <Link 
+                      className="flex-grow text-white/80 hover:text-white hover:underline hover:decoration-white" 
+                      onPress={() => handleMoreClick(index)}
+                      data-testid={`objective-label-${index}`}
                     >
-                      {expandedObjectives.includes(index) ? 'Less' : 'More'}
-                    </button>
+                      {expandedObjectives.includes(index) ? (
+                        <span>▼ {objective.label}</span>
+                      ) : (
+                        <span>▶ {objective.label}</span>
+                      )}
+                    </Link>
                   </div>
                   {expandedObjectives.includes(index) && (
                     <div className="ml-4 mb-2 text-xs text-white/70" data-testid={`objective-details-${index}`}>

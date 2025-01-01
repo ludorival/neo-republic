@@ -16,11 +16,16 @@ type ProgramsListProps = {
 
 // Component to display program card
 const ProgramCard = ({ program }: { program: Program }) => {
+  const router = useRouter()
+
   return (
     <Card
       key={program.id}
-      className="min-w-[300px] max-w-[300px] bg-white/10 backdrop-blur-sm"
+      isPressable
+      isHoverable
+      className="min-w-[300px] max-w-[300px] bg-white/10 backdrop-blur-sm hover:bg-white/20"
       data-testid="program-card"
+      onPress={() => router.push(`/programs/${program.id}`)}
     >
       <CardBody className="p-4">
         <h3 

@@ -266,6 +266,12 @@
         "title": "Sécurité",
         "description": "Sécurité publique, sécurité nationale et politiques de défense"
       }
+    },
+    "budget": {
+      "title": "Budget Total",
+      "revenue": "Revenus Totaux Estimés",
+      "expenses": "Dépenses Totales Estimées",
+      "balance": "Solde Estimé"
     }
   },
   "home": {

@@ -67,6 +67,15 @@ describe("<ProgramsList />", () => {
       });
   });
 
+  it("navigates to program view page when clicking a program card", () => {
+    cy.mount(<ProgramsList programs={mockPrograms} />);
+
+    cy.get('[data-testid="program-card"]').first().click();
+    cy.get("@routerPush")
+      .should("have.been.calledOnce")
+      .and("have.been.calledWith", `/programs/${mockPrograms[0].id}`);
+  });
+
   it("displays empty state when no programs are available", () => {
     cy.mount(<ProgramsList programs={[]} />);
 

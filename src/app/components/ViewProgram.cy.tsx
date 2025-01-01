@@ -61,6 +61,13 @@ describe('<ViewProgram />', () => {
     cy.contains('Economic Objective 1').should('be.visible')
     cy.contains('Social Objective 1').should('be.visible')
 
+    // Check budget section
+    cy.get('[data-testid="program-budget"]').should('be.visible')
+    cy.get('[data-testid="total-revenue-value"]').should('be.visible')
+    cy.get('[data-testid="total-expenses-value"]').should('be.visible')
+    cy.get('[data-testid="total-balance-value"]').should('be.visible')
+    cy.get('[data-testid="total-balance"]').should('be.visible')
+
     // Check metrics
     cy.contains('Métriques du Programme').should('be.visible')
     cy.contains('75%').should('be.visible') // publicSupport
@@ -75,7 +82,30 @@ describe('<ViewProgram />', () => {
     cy.contains('Modifier le Programme').should('be.visible')
     cy.contains('Métriques du Programme').should('not.exist')
     cy.contains('Voter pour ce Programme').should('not.exist')
+
+    // Budget section should still be visible in draft mode
+    cy.get('[data-testid="program-budget"]').should('be.visible')
   })
 
- 
+  it('displays negative balance in red', () => {
+    const programWithNegativeBalance = {
+      ...mockProgram,
+      policyAreas: {
+        ...mockProgram.policyAreas,
+        economy: {
+          objectives: [
+            {
+              label: 'Economic Objective 1',
+              details: 'Details for economic objective 1',
+              budget: { revenue: 500, expenses: 800 }
+            }
+          ]
+        }
+      }
+    }
+
+    cy.mount(<ViewProgram program={programWithNegativeBalance} />)
+
+    cy.get('[data-testid="total-balance"]').should('have.class', 'text-danger')
+  })
 }) 

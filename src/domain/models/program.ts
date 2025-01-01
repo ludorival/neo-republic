@@ -28,6 +28,24 @@ export function computePolicyAreaBudget(policyArea: PolicyArea): {totalRevenue: 
 }
 
 /**
+ * Computes the total budget for an entire program
+ * @param program The program to compute totals for
+ * @returns Object containing total revenue and expenses across all policy areas
+ */
+export function computeProgramBudget(program: Program): {totalRevenue: number, totalExpenses: number} {
+  return Object.values(program.policyAreas).reduce(
+    (acc, policyArea) => {
+      const areaBudget = computePolicyAreaBudget(policyArea);
+      return {
+        totalRevenue: acc.totalRevenue + areaBudget.totalRevenue,
+        totalExpenses: acc.totalExpenses + areaBudget.totalExpenses
+      };
+    },
+    { totalRevenue: 0, totalExpenses: 0 }
+  );
+}
+
+/**
  * Base interface for all policy areas
  */
 export interface PolicyArea {

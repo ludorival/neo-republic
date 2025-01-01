@@ -264,6 +264,12 @@
         "title": "Security",
         "description": "Public safety, national security, and defense policies"
       }
+    },
+    "budget": {
+      "title": "Total Budget",
+      "revenue": "Estimated Total Revenue",
+      "expenses": "Estimated Total Expenses",
+      "balance": "Estimated Balance"
     }
   },
   "home": {

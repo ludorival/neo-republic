@@ -175,6 +175,10 @@
     "title": "Programs",
     "description": "Discover programs proposed by citizens",
     "empty": "No programs have been created yet",
+    "notFound": "Program not found",
+    "backToList": "Back to Programs",
+    "vote": "Vote for this Program",
+    "alreadyVoted": "Already Voted",
     "form": {
       "editProgram": "Edit Program",
       "editProgramDescription": "Refine your program by adding objectives and adjusting details for each policy area.",
@@ -229,9 +233,10 @@
       "description": "Continue working on your submitted program"
     },
     "metrics": {
-      "support": "support",
-      "feasible": "feasibility",
-      "votes": "votes"
+      "title": "Program Metrics",
+      "support": "Support",
+      "feasible": "Feasibility",
+      "votes": "Votes"
     },
     "policyAreaKeys": "economy,social,education,infrastructure,environment,security",
     "policyAreas": {
@@ -259,7 +264,14 @@
         "title": "Security",
         "description": "Public safety, national security, and defense policies"
       }
-    }
+    },
+    "budget": {
+      "title": "Total Budget",
+      "revenue": "Estimated Total Revenue",
+      "expenses": "Estimated Total Expenses",
+      "balance": "Estimated Balance"
+    },
+    "error": "Failed to load programs. Please try again later."
   },
   "home": {
     "appTitle": "Neo-Republic",
@@ -310,7 +322,10 @@
     },
     "continueWithGoogle": "Continue with Google",
     "signingIn": "Signing in...",
-    "authError": "Authentication failed. Please try again."
+    "authError": "Authentication failed. Please try again.",
+    "errors": {
+      "loadPrograms": "Failed to load programs. Please try again later."
+    }
   },
   "auth": {
     "loginRequired": "Login Required",

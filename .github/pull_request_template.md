@@ -39,7 +39,7 @@
 - [x] Create horizontal program cards list component (#33)
 - [x] Implement program creation card with CTA button (#34)
 - [x] Add authentication flow for program creation (#35)
-- [ ] Create program list data fetching and state management (#36)
+- [x] Create program list data fetching and state management (#36)
 - [x] Reorganize home page for a more professional layout (#53)
 
 ### Program Creation Interface
@@ -51,7 +51,7 @@
 - [x] A user should create only one program at once (#49)
 
 ### Program View Interface
-- [ ] Implement View Program Page (#58)
+- [x] Implement View Program Page (#58)
 
 ### Program Validation System
 - [ ] Implement financial validation checks (#25)

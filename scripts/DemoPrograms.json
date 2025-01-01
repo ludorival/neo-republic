@@ -1,0 +1,220 @@
+[
+  {
+    "id": "demo-program-1",
+    "slogan": "Pour une France Durable et Solidaire",
+    "description": "Un programme équilibré visant à transformer notre économie pour un avenir durable tout en renforçant notre cohésion sociale",
+    "status": "published",
+    "createdAt": "2024-03-20T10:00:00.000Z",
+    "updatedAt": "2024-03-20T10:00:00.000Z",
+    "authorId": "author1",
+    "policyAreas": {
+      "economy": {
+        "objectives": [
+          {
+            "label": "Transition vers une économie verte",
+            "details": "Création d'un fonds d'investissement de 10 milliards d'euros pour soutenir la transition des entreprises vers des pratiques durables. Mise en place d'incitations fiscales pour les entreprises réduisant leur empreinte carbone.",
+            "budget": {
+              "revenue": 12000,
+              "expenses": 10000
+            }
+          },
+          {
+            "label": "Soutien aux PME innovantes",
+            "details": "Programme de subventions et d'accompagnement pour les PME développant des solutions innovantes dans les secteurs stratégiques (IA, biotechnologie, énergies renouvelables).",
+            "budget": {
+              "revenue": 5000,
+              "expenses": 4000
+            }
+          }
+        ]
+      },
+      "social": {
+        "objectives": [
+          {
+            "label": "Renforcement de l'accès aux soins",
+            "details": "Création de 500 maisons de santé dans les zones rurales et urbaines prioritaires. Formation de 10000 nouveaux professionnels de santé sur 5 ans.",
+            "budget": {
+              "revenue": 3000,
+              "expenses": 8000
+            }
+          },
+          {
+            "label": "Lutte contre la précarité énergétique",
+            "details": "Programme de rénovation énergétique pour 1 million de logements sociaux. Aide directe aux ménages modestes pour la transition énergétique.",
+            "budget": {
+              "revenue": 4000,
+              "expenses": 7000
+            }
+          }
+        ]
+      },
+      "education": {
+        "objectives": [
+          {
+            "label": "Modernisation des établissements scolaires",
+            "details": "Plan de rénovation et d'équipement numérique des écoles. Formation continue obligatoire des enseignants aux nouvelles technologies.",
+            "budget": {
+              "revenue": 2000,
+              "expenses": 6000
+            }
+          }
+        ]
+      },
+      "infrastructure": {
+        "objectives": [
+          {
+            "label": "Développement des mobilités douces",
+            "details": "Construction de 1000km de pistes cyclables sécurisées. Mise en place de zones à faibles émissions dans toutes les villes de plus de 50000 habitants.",
+            "budget": {
+              "revenue": 3000,
+              "expenses": 5000
+            }
+          }
+        ]
+      },
+      "environment": {
+        "objectives": [
+          {
+            "label": "Protection de la biodiversité",
+            "details": "Création de 10 nouvelles réserves naturelles. Programme de restauration des écosystèmes dégradés.",
+            "budget": {
+              "revenue": 2000,
+              "expenses": 4000
+            }
+          }
+        ]
+      },
+      "security": {
+        "objectives": [
+          {
+            "label": "Renforcement de la police de proximité",
+            "details": "Recrutement et formation de 5000 nouveaux agents de police de proximité. Modernisation des équipements et des commissariats.",
+            "budget": {
+              "revenue": 1000,
+              "expenses": 6000
+            }
+          }
+        ]
+      }
+    },
+    "financialValidation": {
+      "totalBudget": 50000,
+      "isBalanced": true,
+      "reviewComments": []
+    },
+    "metrics": {
+      "publicSupport": 68,
+      "feasibilityScore": 75,
+      "votes": 1250
+    }
+  },
+  {
+    "id": "demo-program-2",
+    "slogan": "Innovation et Justice Sociale pour Demain",
+    "description": "Un programme ambitieux pour moderniser notre économie et garantir l'égalité des chances pour tous les citoyens",
+    "status": "published",
+    "createdAt": "2024-03-20T11:00:00.000Z",
+    "updatedAt": "2024-03-20T11:00:00.000Z",
+    "authorId": "author2",
+    "policyAreas": {
+      "economy": {
+        "objectives": [
+          {
+            "label": "Développement de l'économie numérique",
+            "details": "Création de 5 pôles d'excellence numérique régionaux. Soutien à la formation et à la reconversion dans les métiers du numérique.",
+            "budget": {
+              "revenue": 8000,
+              "expenses": 7000
+            }
+          },
+          {
+            "label": "Relocalisation industrielle stratégique",
+            "details": "Plan de soutien à la relocalisation des industries critiques (santé, électronique, énergie). Création de zones franches industrielles.",
+            "budget": {
+              "revenue": 6000,
+              "expenses": 9000
+            }
+          }
+        ]
+      },
+      "social": {
+        "objectives": [
+          {
+            "label": "Revenu de base expérimental",
+            "details": "Expérimentation d'un revenu de base dans 3 régions pilotes pour les 18-25 ans en formation ou en recherche d'emploi.",
+            "budget": {
+              "revenue": 2000,
+              "expenses": 8000
+            }
+          }
+        ]
+      },
+      "education": {
+        "objectives": [
+          {
+            "label": "Réforme de la formation professionnelle",
+            "details": "Création de campus des métiers d'avenir. Renforcement des liens entre écoles et entreprises.",
+            "budget": {
+              "revenue": 4000,
+              "expenses": 6000
+            }
+          },
+          {
+            "label": "Excellence universitaire",
+            "details": "Programme d'investissement dans la recherche universitaire. Développement des formations en alternance.",
+            "budget": {
+              "revenue": 3000,
+              "expenses": 5000
+            }
+          }
+        ]
+      },
+      "infrastructure": {
+        "objectives": [
+          {
+            "label": "Modernisation du réseau ferroviaire",
+            "details": "Plan de rénovation des lignes régionales. Développement des trains de nuit et du fret ferroviaire.",
+            "budget": {
+              "revenue": 7000,
+              "expenses": 10000
+            }
+          }
+        ]
+      },
+      "environment": {
+        "objectives": [
+          {
+            "label": "Transition énergétique territoriale",
+            "details": "Développement des communautés énergétiques locales. Installation de 1000 parcs solaires citoyens.",
+            "budget": {
+              "revenue": 5000,
+              "expenses": 7000
+            }
+          }
+        ]
+      },
+      "security": {
+        "objectives": [
+          {
+            "label": "Cybersécurité nationale",
+            "details": "Création d'un centre national de cyberdéfense. Formation de 1000 experts en cybersécurité.",
+            "budget": {
+              "revenue": 4000,
+              "expenses": 5000
+            }
+          }
+        ]
+      }
+    },
+    "financialValidation": {
+      "totalBudget": 57000,
+      "isBalanced": true,
+      "reviewComments": []
+    },
+    "metrics": {
+      "publicSupport": 72,
+      "feasibilityScore": 70,
+      "votes": 980
+    }
+  }
+]

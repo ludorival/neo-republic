@@ -6,17 +6,30 @@ import { useTranslations } from 'next-intl'
 import Countdown from './Countdown'
 import { Button } from '@nextui-org/react'
 import Footer from './Footer'
+import { readPublishedPrograms } from '@/actions/programs/readPublishedPrograms'
 
-type HomePageProps = {
-  programs?: Program[]
-}
-
-export default function HomePage({ programs = [] }: HomePageProps) {
+export default function HomePage() {
   const t = useTranslations('home')
   const [scrollY, setScrollY] = useState(0)
+  const [programs, setPrograms] = useState<Program[]>([])
+  const [error, setError] = useState<Error | null>(null)
 
   const submissionDeadline = new Date('2025-05-01')
   const electionDay = new Date('2025-06-01')
+
+  useEffect(() => {
+    const loadPrograms = async () => {
+      try {
+        const publishedPrograms = await readPublishedPrograms()
+        setPrograms(publishedPrograms)
+      } catch (error) {
+        console.error('Failed to load programs:', error)
+        setError(error as Error)
+      }
+    }
+
+    loadPrograms()
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -102,7 +115,13 @@ export default function HomePage({ programs = [] }: HomePageProps) {
         <section className="py-16 relative w-full">
           <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-800/75 to-primary-900/70 backdrop-blur-[2px]" />
           <div className="container mx-auto px-4 relative">
-            <ProgramsList programs={programs} />
+            {error ? (
+              <div className="text-red-500 text-center p-4">
+                {t('errors.loadPrograms')}
+              </div>
+            ) : (
+              <ProgramsList programs={programs} />
+            )}
           </div>
         </section>
 

@@ -1,10 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar } from "@nextui-org/react"
+import { Navbar, NavbarBrand, NavbarContent, Link, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Avatar, Spinner } from "@nextui-org/react"
 import { useTranslations } from 'next-intl'
 import LoginModal from './LoginModal'
 import { auth } from '../../infra/firebase/auth'
-import { useAuth } from '@/app/hooks/useAuth'
+import Image from 'next/image'
+import { useUser } from '../contexts/UserContext'
 
 type LayoutProps = {
   children: React.ReactNode
@@ -13,7 +14,7 @@ type LayoutProps = {
 export default function Layout({ children }: LayoutProps) {
   const t = useTranslations('home')
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false)
-  const { currentUser } = useAuth()
+  const { user, isLoading } = useUser()
 
   const handleLoginClick = () => {
     setIsLoginModalOpen(true)
@@ -28,40 +29,46 @@ export default function Layout({ children }: LayoutProps) {
   }
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Navbar data-testid="top-bar" className="nav-blur">
         <NavbarBrand>
-          <Link href="/" color="foreground">
+          <Link href="/" className="text-white flex items-center gap-3">
+            <Image 
+              src="/images/icon.svg" 
+              alt="Neo Republic Logo" 
+              width={32} 
+              height={32} 
+              className="rounded-lg"
+            />
             <p className="font-bold text-xl">{t('appTitle')}</p>
           </Link>
         </NavbarBrand>
-        <NavbarContent justify="center">
-          <NavbarItem>
-            <Link href="/about" color="foreground">
-              About
-            </Link>
-          </NavbarItem>
-        </NavbarContent>
         <NavbarContent justify="end">
-          {currentUser ? (
+          {isLoading ? (
+            <div data-testid="auth-loading" className="flex items-center">
+              <Spinner size="sm" color="white" className="opacity-50" />
+            </div>
+          ) : user ? (
             <Dropdown placement="bottom-end">
               <DropdownTrigger>
                 <div className="flex items-center gap-2 cursor-pointer" data-testid="user-menu-trigger">
                   <Avatar 
-                    name={currentUser.displayName || undefined}
-                    src={currentUser.photoURL || undefined}
+                    name={user.displayName || undefined}
+                    src={user.profile?.avatar || undefined}
                     size="sm"
                   />
-                  <span data-testid="user-name" className="text-lg">
-                    {currentUser.displayName}
+                  <span data-testid="user-name" className="text-lg text-white">
+                    {user.displayName}
                   </span>
                 </div>
               </DropdownTrigger>
-              <DropdownMenu aria-label="User menu">
+              <DropdownMenu 
+                aria-label="User menu"
+              >
                 <DropdownItem 
                   key="logout" 
                   data-testid="logout-button"
-                  className="text-danger" 
+                  className="text-danger-400 hover:text-danger-300" 
                   color="danger"
                   onPress={handleLogoutClick}
                 >
@@ -70,15 +77,13 @@ export default function Layout({ children }: LayoutProps) {
               </DropdownMenu>
             </Dropdown>
           ) : (
-            <Button 
+            <Link
               data-testid="login-button"
-              color="primary"
-              variant="shadow"
-              size="lg"
+              className="text-lg text-white hover:text-primary-300 transition-colors cursor-pointer"
               onPress={handleLoginClick}
             >
               {t('login')}
-            </Button>
+            </Link>
           )}
         </NavbarContent>
       </Navbar>
@@ -88,11 +93,12 @@ export default function Layout({ children }: LayoutProps) {
         onClose={() => setIsLoginModalOpen(false)}
       />
 
-      <main className="min-h-screen hero-gradient">
-        <div className="max-w-7xl mx-auto p-8">
+      <div className="flex-grow relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-900/70 via-primary-800/75 to-primary-900/70 backdrop-blur-[2px]" />
+        <div className="relative">
           {children}
         </div>
-      </main>
-    </>
+      </div>
+    </div>
   )
 } 

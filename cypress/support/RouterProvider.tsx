@@ -14,6 +14,7 @@ const defaultRouter = {
   asPath: '/',
   basePath: '',
   isLocaleDomain: false,
+  params: {},
   events: {
     emit: () => {},
     on: () => {},

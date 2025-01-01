@@ -7,23 +7,48 @@ export type ProgramStatus = 'draft' | 'under_review' | 'approved' | 'rejected' |
  * Represents an objective with amount and description
  */
 export interface Objective {
-  id?: string;
-  description: string;
-  budget: Budget;
+  label: string;
+  details: string;
+  budget: {revenue: number, expenses: number};
 }
 
-export interface Budget {
-  revenue: number;
-  expenses: number;
+/**
+ * Computes the total budget for a policy area
+ * @param policyArea The policy area to compute totals for
+ * @returns Object containing total revenue and expenses
+ */
+export function computePolicyAreaBudget(policyArea: PolicyArea): {totalRevenue: number, totalExpenses: number} {
+  return policyArea.objectives.reduce(
+    (acc, objective) => ({
+      totalRevenue: acc.totalRevenue + objective.budget.revenue,
+      totalExpenses: acc.totalExpenses + objective.budget.expenses
+    }),
+    { totalRevenue: 0, totalExpenses: 0 }
+  );
+}
+
+/**
+ * Computes the total budget for an entire program
+ * @param program The program to compute totals for
+ * @returns Object containing total revenue and expenses across all policy areas
+ */
+export function computeProgramBudget(program: Program): {totalRevenue: number, totalExpenses: number} {
+  return Object.values(program.policyAreas).reduce(
+    (acc, policyArea) => {
+      const areaBudget = computePolicyAreaBudget(policyArea);
+      return {
+        totalRevenue: acc.totalRevenue + areaBudget.totalRevenue,
+        totalExpenses: acc.totalExpenses + areaBudget.totalExpenses
+      };
+    },
+    { totalRevenue: 0, totalExpenses: 0 }
+  );
 }
 
 /**
  * Base interface for all policy areas
  */
 export interface PolicyArea {
-  id: string;
-  title: string;
-  description: string;
   objectives: Objective[];
   implementation?: {
     timeline: string;
@@ -63,32 +88,29 @@ export interface Program {
   };
 }
 
-/**
- * Represents a vote cast by a user
- */
-export interface Vote {
-  id: string;
-  userId: string;
-  programId: string;
-  timestamp: Date;
-  rating: number;
-  feedback?: string;
-}
-
-/**
- * Represents a user in the system
- */
-export interface User {
-  id: string;
-  email: string;
-  displayName: string;
-  role: 'citizen' | 'admin' | 'reviewer';
-  createdAt: Date;
-  votingHistory: string[]; // Array of program IDs
-  submittedPrograms: string[]; // Array of program IDs
-  profile: {
-    avatar?: string;
-    bio?: string;
-    expertise?: string[];
+export function createProgram({slogan, description, authorId, policyAreas}: {slogan?: string, description?: string, authorId: string, policyAreas: string[]}): Omit<Program, 'id'> {
+  return {
+    slogan: slogan || '',
+    description: description || '',
+    status: 'draft',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    authorId: authorId,
+    policyAreas: policyAreas.reduce((acc, policyArea) => {
+      acc[policyArea] = {
+        objectives: [],
+      };
+      return acc;
+    }, {} as Record<string, PolicyArea>),
+    financialValidation: {
+      totalBudget: 0,
+      isBalanced: false,
+      reviewComments: [],
+    },
+    metrics: {
+      publicSupport: 0,
+      feasibilityScore: 0,
+      votes: 0,
+    },
   };
-} 
+}

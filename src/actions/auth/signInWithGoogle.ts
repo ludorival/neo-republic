@@ -1,6 +1,6 @@
-import { User } from "@/domain/models/user";
-import { auth } from "@/infra/firebase/auth";
-import { users } from "@/infra/firebase/firestore";
+import { auth } from "@/infra/firebase/auth"
+import { User } from "@/domain/models/user"
+import { getUserFromFirebaseUser } from "@/infra/firebase/firestore";
 
 export async function signInWithGoogle(): Promise<User> {
   // Sign in with Google
@@ -8,25 +8,8 @@ export async function signInWithGoogle(): Promise<User> {
   if (!googleUser) {
     throw new Error("Failed to sign in with Google");
   }
+ 
+  return getUserFromFirebaseUser(googleUser);
 
-  // Create or update user in database
 
-  const user: User = {
-    id: googleUser.uid,
-    email: googleUser.email!,
-    displayName: googleUser.displayName!,
-    profile: {
-      avatar: googleUser.photoURL ?? undefined,
-    },
-    role: "citizen",
-    createdAt: new Date(),
-  };
-
-  // Try to get existing user first
-  const existingUser = await users.read(user.id);
-  if (!existingUser) {
-    await users.create(user);
-  }
-
-  return user;
 } 

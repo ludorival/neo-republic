@@ -25,7 +25,9 @@ import { NextUIProvider } from '@nextui-org/react'
 import messages from '../../messages/fr.json'
 import { RouterProvider } from './RouterProvider'
 import Layout from '@/app/components/Layout';
-
+import * as repositories from '@/infra/firebase/firestore'
+import { UserProvider } from '@/app/contexts/UserContext';
+import { User } from '@/domain/models/user';
 interface MountOptions {
   router?: {
     push?: () => void
@@ -33,8 +35,12 @@ interface MountOptions {
     back?: () => void
     forward?: () => void
     refresh?: () => void
-    prefetch?: () => void
-  }
+    prefetch?: () => void,
+    params?: {
+      id?: string
+    }
+  },
+  currentUser?: User
 }
 
 declare global {
@@ -61,14 +67,19 @@ Cypress.Commands.add('mount', (component, options: MountOptions = {}) => {
     prefetch: cy.stub().as('routerPrefetch'),
     ...router
   }
-
+  
+  cy.stub(repositories.users, 'read').as('readUser').returns(Promise.resolve(options.currentUser))
+  cy.stub(repositories.users, 'create').as('createUser').returns(Promise.resolve())
+  cy.stub(repositories.users, 'update').as('updateUser').returns(Promise.resolve())
   return mount(
     <NextUIProvider>
       <NextIntlClientProvider messages={messages} locale="fr">
         <RouterProvider router={routerStubs}>
-          <Layout>
-            {component}
-          </Layout>
+          <UserProvider>
+            <Layout>
+              {component}
+            </Layout>
+          </UserProvider>
         </RouterProvider>
       </NextIntlClientProvider>
     </NextUIProvider>

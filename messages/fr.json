@@ -1,39 +1,332 @@
 {
   "common": {
-    "title": "Créer une App Next",
-    "description": "Généré par create next app",
+    "title": "Neo-Republic",
+    "description": "Une nouvelle approche de la démocratie",
     "learnMore": "En savoir plus",
-    "deploy": "Déployer maintenant",
+    "deploy": "Déployer",
     "readDocs": "Lire la documentation"
+  },
+  "footer": {
+    "about": {
+      "title": "À propos",
+      "description": "Neo Republic est une plateforme de simulation démocratique qui permet aux citoyens de proposer et d'évaluer des programmes politiques de manière anonyme."
+    },
+    "resources": {
+      "title": "Ressources",
+      "documentation": "Documentation",
+      "faq": "FAQ",
+      "api": "Référence API"
+    },
+    "legal": {
+      "title": "Mentions légales",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation",
+      "cookies": "Politique des cookies"
+    },
+    "social": {
+      "title": "Nous suivre"
+    },
+    "copyright": "Tous droits réservés."
+  },
+  "privacy": {
+    "title": "Politique de Confidentialité",
+    "dataCollection": {
+      "title": "Collecte des Données",
+      "description": "Nous collectons et traitons les informations via les services Firebase. Pour des informations détaillées sur les pratiques de confidentialité et de sécurité de Firebase, y compris la conformité au RGPD, le chiffrement des données et leur localisation, veuillez consulter <link>la documentation sur la Confidentialité et la Sécurité de Firebase</link>. Nous collectons les types d'informations suivants :",
+      "items": {
+        "personal": "Informations personnelles fournies lors de l'inscription et des mises à jour du profil",
+        "usage": "Données d'utilisation et interactions avec notre plateforme",
+        "technical": "Informations techniques concernant votre appareil et votre connexion"
+      }
+    },
+    "dataUse": {
+      "title": "Utilisation des Données",
+      "description": "Nous utilisons vos données aux fins suivantes :",
+      "items": {
+        "service": "Pour fournir et maintenir nos services",
+        "improvement": "Pour améliorer et optimiser notre plateforme",
+        "communication": "Pour communiquer des mises à jour et informations importantes"
+      }
+    },
+    "dataSecurity": {
+      "title": "Sécurité des Données",
+      "description": "Nous mettons en œuvre des mesures de sécurité appropriées pour protéger vos données contre tout accès, modification ou divulgation non autorisés."
+    },
+    "dataLocation": {
+      "title": "Localisation des Données",
+      "description": "Vos données sont stockées dans les centres de données de Google Cloud Platform, principalement dans l'Union Européenne, conformément aux exigences du RGPD."
+    },
+    "userRights": {
+      "title": "Vos Droits",
+      "description": "Vous disposez des droits suivants concernant vos données personnelles :",
+      "items": {
+        "access": "Droit d'accès à vos données personnelles",
+        "rectification": "Droit de rectification des données inexactes",
+        "deletion": "Droit de demander la suppression de vos données",
+        "portability": "Droit à la portabilité des données"
+      }
+    },
+    "thirdParty": {
+      "title": "Services Tiers",
+      "description": "Nous utilisons les services Firebase suivants :",
+      "items": {
+        "auth": "Firebase Authentication pour la gestion des utilisateurs",
+        "firestore": "Cloud Firestore pour le stockage des données",
+        "analytics": "Firebase Analytics pour l'analyse d'utilisation",
+        "hosting": "Firebase Hosting pour l'hébergement web"
+      }
+    },
+    "contact": {
+      "title": "Nous Contacter",
+      "description": "Si vous avez des questions concernant cette Politique de Confidentialité, veuillez nous contacter."
+    }
+  },
+  "terms": {
+    "title": "Conditions d'Utilisation",
+    "introduction": {
+      "title": "Introduction",
+      "description": "En utilisant Neo Republic, vous acceptez ces conditions ainsi que les conditions d'utilisation sous-jacentes de Google Firebase."
+    },
+    "acceptance": {
+      "title": "Acceptation des Conditions",
+      "description": "En utilisant notre service, vous acceptez ces conditions générales."
+    },
+    "userConduct": {
+      "title": "Conduite des Utilisateurs",
+      "description": "Les utilisateurs doivent suivre ces directives lors de l'utilisation de notre plateforme :",
+      "items": {
+        "respect": "Respecter les autres utilisateurs et leurs opinions",
+        "content": "Publier uniquement du contenu approprié et pertinent",
+        "security": "Ne pas tenter de contourner les mesures de sécurité",
+        "accuracy": "Fournir des informations exactes dans les soumissions"
+      }
+    },
+    "content": {
+      "title": "Politique de Contenu",
+      "description": "Directives pour le contenu sur notre plateforme :",
+      "items": {
+        "ownership": "Vous conservez la propriété de votre contenu",
+        "license": "Vous nous accordez une licence d'utilisation de votre contenu",
+        "removal": "Nous nous réservons le droit de supprimer tout contenu inapproprié"
+      }
+    },
+    "service": {
+      "title": "Fourniture du Service",
+      "description": "Notre service est fourni via la plateforme Firebase :",
+      "items": {
+        "availability": "La disponibilité du service dépend de l'infrastructure Firebase",
+        "maintenance": "La maintenance périodique suit les fenêtres de maintenance Firebase",
+        "limits": "Les limites de service sont soumises aux quotas et restrictions Firebase"
+      }
+    },
+    "liability": {
+      "title": "Limitation de Responsabilité",
+      "description": "Nous ne sommes pas responsables des dommages indirects, accessoires ou consécutifs."
+    },
+    "termination": {
+      "title": "Résiliation du Compte",
+      "description": "Nous nous réservons le droit de résilier les comptes qui violent ces conditions."
+    },
+    "changes": {
+      "title": "Modifications des Conditions",
+      "description": "Nous pouvons mettre à jour ces conditions pour refléter les changements dans nos services."
+    }
+  },
+  "cookies": {
+    "title": "Politique des Cookies",
+    "introduction": {
+      "title": "Introduction",
+      "description": "Cette Politique des Cookies explique comment nous utilisons les cookies et technologies similaires."
+    },
+    "whatAreCookies": {
+      "title": "Que Sont les Cookies",
+      "description": "Les cookies sont de petits fichiers texte stockés sur votre appareil lorsque vous visitez notre site web."
+    },
+    "typesOfCookies": {
+      "title": "Types de Cookies Utilisés",
+      "description": "Nous utilisons les types de cookies suivants :",
+      "items": {
+        "essential": {
+          "title": "Cookies Essentiels",
+          "description": "Nécessaires au fonctionnement de base du site"
+        },
+        "functional": {
+          "title": "Cookies Fonctionnels",
+          "description": "Améliorent votre expérience en mémorisant vos préférences"
+        },
+        "analytics": {
+          "title": "Cookies d'Analyse",
+          "description": "Nous aident à comprendre comment les visiteurs utilisent notre site"
+        }
+      }
+    },
+    "control": {
+      "title": "Contrôle des Cookies",
+      "description": "Vous pouvez contrôler et gérer les cookies de différentes manières :",
+      "items": {
+        "browser": "Ajuster les paramètres de votre navigateur",
+        "settings": "Utiliser notre panneau de paramètres des cookies",
+        "thirdParty": "Visiter les sites tiers pour les options de désactivation"
+      }
+    },
+    "updates": {
+      "title": "Mises à Jour de Cette Politique",
+      "description": "Nous pouvons mettre à jour cette Politique des Cookies pour refléter les changements dans nos pratiques."
+    }
+  },
+  "programs": {
+    "title": "Programmes",
+    "description": "Découvrez les programmes proposés par les citoyens",
+    "empty": "Aucun programme n'a encore été créé",
+    "notFound": "Programme non trouvé",
+    "backToList": "Retour aux Programmes",
+    "vote": "Voter pour ce Programme",
+    "alreadyVoted": "Déjà Voté",
+    "form": {
+      "editProgram": "Modifier le Programme",
+      "editProgramDescription": "Affinez votre programme en ajoutant des objectifs et en ajustant les détails pour chaque domaine politique.",
+      "programSlogan": "Slogan du Programme",
+      "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
+      "programDescription": "Description du Programme",
+      "descriptionPlaceholder": "Décrivez la vision principale et les objectifs de votre programme",
+      "addNewObjective": "Ajouter un Nouvel Objectif",
+      "editPoint": "Modifier le Point",
+      "description": "Description",
+      "revenue": "Revenus",
+      "expense": "Dépense",
+      "close": "Fermer",
+      "save": "Enregistrer",
+      "addPoint": "Ajouter un Point",
+      "policyPoints": "Points Politiques",
+      "pointsAdded": "points ajoutés",
+      "edit": "Modifier",
+      "remove": "Supprimer",
+      "saveDraft": "Enregistrer le Brouillon",
+      "publishProgram": "Publier le Programme",
+      "policyAreas": {
+        "title": "Domaines Politiques",
+        "complete": "Complet",
+        "incomplete": "Incomplet"
+      },
+      "objective": {
+        "label": "Libellé",
+        "labelPlaceholder": "Entrez une action politique spécifique (ex: 'Gratuité des transports étudiants')",
+        "details": "Détails de mise en œuvre",
+        "detailsPlaceholder": "Expliquez comment cet objectif sera mis en œuvre et financé. Incluez les stratégies de réduction des coûts et les sources de revenus.",
+        "revenue": "Revenus (k€)",
+        "revenuePlaceholder": "Revenus annuels prévus (ex: réduction des coûts, taxes)",
+        "expenses": "Dépenses (k€)",
+        "expensesPlaceholder": "Coûts annuels prévus (ex: opérations, subventions)"
+      },
+      "addObjective": "Ajouter un Objectif",
+      "editObjective": "Modifier l'Objectif",
+      "cancel": "Annuler",
+      "publishDisabledTooltip": "Ajoutez au moins un objectif à chaque domaine politique avant de publier",
+      "saving": "Enregistrement des modifications..."
+    },
+    "create": {
+      "title": "Créer un Nouveau Programme",
+      "description": "Définissez votre programme politique en spécifiant des objectifs pour chaque domaine politique.",
+      "creating": "Création de votre programme...",
+      "error": "Échec de la création du programme. Veuillez réessayer."
+    },
+    "edit": {
+      "title": "Modifier Votre Programme",
+      "description": "Continuez à travailler sur votre programme soumis"
+    },
+    "metrics": {
+      "title": "Métriques du Programme",
+      "support": "Soutien",
+      "feasible": "Faisabilité",
+      "votes": "Votes"
+    },
+    "policyAreaKeys": "economy,social,education,infrastructure,environment,security",
+    "policyAreas": {
+      "economy": {
+        "title": "Économie",
+        "description": "Politiques économiques, mesures fiscales et stratégies financières"
+      },
+      "social": {
+        "title": "Affaires Sociales",
+        "description": "Politiques de santé, protection sociale et services sociaux"
+      },
+      "education": {
+        "title": "Éducation",
+        "description": "Système éducatif, recherche et développement académique"
+      },
+      "infrastructure": {
+        "title": "Infrastructure",
+        "description": "Travaux publics, transports et développement urbain"
+      },
+      "environment": {
+        "title": "Environnement",
+        "description": "Protection de l'environnement et développement durable"
+      },
+      "security": {
+        "title": "Sécurité",
+        "description": "Sécurité publique, sécurité nationale et politiques de défense"
+      }
+    },
+    "budget": {
+      "title": "Budget Total",
+      "revenue": "Revenus Totaux Estimés",
+      "expenses": "Dépenses Totales Estimées",
+      "balance": "Solde Estimé"
+    },
+    "error": "Échec du chargement des programmes. Veuillez réessayer plus tard."
   },
   "home": {
     "appTitle": "Neo-Republic",
     "login": "Connexion",
     "logout": "Déconnexion",
+    "hero": {
+      "title": "Réinventer la Démocratie par le Vote Programmatique",
+      "subtitle": "Votez pour des idées, pas pour des personnalités. Une nouvelle approche de la participation démocratique."
+    },
+    "countdown": {
+      "submission": "Date limite de soumission des programmes",
+      "election": "Jour de l'élection",
+      "days": "jours",
+      "hours": "heures",
+      "minutes": "minutes",
+      "seconds": "secondes"
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "propose": {
+        "title": "Proposer",
+        "description": "Que vous soyez un citoyen ou un parti politique, soumettez votre programme en fournissant des éléments concrets de financement"
+      },
+      "validate": {
+        "title": "Valider",
+        "description": "Si vous êtes un expert, rejoignez une équipe de conseil pour valider la faisabilité de ces programmes",
+        "apply": "Postuler comme Expert"
+      },
+      "vote": {
+        "title": "Voter",
+        "description": "Votez pour les programmes qui vous inspirent. Les 3 programmes les plus populaires seront sélectionnés pour former un programme commun"
+      },
+      "govern": {
+        "title": "Gouverner",
+        "description": "Les auteurs des 3 programmes sélectionnés collaborent pour créer un programme commun qui satisfait les attentes de la majorité"
+      }
+    },
+    "about": {
+      "title": "À propos du Projet",
+      "description": "Cette simulation démocratique vise à déplacer l'attention de la politique basée sur la personnalité vers une prise de décision fondée sur les programmes. En permettant des soumissions anonymes de programmes et une validation par des experts, nous créons un espace où les idées peuvent être évaluées uniquement sur leurs mérites.",
+      "goals": {
+        "title": "Nos Objectifs",
+        "focus": "Priorité aux programmes plutôt qu'aux personnalités",
+        "transparency": "Assurer la transparence financière",
+        "participation": "Augmenter la participation citoyenne",
+        "quality": "Améliorer la qualité du débat politique"
+      }
+    },
     "continueWithGoogle": "Continuer avec Google",
     "signingIn": "Connexion en cours...",
     "authError": "Échec de l'authentification. Veuillez réessayer.",
-    "description": "Les citoyens votent pour des programmes politiques détaillés plutôt que pour des candidats ou des partis. Notre plateforme permet des soumissions anonymes de programmes pour se concentrer sur les idées plutôt que sur les personnalités, garantissant que tous les programmes sont complets et financièrement équilibrés.",
-    "keyFeatures": "Caractéristiques Principales",
-    "features": {
-      "anonymous": "Soumissions anonymes des programmes",
-      "comprehensive": "Couverture politique complète",
-      "financial": "Système de validation financière",
-      "focus": "Accent sur les idées plutôt que les personnalités"
-    },
-    "programs": {
-      "title": "Programmes en Vedette",
-      "description": "Découvrez les programmes créés par les citoyens qui façonnent notre avenir. Chaque programme représente une vision du changement, soutenue par des plans détaillés et le soutien de la communauté. Votez, discutez et créez votre propre programme pour faire la différence.",
-      "empty": "Aucun programme disponible",
-      "create": {
-        "title": "Créer Votre Programme",
-        "description": "Partagez votre vision de l'avenir"
-      },
-      "metrics": {
-        "support": "Soutien",
-        "feasible": "Faisable",
-        "votes": "votes"
-      }
+    "errors": {
+      "loadPrograms": "Échec du chargement des programmes. Veuillez réessayer plus tard."
     }
   },
   "auth": {
@@ -42,78 +335,6 @@
     "error": "Échec de l'authentification. Veuillez réessayer.",
     "signingIn": "Connexion en cours...",
     "continueWithGoogle": "Continuer avec Google",
-    "signOut": "Se déconnecter"
-  },
-  "programs": {
-    "create": {
-      "title": "Créer un Programme",
-      "description": "Sélectionnez les domaines politiques que vous souhaitez aborder dans votre programme.",
-      "continue": "Continuer",
-      "form": {
-        "addNewPoint": "Ajouter un objectif",
-        "addPoint": "Ajouter",
-        "editPoint": "Modifier l'objectif",
-        "edit": "Modifier",
-        "save": "Enregistrer",
-        "close": "Fermer",
-        "policyPoints": "Objectifs",
-        "pointsAdded": "objectifs ajoutés",
-        "remove": "Supprimer",
-        "budget": "Budget",
-        "revenue": "Revenu",
-        "expense": "Dépense",
-        "completeArea": "Terminer le Domaine",
-        "saveDraft": "Enregistrer le Brouillon",
-        "publishProgram": "Publier le Programme",
-        "description": "Description",
-        "programSlogan": "Slogan du Programme",
-        "programDescription": "Description du Programme",
-        "sloganPlaceholder": "Entrez un slogan accrocheur pour votre programme",
-        "descriptionPlaceholder": "Décrivez brièvement la vision et les objectifs de votre programme"
-      },
-      "policyAreas": {
-        "title": "Domaines Politiques",
-        "economy": {
-          "title": "Économie",
-          "description": "Politiques économiques, fiscales et monétaires"
-        },
-        "education": {
-          "title": "Éducation",
-          "description": "Système éducatif et formation"
-        },
-        "environment": {
-          "title": "Environnement",
-          "description": "Protection de l'environnement et développement durable"
-        },
-        "social": {
-          "title": "Social",
-          "description": "Protection sociale et politiques sociales"
-        },
-        "infrastructure": {
-          "title": "Infrastructure",
-          "description": "Transport, travaux publics et développement urbain"
-        },
-        "security": {
-          "title": "Sécurité & Justice",
-          "description": "Forces de l'ordre, défense nationale et système judiciaire"
-        }
-      },
-      "errors": {
-        "required": "Veuillez remplir tous les champs obligatoires"
-      }
-    }
-  },
-  "about": {
-    "title": "À propos de Neo Republic",
-    "description": "Neo Republic est une plateforme démocratique innovante qui permet aux citoyens de proposer et d'évaluer des programmes politiques.",
-    "features": {
-      "title": "Fonctionnalités clés",
-      "list": {
-        "propose": "Proposez vos idées de programmes",
-        "evaluate": "Évaluez la faisabilité des propositions",
-        "vote": "Votez pour les meilleurs programmes",
-        "discuss": "Participez aux discussions"
-      }
-    }
+    "signOut": "Déconnexion"
   }
 } 

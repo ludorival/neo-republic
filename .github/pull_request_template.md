@@ -1,10 +1,7 @@
-## Pull Request Description
+# Pull Request Description
 <!-- Please provide a brief description of your changes -->
 
-## Project Progress Tracking
-<!-- Please check the items that are completed or affected by this PR -->
-
-# Neo Republic - Project Issues Structure
+# Project Progress Tracking
 
 ## [Milestone 1: Foundation 🏗️](https://github.com/ludorival/neo-republic/milestone/1)
 
@@ -25,7 +22,7 @@
 - [x] Refactor project using Domain-Driven Design pattern (#40)
 
 ### Testing
-- [ ] Implement Cypress E2E tests for sandbox environment (#46)
+- [x] Implement Cypress E2E tests for sandbox environment (#46)
 
 ## [Milestone 2: Authentication 🔐](https://github.com/ludorival/neo-republic/milestone/2)
 
@@ -42,13 +39,19 @@
 - [x] Create horizontal program cards list component (#33)
 - [x] Implement program creation card with CTA button (#34)
 - [x] Add authentication flow for program creation (#35)
-- [ ] Create program list data fetching and state management (#36)
+- [x] Create program list data fetching and state management (#36)
+- [x] Reorganize home page for a more professional layout (#53)
 
 ### Program Creation Interface
 - [ ] Implement form validation (#22)
 - [ ] Add budget calculation system (#23)
 - [ ] Create program preview (#24)
-- [ ] Connect program creation flow to corresponding actions (#41)
+- [x] Connect program creation flow to corresponding actions (#41)
+- [ ] Limit the number of programs to be created (#50)
+- [x] A user should create only one program at once (#49)
+
+### Program View Interface
+- [x] Implement View Program Page (#58)
 
 ### Program Validation System
 - [ ] Implement financial validation checks (#25)
@@ -56,10 +59,10 @@
 - [ ] Setup review workflow (#27)
 - [ ] Add feedback system (#28)
 
-## Related Issues
+# Related Issues
 <!-- Please link any related issues here -->
 
-## Type of Change
+# Type of Change
 <!-- Please check the one that applies to this PR using "x". -->
 - [ ] 🎉 Feature
 - [ ] 🐛 Bug Fix

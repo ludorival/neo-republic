@@ -272,7 +272,8 @@
       "revenue": "Revenus Totaux Estimés",
       "expenses": "Dépenses Totales Estimées",
       "balance": "Solde Estimé"
-    }
+    },
+    "error": "Échec du chargement des programmes. Veuillez réessayer plus tard."
   },
   "home": {
     "appTitle": "Neo-Republic",

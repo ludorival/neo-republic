@@ -43,7 +43,7 @@ export default function ProgramViewPage() {
           </h1>
           <Button
             as={Link}
-            href="/"
+            href="/programs"
             color="primary"
           >
             {t('programs.backToList')}

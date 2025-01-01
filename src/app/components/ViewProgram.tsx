@@ -33,7 +33,7 @@ export default function ViewProgram({ program }: ViewProgramProps) {
         <div className="flex gap-4">
           <Button
             as={Link}
-            href="/"
+            href="/programs"
             variant="flat"
             color="default"
           >
@@ -108,9 +108,9 @@ export default function ViewProgram({ program }: ViewProgramProps) {
                   <p className="text-white/70">{t('programs.metrics.feasible')}</p>
                   <p className="text-2xl font-bold text-white">{program.metrics.feasibilityScore}%</p>
                 </div>
-                <div>
+                <div style={{ display: 'none' }}>
                   <p className="text-white/70">{t('programs.metrics.votes')}</p>
-                  <p className="text-2xl font-bold text-white">{program.metrics.votes}</p>
+                  <p className="text-2xl font-bold text-white" >{program.metrics.votes}</p>
                 </div>
               </div>
             </div>

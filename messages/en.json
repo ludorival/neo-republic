@@ -270,7 +270,8 @@
       "revenue": "Estimated Total Revenue",
       "expenses": "Estimated Total Expenses",
       "balance": "Estimated Balance"
-    }
+    },
+    "error": "Failed to load programs. Please try again later."
   },
   "home": {
     "appTitle": "Neo-Republic",

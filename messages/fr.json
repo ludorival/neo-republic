@@ -317,7 +317,10 @@
     },
     "continueWithGoogle": "Continuer avec Google",
     "signingIn": "Connexion en cours...",
-    "authError": "Échec de l'authentification. Veuillez réessayer."
+    "authError": "Échec de l'authentification. Veuillez réessayer.",
+    "errors": {
+      "loadPrograms": "Échec du chargement des programmes. Veuillez réessayer plus tard."
+    }
   },
   "auth": {
     "loginRequired": "Connexion Requise",

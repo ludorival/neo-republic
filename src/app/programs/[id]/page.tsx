@@ -1,5 +1,4 @@
 'use client'
-import { getProgram } from '@/actions/programs/getProgram'
 import { Button, Card, Spinner } from '@nextui-org/react'
 import { useTranslations } from 'next-intl'
 import Link from 'next/link'
@@ -7,6 +6,7 @@ import { useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Program } from '@/domain/models/program'
 import ViewProgram from '@/app/components/ViewProgram'
+import { readProgram } from '@/actions/programs/readProgram'
 
 export default function ProgramViewPage() {
   const { id } = useParams()
@@ -18,7 +18,7 @@ export default function ProgramViewPage() {
     const loadProgram = async () => {
       if (typeof id !== 'string') return
       
-      const loadedProgram = await getProgram(id)
+      const loadedProgram = await readProgram(id)
       setProgram(loadedProgram)
       setIsLoading(false)
     }

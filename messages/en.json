@@ -315,7 +315,10 @@
     },
     "continueWithGoogle": "Continue with Google",
     "signingIn": "Signing in...",
-    "authError": "Authentication failed. Please try again."
+    "authError": "Authentication failed. Please try again.",
+    "errors": {
+      "loadPrograms": "Failed to load programs. Please try again later."
+    }
   },
   "auth": {
     "loginRequired": "Login Required",
